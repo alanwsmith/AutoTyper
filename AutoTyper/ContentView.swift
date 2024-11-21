@@ -25,15 +25,6 @@ struct SyntaxItem: Identifiable, Hashable {
     let id = UUID()
 }
 
-struct DocsView: View{
-    var body: some View {
-        VStack{
-            Text("DOCS VIEW").frame(maxWidth: .infinity, alignment: .leading)
-            Spacer()
-        }.padding()
-    }
-}
-
 struct StatusView: View{
     var statusLine: String = "Status"
     var statusArea: String = "Status area"
@@ -48,6 +39,180 @@ struct StatusView: View{
         }.padding()
     }
 }
+
+struct DocsView: View{
+    let syntaxItems: [SyntaxItem] = [
+        SyntaxItem(headline: "debug|on", paragraphs: ["Remove all delays and pauses to fast-forward until `debug|off` or the end of the script"]),
+        
+        SyntaxItem(headline: "debug|off", paragraphs: ["Restores all pauses so script runs at specified delays and pauses"]),
+        
+        SyntaxItem(headline: "hold|MODIFIERS|KEY", paragraphs: [
+            "Holds down the MODIFIER (or MODIFIERS) and presses the KEY",
+            "Examples:",
+            "- hold|command|a\n- hold|command|f5\n- hold|command,shift|r",
+            "The possible MODIFIER options are:",
+            "- command\n- control\n- option\n- shift",
+            "Separate multiple MODIFIERS with commas",
+            "The KEY can be lower case letters, numbers, and punctuation that doesn't require pressing shift, or key with functionality (e.g. `escape`, `return`, `up-arrow`, `f1`, `f2`, etc..)",
+            "The full list of available KEYs is below"
+        ]),
+        
+        SyntaxItem(headline: "newline", paragraphs: [
+            "Inserts a single newline",
+        ]),
+        
+        SyntaxItem(headline: "newline|NUMBER", paragraphs: [
+            "Inserts the specified number of newline. For example, this inserts 5 newlines:",
+            "newline|5"
+        ]),
+        
+        SyntaxItem(headline: "pause|SECONDS.SUBSECONDS", paragraphs: [
+            "Pauses for the given time before moving to the next line. For example, this pauses for 1.2 seconds",
+            "pause|1.2",
+            "TODO: Figure out of paues without subseconds (e.g. `pause|1` works)"
+        ]),
+        
+        SyntaxItem(headline: "press|KEY", paragraphs: [
+            "Presses a single key (e.g. single letter, number, or functional key like arrow keys, delete, escape, or function keys. See below for full list). For example:",
+            "press|delete"
+        ]),
+        
+        SyntaxItem(headline: "reset-delay", paragraphs: [
+            "Resets the delay between each character to the default",
+        ]),
+        
+        SyntaxItem(headline: "set-delay|MIN|MAX", paragraphs: [
+            "Sets the minimum and maximum delay time between typed characters",
+            "The delay between each character is a random value between a min and max setting to add some variability into the typing speed. The defaults are 0.03 and 0.05. You can change the values with `set-delay` to make them slower or faster. For example:",
+            "set-delay|0.1|0.2\nset-delay|0.01|0.01",
+            "The first one slows things down. The second speeds them up compared to the default and removes the varaibility since the min and max are the same",
+        ]),
+        
+    ]
+    
+    let helpStuff: [[String]] = [
+        ["debug|on", "Remove all pauses to fast-forward until `debug|off` or the end of the script"],
+        ["debug|off", "Restores all pauses so script runs at normal speed"],
+        ["hold|command|a", "Holds down the `command` key and presses `a`"],
+        ["newline", "Adds a single newline"],
+        ["pause|0.9", "Pause for 0.9 seconds"],
+    ]
+    
+
+//    } else if action == "stop" {
+//        doStop()
+//    } else if action == "type" {
+//        doTypeCharacters(input: String(parts[1]))
+//    } else if action == "type-line" {
+//        if parts.count > 1 {
+//            doTypeLine(input: String(parts[1]))
+//        } else {
+//            doTypeLine(input: "")
+//        }
+//    } else {
+//        print("skipping unknown")
+//        processLine()
+//    }
+    
+    
+    
+    
+//            ScrollView{
+//                VStack{
+//                    var usageStuff: AttributedString {
+//                        var text = AttributedString("Usage\n")
+//                        text.font = .title
+//                        text.append(AttributedString("\n- Create a .txt file with a script in it (see below for the script syntax)"))
+//                        return text
+//                    }
+//                    Text(usageStuff).frame(maxWidth: .infinity, alignment: .leading)
+//                    Divider()
+//
+//                    var exampleScript: AttributedString {
+//                        var text = AttributedString("Example Script\n")
+//                        text.font = .title
+//                        text.append(AttributedString("\nhold|command|a\n"))
+//                        text.append(AttributedString("press|delete\n"))
+//                        text.append(AttributedString("pause|1.5\n"))
+//                        text.append(AttributedString("type-line|Hello, World!\n"))
+//                        return text
+//                    }
+//                    Text(exampleScript).frame(maxWidth: .infinity, alignment: .leading)
+//
+//                    Divider()
+//
+//                    var scriptSyntaxHeadline: AttributedString {
+//                        var text = AttributedString("\nScript Syntax")
+//                        text.font = .title
+//                        return text
+//                    }
+//                    Text(scriptSyntaxHeadline).frame(maxWidth: .infinity, alignment: .leading)
+//
+//                    ForEach(syntaxItems) { syntaxItem in
+//                        var syntaxItemHeadline: AttributedString {
+//                            var text = AttributedString("\n" + syntaxItem.headline + "\n")
+//                            text.font = .headline
+//                            for paragraph in syntaxItem.paragraphs {
+//                                text.append(AttributedString("\n" + paragraph + "\n"))
+//                            }
+//                            return text
+//                        }
+//                        Text(syntaxItemHeadline).frame(maxWidth: .infinity, alignment: .leading)
+//                        Divider()
+//                    }
+//
+//                    var keysHeadline: AttributedString {
+//                        var text = AttributedString("\nAvailable Keys")
+//                        text.font = .title
+//                        text.append(AttributedString("\n\nThese are the keys you can use for `press` and `hold` lines in your scripts:\n"))
+//                        text.append(AttributedString("\n\nTODO: Add keys"))
+//                        return text
+//                    }
+//                    Text(keysHeadline).frame(maxWidth: .infinity, alignment: .leading)
+//
+//                }
+//            }.frame(maxWidth: .infinity).padding()
+    
+    
+    
+    
+    var body: some View {
+        ScrollView{
+            VStack{
+                var usageStuff: AttributedString {
+                    var text = AttributedString("Usage\n")
+                    text.font = .title
+                    text.append(AttributedString("\n1. Create a .txt file with a script in it (see 'Examples' for ideas).\n\n"))
+                    text.append(AttributedString("2. Use the 'Choose Script' button to select your script file.\n\n"))
+                    text.append(AttributedString("3. Click on the app you want to output the script to in the 'Select App' section.\n\n"))
+                    text.append(AttributedString("4. Click 'Run'. You may be asked to allow the app permissions in the System Preferences. This is required to let AutoTyper simulate a keyboard to do that actual typing. (Note that sometimes you have to delete the AutoTyper item, click Run, and turn it back on to reset it.)\n\n"))
+                    return text
+                }
+                Text(usageStuff).frame(maxWidth: .infinity, alignment: .leading)
+                Divider()
+                
+                
+            }
+            
+        }.padding()
+    }
+}
+
+struct ExamplesView: View{
+//    var statusLine: String = "Status"
+//    var statusArea: String = "Status area"
+    var body: some View {
+        VStack{
+            Text("Examples").frame(maxWidth: .infinity, alignment: .leading)
+            Divider()
+            ScrollView {
+//                Text(statusArea).frame(maxWidth: .infinity, alignment: .leading)
+            }
+            Spacer()
+        }.padding()
+    }
+}
+
 
 struct ContentView: View {
     @State var appToWriteTo: NSRunningApplication?
@@ -768,79 +933,6 @@ struct ContentView: View {
         }
     }
     
-    let syntaxItems: [SyntaxItem] = [
-        SyntaxItem(headline: "debug|on", paragraphs: ["Remove all delays and pauses to fast-forward until `debug|off` or the end of the script"]),
-        
-        SyntaxItem(headline: "debug|off", paragraphs: ["Restores all pauses so script runs at specified delays and pauses"]),
-        
-        SyntaxItem(headline: "hold|MODIFIERS|KEY", paragraphs: [
-            "Holds down the MODIFIER (or MODIFIERS) and presses the KEY",
-            "Examples:",
-            "- hold|command|a\n- hold|command|f5\n- hold|command,shift|r",
-            "The possible MODIFIER options are:",
-            "- command\n- control\n- option\n- shift",
-            "Separate multiple MODIFIERS with commas",
-            "The KEY can be lower case letters, numbers, and punctuation that doesn't require pressing shift, or key with functionality (e.g. `escape`, `return`, `up-arrow`, `f1`, `f2`, etc..)",
-            "The full list of available KEYs is below"
-        ]),
-        
-        SyntaxItem(headline: "newline", paragraphs: [
-            "Inserts a single newline",
-        ]),
-        
-        SyntaxItem(headline: "newline|NUMBER", paragraphs: [
-            "Inserts the specified number of newline. For example, this inserts 5 newlines:",
-            "newline|5"
-        ]),
-        
-        SyntaxItem(headline: "pause|SECONDS.SUBSECONDS", paragraphs: [
-            "Pauses for the given time before moving to the next line. For example, this pauses for 1.2 seconds",
-            "pause|1.2",
-            "TODO: Figure out of paues without subseconds (e.g. `pause|1` works)"
-        ]),
-        
-        SyntaxItem(headline: "press|KEY", paragraphs: [
-            "Presses a single key (e.g. single letter, number, or functional key like arrow keys, delete, escape, or function keys. See below for full list). For example:",
-            "press|delete"
-        ]),
-        
-        SyntaxItem(headline: "reset-delay", paragraphs: [
-            "Resets the delay between each character to the default",
-        ]),
-        
-        SyntaxItem(headline: "set-delay|MIN|MAX", paragraphs: [
-            "Sets the minimum and maximum delay time between typed characters",
-            "The delay between each character is a random value between a min and max setting to add some variability into the typing speed. The defaults are 0.03 and 0.05. You can change the values with `set-delay` to make them slower or faster. For example:",
-            "set-delay|0.1|0.2\nset-delay|0.01|0.01",
-            "The first one slows things down. The second speeds them up compared to the default and removes the varaibility since the min and max are the same",
-        ]),
-        
-    ]
-    
-    let helpStuff: [[String]] = [
-        ["debug|on", "Remove all pauses to fast-forward until `debug|off` or the end of the script"],
-        ["debug|off", "Restores all pauses so script runs at normal speed"],
-        ["hold|command|a", "Holds down the `command` key and presses `a`"],
-        ["newline", "Adds a single newline"],
-        ["pause|0.9", "Pause for 0.9 seconds"],
-    ]
-    
-
-//    } else if action == "stop" {
-//        doStop()
-//    } else if action == "type" {
-//        doTypeCharacters(input: String(parts[1]))
-//    } else if action == "type-line" {
-//        if parts.count > 1 {
-//            doTypeLine(input: String(parts[1]))
-//        } else {
-//            doTypeLine(input: "")
-//        }
-//    } else {
-//        print("skipping unknown")
-//        processLine()
-//    }
-    
     var body: some View {
         HStack{
             VStack {
@@ -851,7 +943,7 @@ struct ContentView: View {
                     Text(getUrlFileName()).frame(maxWidth: .infinity, alignment: .leading)
                 }
                 Divider()
-                Text("Selecte App").frame(maxWidth: .infinity, alignment: .leading)
+                Text("Select App").frame(maxWidth: .infinity, alignment: .leading)
                 List(runningApps(), selection: $selectedAppPid) {
                     Text($0.app.localizedName ?? "unknown name")
                 }
@@ -864,80 +956,11 @@ struct ContentView: View {
             VStack {
                 TabView{
                     StatusView(statusLine: statusLine, statusArea: statusArea).tabItem {Text("Status") }
-//                    StatusView().tabItem { Text("Status") }
-//                    StatusView()
                     DocsView().tabItem { Text("Documentation") }
+                    ExamplesView().tabItem { Text("Examples") }
                 }
-                
-//                Text(statusLine).frame(maxWidth: .infinity, alignment: .leading)
-//                ScrollView{
-//                    Text(statusArea).frame(maxWidth: .infinity, alignment: .leading)
-//                }
                 Spacer()
             }.padding()
-            
-            
-            
-//            ScrollView{
-//                VStack{
-//                    var usageStuff: AttributedString {
-//                        var text = AttributedString("Usage\n")
-//                        text.font = .title
-//                        text.append(AttributedString("\n- Create a .txt file with a script in it (see below for the script syntax)"))
-//                        return text
-//                    }
-//                    Text(usageStuff).frame(maxWidth: .infinity, alignment: .leading)
-//                    Divider()
-//
-//                    var exampleScript: AttributedString {
-//                        var text = AttributedString("Example Script\n")
-//                        text.font = .title
-//                        text.append(AttributedString("\nhold|command|a\n"))
-//                        text.append(AttributedString("press|delete\n"))
-//                        text.append(AttributedString("pause|1.5\n"))
-//                        text.append(AttributedString("type-line|Hello, World!\n"))
-//                        return text
-//                    }
-//                    Text(exampleScript).frame(maxWidth: .infinity, alignment: .leading)
-//
-//                    Divider()
-//
-//                    var scriptSyntaxHeadline: AttributedString {
-//                        var text = AttributedString("\nScript Syntax")
-//                        text.font = .title
-//                        return text
-//                    }
-//                    Text(scriptSyntaxHeadline).frame(maxWidth: .infinity, alignment: .leading)
-//
-//                    ForEach(syntaxItems) { syntaxItem in
-//                        var syntaxItemHeadline: AttributedString {
-//                            var text = AttributedString("\n" + syntaxItem.headline + "\n")
-//                            text.font = .headline
-//                            for paragraph in syntaxItem.paragraphs {
-//                                text.append(AttributedString("\n" + paragraph + "\n"))
-//                            }
-//                            return text
-//                        }
-//                        Text(syntaxItemHeadline).frame(maxWidth: .infinity, alignment: .leading)
-//                        Divider()
-//                    }
-//
-//                    var keysHeadline: AttributedString {
-//                        var text = AttributedString("\nAvailable Keys")
-//                        text.font = .title
-//                        text.append(AttributedString("\n\nThese are the keys you can use for `press` and `hold` lines in your scripts:\n"))
-//                        text.append(AttributedString("\n\nTODO: Add keys"))
-//                        return text
-//                    }
-//                    Text(keysHeadline).frame(maxWidth: .infinity, alignment: .leading)
-//
-//                }
-//            }.frame(maxWidth: .infinity).padding()
-            
-            
-            
-            
-        
         }
     }
 }
