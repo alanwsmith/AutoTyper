@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		E7C37DE12CEF9685005B42B3 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = E7C37DE02CEF9681005B42B3 /* README.md */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		E7C37DBC2CEF946B005B42B3 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -27,6 +31,7 @@
 		E7C37DAA2CEF9469005B42B3 /* AutoTyper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AutoTyper.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E7C37DBB2CEF946B005B42B3 /* AutoTyperTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AutoTyperTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E7C37DC52CEF946B005B42B3 /* AutoTyperUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AutoTyperUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		E7C37DE02CEF9681005B42B3 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -43,6 +48,11 @@
 		E7C37DC82CEF946B005B42B3 /* AutoTyperUITests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = AutoTyperUITests;
+			sourceTree = "<group>";
+		};
+		E7C37DD92CEF960C005B42B3 /* TestScripts */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = TestScripts;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -75,6 +85,8 @@
 		E7C37DA12CEF9469005B42B3 = {
 			isa = PBXGroup;
 			children = (
+				E7C37DE02CEF9681005B42B3 /* README.md */,
+				E7C37DD92CEF960C005B42B3 /* TestScripts */,
 				E7C37DAC2CEF9469005B42B3 /* AutoTyper */,
 				E7C37DBE2CEF946B005B42B3 /* AutoTyperTests */,
 				E7C37DC82CEF946B005B42B3 /* AutoTyperUITests */,
@@ -109,6 +121,7 @@
 			);
 			fileSystemSynchronizedGroups = (
 				E7C37DAC2CEF9469005B42B3 /* AutoTyper */,
+				E7C37DD92CEF960C005B42B3 /* TestScripts */,
 			);
 			name = AutoTyper;
 			packageProductDependencies = (
@@ -212,6 +225,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E7C37DE12CEF9685005B42B3 /* README.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
