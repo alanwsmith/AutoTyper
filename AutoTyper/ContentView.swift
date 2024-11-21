@@ -50,20 +50,6 @@ struct StatusView: View{
 struct DocsView: View{
     let syntaxItems: [SyntaxItem] = [
         
-        //        x debug
-        //        x newline
-        //        x paste-file
-        //        x pause
-        //        x press
-        //        x repeat
-        //        x reset-delay
-        //        x set-delay
-        //        x stop
-        //        x type
-        //        type-down
-        //        type-line
-
-        
         SyntaxItem(headline: "debug|on", paragraphs: [
             "Remove all delays and pauses to fast-forward until `debug|off` or the end of the script.",
         ]),
