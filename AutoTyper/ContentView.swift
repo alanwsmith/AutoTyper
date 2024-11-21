@@ -25,6 +25,30 @@ struct SyntaxItem: Identifiable, Hashable {
     let id = UUID()
 }
 
+struct DocsView: View{
+    var body: some View {
+        VStack{
+            Text("DOCS VIEW").frame(maxWidth: .infinity, alignment: .leading)
+            Spacer()
+        }.padding()
+    }
+}
+
+struct StatusView: View{
+    var statusLine: String = "Status"
+    var statusArea: String = "Status area"
+    var body: some View {
+        VStack{
+            Text(statusLine).frame(maxWidth: .infinity, alignment: .leading)
+            Divider()
+            ScrollView {
+                Text(statusArea).frame(maxWidth: .infinity, alignment: .leading)
+            }
+            Spacer()
+        }.padding()
+    }
+}
+
 struct ContentView: View {
     @State var appToWriteTo: NSRunningApplication?
     @State var charactersToType: [String] = []
@@ -817,16 +841,15 @@ struct ContentView: View {
 //        processLine()
 //    }
     
-
-    
     var body: some View {
         HStack{
-            
             VStack {
-                Button("Choose Script") {
-                    chooseScript()
-                }.frame(maxWidth: .infinity, alignment: .leading)
-                Text(getUrlFileName()).frame(maxWidth: .infinity, alignment: .leading)
+                HStack {
+                    Button("Choose Script") {
+                        chooseScript()
+                    }
+                    Text(getUrlFileName()).frame(maxWidth: .infinity, alignment: .leading)
+                }
                 Divider()
                 Text("Selecte App").frame(maxWidth: .infinity, alignment: .leading)
                 List(runningApps(), selection: $selectedAppPid) {
@@ -837,14 +860,19 @@ struct ContentView: View {
                     runScript()
                 }.frame(maxWidth: .infinity, alignment: .trailing)
             }.frame(maxWidth: .infinity).padding()
-            
             Divider()
-            
             VStack {
-                Text(statusLine).frame(maxWidth: .infinity, alignment: .leading)
-                ScrollView{
-                    Text(statusArea).frame(maxWidth: .infinity, alignment: .leading)
+                TabView{
+                    StatusView(statusLine: statusLine, statusArea: statusArea).tabItem {Text("Status") }
+//                    StatusView().tabItem { Text("Status") }
+//                    StatusView()
+                    DocsView().tabItem { Text("Documentation") }
                 }
+                
+//                Text(statusLine).frame(maxWidth: .infinity, alignment: .leading)
+//                ScrollView{
+//                    Text(statusArea).frame(maxWidth: .infinity, alignment: .leading)
+//                }
                 Spacer()
             }.padding()
             
