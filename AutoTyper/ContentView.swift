@@ -5,6 +5,7 @@
 //  Created by Alan W. Smith on 11/21/24.
 //
 
+import AVKit
 import SwiftUI
 
 // TODO: Handle unknow characters
@@ -222,7 +223,6 @@ struct ExamplesView: View {
         ),
     ]
     
-    
     func getScript(basename: String) -> String {
         do {
             if let exampleScriptUrl = Bundle.main.url(forResource: "hello-world-script", withExtension: "txt") {
@@ -236,57 +236,12 @@ struct ExamplesView: View {
         }
     }
     
-    
-    
-    
-//    do {
-//        let fileUrl = URL(string: "file://" + parts[1])
-//        let contentToPaste = try String(contentsOf: fileUrl!, encoding: String.Encoding.utf8)
-//        NSPasteboard.general.clearContents()
-//        NSPasteboard.general.setString(contentToPaste, forType: .string)
-//        let src = CGEventSource(stateID: .privateState)
-//        let doDown = CGEvent(keyboardEventSource: src, virtualKey: 0x09, keyDown: true)
-//        let doUp = CGEvent(keyboardEventSource: src, virtualKey: 0x09, keyDown: false)
-//        let flagList: [CGEventFlags] = [CGEventFlags.maskCommand]
-//        let flags: CGEventFlags = CGEventFlags.init(flagList)
-//        doDown?.flags = flags
-//        doUp?.flags = flags
-//        doDown?.postToPid(selectedAppPid!)
-//        doUp?.postToPid(selectedAppPid!)
-//    } catch{
-//        addError(parts: parts, message: "Could not copy file")
-//    }
-    
-    
-    //    var theScript = "Could not load script"
-        
-    //    func loadScript() {
-    ////        self.$theScript = "ping"
-    ////        if let exampleScriptUrl = Bundle.main.url(forResource: "hello-world-script", withExtension: "txt") {
-    ////            return "asdf"
-    ////
-    //////            do {
-    //////                let exampleScriptText = String(contentsOf: exampleScriptUrl, encoding: String.Encoding.utf8)
-    //////
-    //////                Text("Got script")
-    //////            }
-    //////            catch {
-    //////                Text("Could not get script")
-    //////            }
-    //////
-    ////        }
-    ////        else {
-    ////            return "could not load script"
-    ////        }
-    //    }
-    
-    
-    
     var body: some View {
         VStack{
             ScrollView {
                 VStack {
                     ForEach(exampleItems) { exampleItem in
+                        let scriptContents = getScript(basename: exampleItem.basename)
                         var exampleItemHeadline: AttributedString {
                             var text = AttributedString("\n" + exampleItem.title + "\n")
                             text.font = .title3.bold()
@@ -297,19 +252,25 @@ struct ExamplesView: View {
                         }
                         Text(exampleItemHeadline).frame(maxWidth: .infinity, alignment: .leading)
                         HStack {
-                            Text("•")
+                            Text("•").frame(maxHeight: .infinity, alignment: .top)
                             Divider()
                             VStack {
-                                Text(getScript(basename: exampleItem.basename))
-                                // Text(exampleItem.script ?? "no script")
-                                
-                                
-//                                if let exampleScriptUrl = Bundle.main.url(forResource: "hello-world-script", withExtension: "txt") {
-//                                    Text("Got url").frame(maxWidth: .infinity, alignment: .leading)
-//                                    Text("type-line|Hello, World!").frame(maxWidth: .infinity, alignment: .leading)
-//                                }
-                                
-                                Text("Video here").frame(maxWidth: .infinity, alignment: .leading)
+                                HStack {
+                                    Text(scriptContents).frame(maxWidth: .infinity, alignment: .leading)
+                                    Button("Copy") {
+                                        NSPasteboard.general.clearContents()
+                                        NSPasteboard.general.setString(scriptContents, forType: .string)
+                                    }
+                                }
+                                if let url = Bundle.main.url(forResource: "hello-world-video", withExtension: "mp4") {
+                                  VideoPlayer(player: AVPlayer(url: url))
+//                                        .containerRelativeFrame(.vertical, count: 5, span: 2, spacing: 2)
+//                                        .ignoresSafeArea()
+//                                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
+                                        .frame(height: 280)
+                                } else {
+                                  Text("No video")
+                                }
                             }.frame(maxWidth: .infinity, alignment: .leading)
                         }
                         Divider()
@@ -320,18 +281,6 @@ struct ExamplesView: View {
         }.padding()
     }
 }
-
-//                    var exampleScript: AttributedString {
-//                        var text = AttributedString("Example Script\n")
-//                        text.font = .title
-//                        text.append(AttributedString("\nhold|command|a\n"))
-//                        text.append(AttributedString("press|delete\n"))
-//                        text.append(AttributedString("pause|1.5\n"))
-//                        text.append(AttributedString("type-line|Hello, World!\n"))
-//                        return text
-//                    }
-//                    Text(exampleScript).frame(maxWidth: .infinity, alignment: .leading)
-//
 
 
 
