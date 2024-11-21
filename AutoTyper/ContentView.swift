@@ -14,6 +14,13 @@ struct ErrorPayload {
     let message: String
 }
 
+struct ExampleItem: Identifiable, Hashable {
+    let title: String
+    let basename: String
+    let description: [String]
+    let id = UUID()
+}
+
 struct PotentialApp: Identifiable, Hashable {
     let app: NSRunningApplication
     let id: pid_t
@@ -219,31 +226,58 @@ struct KeysView: View {
 
 
 struct ExamplesView: View {
-    
-    //                    var exampleScript: AttributedString {
-    //                        var text = AttributedString("Example Script\n")
-    //                        text.font = .title
-    //                        text.append(AttributedString("\nhold|command|a\n"))
-    //                        text.append(AttributedString("press|delete\n"))
-    //                        text.append(AttributedString("pause|1.5\n"))
-    //                        text.append(AttributedString("type-line|Hello, World!\n"))
-    //                        return text
-    //                    }
-    //                    Text(exampleScript).frame(maxWidth: .infinity, alignment: .leading)
-    //
-    
-    
-//    var statusLine: String = "Status"
-//    var statusArea: String = "Status area"
+    let exampleItems: [ExampleItem] = [
+        ExampleItem(
+            title: "Hello, World!",
+            basename: "hello-world",
+            description: [
+                "This is about as basic as you can get. It types 'Hello, World!' followed by a newline",
+            ]
+        ),
+    ]
     var body: some View {
         VStack{
             ScrollView {
-//                Text(statusArea).frame(maxWidth: .infinity, alignment: .leading)
+                VStack {
+                    ForEach(exampleItems) { exampleItem in
+                        var exampleItemHeadline: AttributedString {
+                            var text = AttributedString("\n" + exampleItem.title + "\n")
+                            text.font = .title3.bold()
+                            for paragraph in exampleItem.description {
+                                text.append(AttributedString("\n" + paragraph + "\n"))
+                            }
+                            return text
+                        }
+                        Text(exampleItemHeadline).frame(maxWidth: .infinity, alignment: .leading)
+                        HStack {
+                            Text("•")
+                            Divider()
+                            VStack {
+                                Text("type-line|Hello, World!").frame(maxWidth: .infinity, alignment: .leading)
+                                Text("Video here").frame(maxWidth: .infinity, alignment: .leading)
+                            }.frame(maxWidth: .infinity, alignment: .leading)
+                        }
+                        Divider()
+                    }
+                }
             }
             Spacer()
         }.padding()
     }
 }
+
+//                    var exampleScript: AttributedString {
+//                        var text = AttributedString("Example Script\n")
+//                        text.font = .title
+//                        text.append(AttributedString("\nhold|command|a\n"))
+//                        text.append(AttributedString("press|delete\n"))
+//                        text.append(AttributedString("pause|1.5\n"))
+//                        text.append(AttributedString("type-line|Hello, World!\n"))
+//                        return text
+//                    }
+//                    Text(exampleScript).frame(maxWidth: .infinity, alignment: .leading)
+//
+
 
 
 struct ContentView: View {
@@ -871,7 +905,10 @@ struct ContentView: View {
                 }
                 scriptLines = scriptContents.split(separator: "\n")
                 scriptLines.reverse()
-                processLine()
+                // wait a second after activation before running
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                    processLine()
+                }
             } catch{
                 statusLine = "Status: ERROR: Could not open file"
             }
