@@ -43,10 +43,10 @@ struct StatusView: View{
 struct DocsView: View{
     let syntaxItems: [SyntaxItem] = [
         
-        //        debug
-        //        newline
-        //        paste-file
-        //        pause
+        //        x debug
+        //        x newline
+        //        x paste-file
+        //        x pause
         //        press
         //        repeat
         //        reset-delay
@@ -57,30 +57,57 @@ struct DocsView: View{
         //        type-line
 
         
-        SyntaxItem(headline: "debug|on", paragraphs: ["Remove all delays and pauses to fast-forward until `debug|off` or the end of the script"]),
+        SyntaxItem(headline: "debug|on", paragraphs: ["Remove all delays and pauses to fast-forward until `debug|off` or the end of the script."]),
         
-        SyntaxItem(headline: "debug|off", paragraphs: ["Restores all pauses so script runs at specified delays and pauses"]),
+        SyntaxItem(headline: "debug|off", paragraphs: ["Restores all pauses so script runs at specified delays and pauses."]),
         
-//        SyntaxItem(headline: "hold|MODIFIERS|KEY", paragraphs: [
-//            "Holds down the MODIFIER (or MODIFIERS) and presses the KEY",
-//            "Examples:",
-//            "- hold|command|a\n- hold|command|f5\n- hold|command,shift|r",
-//            "The possible MODIFIER options are:",
-//            "- command\n- control\n- option\n- shift",
-//            "Separate multiple MODIFIERS with commas",
-//            "The KEY can be lower case letters, numbers, and punctuation that doesn't require pressing shift, or key with functionality (e.g. `escape`, `return`, `up-arrow`, `f1`, `f2`, etc..)",
-//            "The full list of available KEYs is below"
-//        ]),
+        SyntaxItem(headline: "newline", paragraphs: [
+            "This version of 'neline' doesn't have a '|' or number after it. It inserts a single newline.",
+        ]),
         
-//        SyntaxItem(headline: "newline", paragraphs: [
-//            "Inserts a single newline",
-//        ]),
-//        
-//        SyntaxItem(headline: "newline|NUMBER", paragraphs: [
-//            "Inserts the specified number of newline. For example, this inserts 5 newlines:",
-//            "newline|5"
-//        ]),
-//        
+        SyntaxItem(headline: "newline|NUMBER", paragraphs: [
+            "Inserts the specified number of newlines. For example, this inserts 5 newlines:",
+            "newline|5"
+        ]),
+        
+        SyntaxItem(headline: "paste-file|FILE_PATH", paragraphs: [
+            "Copies the contents of the file at 'FILE_PATH' and pastes it in directly. For example, this pastes the contents of a 'code.txt' file on my Desktop:",
+            "paste-file|/Users/alan/Desktop/code.txt",
+            "An easy way to get the FILE_PATH for a file is to right click on it in the Finder then hold the 'Option' key. The 'Copy' option turns into 'Copy ... as Pathname' which gives you what you need for the FILE_PATH.",
+        ]),
+        
+        SyntaxItem(headline: "pause", paragraphs: [
+            "This is the version of 'pause' that doesn't have a '|' or number after it. It pauses the script fully.",
+            "Press the F2 key to resume the script.",
+            "This is designed to make it easier to do live recordings of scripts where you have everything set up and then use the pause/F2 process to add break points for talking.",
+            "Depending on how you mac is set up, you'll need to hold down the 'fn' key when you press 'F2' to get it to trigger instead of changing the brightness of your screen.",
+        ]),
+        
+        SyntaxItem(headline: "pause|SECONDS.SUBSECONDS", paragraphs: [
+            "Pause for a specific amount of time. For example, this pauses for 1.2 seconds",
+            "pause|1.2",
+            "I use this to add some padding between blocks of code that are output together which I find makes them easier to follow."
+        ]),
+        
+        SyntaxItem(headline: "press|KEY_NAME", paragraphs: [
+            "Presses a single key on the keyboard.",
+            "This can be used for pressing keys like 'escape', or arrow keys. For example:",
+            "press|escape\npress|down-arrow",
+            "The full list of KEY_NAMES is listed in the 'Key Names' tab."
+        ]),
+        
+        SyntaxItem(headline: "press|MODIFIERS|KEY_NAME", paragraphs: [
+            "Presses a single key on the keyboard while holding the specified MODIFIERS. For example, this will type 'Command + a' which does a select all in apps like VS Code:",
+            "press|command|a",
+            "Multiple MODIFIERS can be used by separating them with '|' characters. For example, this does 'Command + Shift + Left Arrow' which selects the prior word in apps like VS Code:",
+            "press|command|shift|left-arrow",
+            "The available MODIFIERS are:",
+            "- command\n- control\n- option\n- shift",
+            "The full list of KEY_NAMES is listed in the 'Key Names' tab."
+        ]),
+        
+        
+//
 //        SyntaxItem(headline: "pause|SECONDS.SUBSECONDS", paragraphs: [
 //            "Pauses for the given time before moving to the next line. For example, this pauses for 1.2 seconds",
 //            "pause|1.2",
@@ -105,40 +132,10 @@ struct DocsView: View{
         
     ]
     
-    
-//            ScrollView{
-//                VStack{
-//
-//
 
-//
-//                    ForEach(syntaxItems) { syntaxItem in
-//                        var syntaxItemHeadline: AttributedString {
-//                            var text = AttributedString("\n" + syntaxItem.headline + "\n")
-//                            text.font = .headline
-//                            for paragraph in syntaxItem.paragraphs {
-//                                text.append(AttributedString("\n" + paragraph + "\n"))
-//                            }
-//                            return text
-//                        }
-//                        Text(syntaxItemHeadline).frame(maxWidth: .infinity, alignment: .leading)
-//                        Divider()
-//                    }
-//
-//                    var keysHeadline: AttributedString {
-//                        var text = AttributedString("\nAvailable Keys")
-//                        text.font = .title
-//                        text.append(AttributedString("\n\nThese are the keys you can use for `press` and `hold` lines in your scripts:\n"))
-//                        text.append(AttributedString("\n\nTODO: Add keys"))
-//                        return text
-//                    }
-//                    Text(keysHeadline).frame(maxWidth: .infinity, alignment: .leading)
-//
-//                }
-//            }.frame(maxWidth: .infinity).padding()
-    
-    
-    
+
+
+
     
     var body: some View {
         ScrollView{
@@ -155,17 +152,46 @@ struct DocsView: View{
                 Text(usageStuff).frame(maxWidth: .infinity, alignment: .leading)
                 Divider()
                 var scriptSyntaxHeadline: AttributedString {
-                    var text = AttributedString("\nScript Commands\n")
+                    var text = AttributedString("\nScript Commands")
                     text.font = .title
                     return text
                 }
                 Text(scriptSyntaxHeadline).frame(maxWidth: .infinity, alignment: .leading)
+                
+                
+
+                ForEach(syntaxItems) { syntaxItem in
+                    var syntaxItemHeadline: AttributedString {
+                        var text = AttributedString("\n" + syntaxItem.headline + "\n")
+                        text.font = .headline
+                        for paragraph in syntaxItem.paragraphs {
+                            text.append(AttributedString("\n" + paragraph + "\n"))
+                        }
+                        return text
+                    }
+                    Text(syntaxItemHeadline).frame(maxWidth: .infinity, alignment: .leading)
+                    Divider()
+                }
+
+                
+                
             }
         }.padding()
     }
 }
 
 struct KeysView: View {
+    
+    //                    var keysHeadline: AttributedString {
+    //                        var text = AttributedString("\nAvailable Keys")
+    //                        text.font = .title
+    //                        text.append(AttributedString("\n\nThese are the keys you can use for `press` and `hold` lines in your scripts:\n"))
+    //                        text.append(AttributedString("\n\nTODO: Add keys"))
+    //                        return text
+    //                    }
+    //                    Text(keysHeadline).frame(maxWidth: .infinity, alignment: .leading)
+    
+    
     var body: some View {
         VStack{
             ScrollView {
@@ -948,7 +974,7 @@ struct ContentView: View {
                 TabView{
                     StatusView(statusLine: statusLine, statusArea: statusArea).tabItem {Text("Status") }
                     DocsView().tabItem { Text("Docs") }
-                    KeysView().tabItem { Text("Keys") }
+                    KeysView().tabItem { Text("Key Names") }
                     ExamplesView().tabItem { Text("Examples") }
                 }
                 Spacer()
