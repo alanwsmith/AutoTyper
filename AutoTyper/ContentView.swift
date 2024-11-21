@@ -211,21 +211,28 @@ struct KeysView: View {
     }
 }
 
-
 struct ExamplesView: View {
     let exampleItems: [ExampleItem] = [
         ExampleItem(
-            title: "Hello, World!",
-            basename: "hello-world",
+            title: "1: Hello, World!",
+            basename: "01-hello-world",
             description: [
                 "This is about as basic as you can get. It types 'Hello, World!' followed by a newline",
+            ]
+        ),
+        
+        ExampleItem(
+            title: "2: Type, Pause, Type",
+            basename: "02-type-pause-type",
+            description: [
+                "Type a few characters. Pause for bit. Then, type the rest of the line",
             ]
         ),
     ]
     
     func getScript(basename: String) -> String {
         do {
-            if let exampleScriptUrl = Bundle.main.url(forResource: "hello-world-script", withExtension: "txt") {
+            if let exampleScriptUrl = Bundle.main.url(forResource: "\(basename)-script", withExtension: "txt") {
                 let exampleScriptText = try String(contentsOf: exampleScriptUrl, encoding: String.Encoding.utf8)
                 return exampleScriptText
             } else {
@@ -241,39 +248,48 @@ struct ExamplesView: View {
             ScrollView {
                 VStack {
                     ForEach(exampleItems) { exampleItem in
-                        let scriptContents = getScript(basename: exampleItem.basename)
-                        var exampleItemHeadline: AttributedString {
-                            var text = AttributedString("\n" + exampleItem.title + "\n")
-                            text.font = .title3.bold()
-                            for paragraph in exampleItem.description {
-                                text.append(AttributedString("\n" + paragraph + "\n"))
+                        VStack {
+                            let scriptContents = getScript(basename: exampleItem.basename)
+                            var exampleItemHeadline: AttributedString {
+                                var text = AttributedString("\n" + exampleItem.title + "\n")
+                                text.font = .title3.bold()
+                                return text
                             }
-                            return text
-                        }
-                        Text(exampleItemHeadline).frame(maxWidth: .infinity, alignment: .leading)
-                        HStack {
-                            Text("•").frame(maxHeight: .infinity, alignment: .top)
-                            Divider()
-                            VStack {
-                                HStack {
-                                    Text(scriptContents).frame(maxWidth: .infinity, alignment: .leading)
-                                    Button("Copy") {
-                                        NSPasteboard.general.clearContents()
-                                        NSPasteboard.general.setString(scriptContents, forType: .string)
+                            Text(exampleItemHeadline).frame(maxWidth: .infinity, alignment: .leading)
+                            HStack {
+                                Text("•").frame(maxHeight: .infinity, alignment: .top)
+                                Divider()
+                                VStack {
+                                    HStack {
+                                        Text(scriptContents).frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading).monospaced()
+                                        Button("Copy") {
+                                            NSPasteboard.general.clearContents()
+                                            NSPasteboard.general.setString(scriptContents, forType: .string)
+                                        }.frame(maxHeight: .infinity, alignment: .top)
                                     }
-                                }
-                                if let url = Bundle.main.url(forResource: "hello-world-video", withExtension: "mp4") {
-                                  VideoPlayer(player: AVPlayer(url: url))
-//                                        .containerRelativeFrame(.vertical, count: 5, span: 2, spacing: 2)
-//                                        .ignoresSafeArea()
-//                                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
-                                        .frame(height: 280)
-                                } else {
-                                  Text("No video")
-                                }
-                            }.frame(maxWidth: .infinity, alignment: .leading)
+                                    Divider()
+                                    if let url = Bundle.main.url(forResource: "\(exampleItem.basename)-video", withExtension: "mp4") {
+                                        VideoPlayer(player: AVPlayer(url: url))
+                                        //                                        .containerRelativeFrame(.vertical, count: 5, span: 2, spacing: 2)
+                                        //                                        .ignoresSafeArea()
+                                        //                                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
+                                            .frame(height: 280)
+                                            .padding()
+                                    } else {
+                                        Text("No video")
+                                    }
+                                    var exampleItemParagraphs: AttributedString {
+                                        var text = AttributedString("")
+                                        for paragraph in exampleItem.description {
+                                            text.append(AttributedString("\n" + paragraph + "\n"))
+                                        }
+                                        return text
+                                    }
+                                    Text(exampleItemParagraphs).frame(maxWidth: .infinity, alignment: .leading)
+                                }.frame(maxWidth: .infinity, alignment: .leading)
+                            }
+                            Divider()
                         }
-                        Divider()
                     }
                 }
             }
