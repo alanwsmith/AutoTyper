@@ -178,13 +178,10 @@ struct DocsView: View{
                     return text
                 }
                 Text(scriptSyntaxHeadline).frame(maxWidth: .infinity, alignment: .leading)
-                
-                
-
                 ForEach(syntaxItems) { syntaxItem in
                     var syntaxItemHeadline: AttributedString {
                         var text = AttributedString("\n" + syntaxItem.headline + "\n")
-                        text.font = .headline
+                        text.font = .title3.bold()
                         for paragraph in syntaxItem.paragraphs {
                             text.append(AttributedString("\n" + paragraph + "\n"))
                         }
@@ -193,9 +190,6 @@ struct DocsView: View{
                     Text(syntaxItemHeadline).frame(maxWidth: .infinity, alignment: .leading)
                     Divider()
                 }
-
-                
-                
             }
         }.padding()
     }
