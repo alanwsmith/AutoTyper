@@ -47,19 +47,23 @@ struct DocsView: View{
         //        x newline
         //        x paste-file
         //        x pause
-        //        press
-        //        repeat
-        //        reset-delay
-        //        set-delay
-        //        stop
-        //        type
+        //        x press
+        //        x repeat
+        //        x reset-delay
+        //        x set-delay
+        //        x stop
+        //        x type
         //        type-down
         //        type-line
 
         
-        SyntaxItem(headline: "debug|on", paragraphs: ["Remove all delays and pauses to fast-forward until `debug|off` or the end of the script."]),
+        SyntaxItem(headline: "debug|on", paragraphs: [
+            "Remove all delays and pauses to fast-forward until `debug|off` or the end of the script.",
+        ]),
         
-        SyntaxItem(headline: "debug|off", paragraphs: ["Restores all pauses so script runs at specified delays and pauses."]),
+        SyntaxItem(headline: "debug|off", paragraphs: [
+            "Restores all pauses so script runs at specified delays and pauses.",
+        ]),
         
         SyntaxItem(headline: "newline", paragraphs: [
             "This version of 'neline' doesn't have a '|' or number after it. It inserts a single newline.",
@@ -106,36 +110,53 @@ struct DocsView: View{
             "The full list of KEY_NAMES is listed in the 'Key Names' tab."
         ]),
         
+        SyntaxItem(headline: "repeat|NUMBER|KEY_NAME", paragraphs: [
+            "Works the same as 'press|KEY_NAME' but repeats the press NUMBER of times. For example:",
+            "repeat|5|left-arrow",
+        ]),
         
-//
-//        SyntaxItem(headline: "pause|SECONDS.SUBSECONDS", paragraphs: [
-//            "Pauses for the given time before moving to the next line. For example, this pauses for 1.2 seconds",
-//            "pause|1.2",
-//            "TODO: Figure out of paues without subseconds (e.g. `pause|1` works)"
-//        ]),
-//        
-//        SyntaxItem(headline: "press|KEY", paragraphs: [
-//            "Presses a single key (e.g. single letter, number, or functional key like arrow keys, delete, escape, or function keys. See below for full list). For example:",
-//            "press|delete"
-//        ]),
-//        
-//        SyntaxItem(headline: "reset-delay", paragraphs: [
-//            "Resets the delay between each character to the default",
-//        ]),
-//        
-//        SyntaxItem(headline: "set-delay|MIN|MAX", paragraphs: [
-//            "Sets the minimum and maximum delay time between typed characters",
-//            "The delay between each character is a random value between a min and max setting to add some variability into the typing speed. The defaults are 0.03 and 0.05. You can change the values with `set-delay` to make them slower or faster. For example:",
-//            "set-delay|0.1|0.2\nset-delay|0.01|0.01",
-//            "The first one slows things down. The second speeds them up compared to the default and removes the varaibility since the min and max are the same",
-//        ]),
+        SyntaxItem(headline: "repeat|MODIFIERS|KEY_NAME", paragraphs: [
+            "Works the same as 'press|MODIFIERS|KEY_NAME' but repeats the press NUMBER of times. For example:",
+            "repeat|5|command|shift|left-arrow",
+        ]),
+        
+        SyntaxItem(headline: "reset-delay", paragraphs: [
+            "Resets the minimum and maximum times for the randomized delay between keystokes to their default values '0.03' and '0.05'",
+        ]),
+        
+        SyntaxItem(headline: "set-delay|NUMBER", paragraphs: [
+            "Set the delay between keystrokes to NUMBER. For example:",
+            "set-delay|0.07",
+        ]),
+        
+        SyntaxItem(headline: "set-delay|MIN|MAX", paragraphs: [
+            "Set the minimum and maximum times for the randomized delay between keystokes to the values defined in MIN and MAX. For example:",
+            "set-delay|0.05|0.1",
+        ]),
+        
+        SyntaxItem(headline: "stop", paragraphs: [
+            "Stops the script.",
+            "I use this in conjunction with 'debug|on' to fast forward to a part of a script I want to check and then halt it there so I can verify the output.",
+        ]),
+        
+        SyntaxItem(headline: "type|STRING", paragraphs: [
+            "Type the STRING of text without adding a newline or pressing the down arrow. This can be used for things like typing part of a line then doing a pause or changing the delay before finishing it.",
+            "Note: only the characters available in the 'Typing Keys' section of 'Key Names' can be used. If you need to type something else, you'll need to use 'press|MODIFIERS|KEY_NAME' (e.g. 'press|option|2' to type the ™ symbol)",
+            "Note: I wrote AutoTyper for my U.S. English keyboard. I'm not opposed to making a more international version, but I don't know what that would take and don't have the resources to look into right now.",
+        ]),
+        
+        SyntaxItem(headline: "type-down|STRING", paragraphs: [
+            "Same as 'type|STRING' but presses the down arrow key after the STRING is complete.",
+            "I generally use this instead of 'type-line|STRING' when I'm using VS Code.",
+            "Specifically, before I start the main script I run 'newline|50' then 'press|command|up-arrow' which adds 50 blank lines to the file then moves the cursor to the top.",
+            "Doing that and then using 'type-down|STRING' helps prevent the VS Code scrollbar from flashing as much. I find it less distracting that way.",
+        ]),
+        
+        SyntaxItem(headline: "type-line|STRING", paragraphs: [
+            "Same as 'type|STRING' but creates a newline after the STRING is complete.",
+        ]),
         
     ]
-    
-
-
-
-
     
     var body: some View {
         ScrollView{
