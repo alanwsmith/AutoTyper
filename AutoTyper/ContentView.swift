@@ -221,6 +221,67 @@ struct ExamplesView: View {
             ]
         ),
     ]
+    
+    
+    func getScript(basename: String) -> String {
+        do {
+            if let exampleScriptUrl = Bundle.main.url(forResource: "hello-world-script", withExtension: "txt") {
+                let exampleScriptText = try String(contentsOf: exampleScriptUrl, encoding: String.Encoding.utf8)
+                return exampleScriptText
+            } else {
+                return "Could not get script"
+            }
+        } catch {
+            return "Could not get script"
+        }
+    }
+    
+    
+    
+    
+//    do {
+//        let fileUrl = URL(string: "file://" + parts[1])
+//        let contentToPaste = try String(contentsOf: fileUrl!, encoding: String.Encoding.utf8)
+//        NSPasteboard.general.clearContents()
+//        NSPasteboard.general.setString(contentToPaste, forType: .string)
+//        let src = CGEventSource(stateID: .privateState)
+//        let doDown = CGEvent(keyboardEventSource: src, virtualKey: 0x09, keyDown: true)
+//        let doUp = CGEvent(keyboardEventSource: src, virtualKey: 0x09, keyDown: false)
+//        let flagList: [CGEventFlags] = [CGEventFlags.maskCommand]
+//        let flags: CGEventFlags = CGEventFlags.init(flagList)
+//        doDown?.flags = flags
+//        doUp?.flags = flags
+//        doDown?.postToPid(selectedAppPid!)
+//        doUp?.postToPid(selectedAppPid!)
+//    } catch{
+//        addError(parts: parts, message: "Could not copy file")
+//    }
+    
+    
+    //    var theScript = "Could not load script"
+        
+    //    func loadScript() {
+    ////        self.$theScript = "ping"
+    ////        if let exampleScriptUrl = Bundle.main.url(forResource: "hello-world-script", withExtension: "txt") {
+    ////            return "asdf"
+    ////
+    //////            do {
+    //////                let exampleScriptText = String(contentsOf: exampleScriptUrl, encoding: String.Encoding.utf8)
+    //////
+    //////                Text("Got script")
+    //////            }
+    //////            catch {
+    //////                Text("Could not get script")
+    //////            }
+    //////
+    ////        }
+    ////        else {
+    ////            return "could not load script"
+    ////        }
+    //    }
+    
+    
+    
     var body: some View {
         VStack{
             ScrollView {
@@ -239,7 +300,15 @@ struct ExamplesView: View {
                             Text("•")
                             Divider()
                             VStack {
-                                Text("type-line|Hello, World!").frame(maxWidth: .infinity, alignment: .leading)
+                                Text(getScript(basename: exampleItem.basename))
+                                // Text(exampleItem.script ?? "no script")
+                                
+                                
+//                                if let exampleScriptUrl = Bundle.main.url(forResource: "hello-world-script", withExtension: "txt") {
+//                                    Text("Got url").frame(maxWidth: .infinity, alignment: .leading)
+//                                    Text("type-line|Hello, World!").frame(maxWidth: .infinity, alignment: .leading)
+//                                }
+                                
                                 Text("Video here").frame(maxWidth: .infinity, alignment: .leading)
                             }.frame(maxWidth: .infinity, alignment: .leading)
                         }
