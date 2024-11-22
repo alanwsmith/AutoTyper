@@ -10,6 +10,23 @@ import SwiftUI
 
 // TODO: Handle unknow characters
 
+
+struct AVPlayerControllerRepresented : NSViewRepresentable {
+    var player : AVPlayer
+    
+    func makeNSView(context: Context) -> AVPlayerView {
+        let view = AVPlayerView()
+        view.controlsStyle = .none
+        view.player = player
+        return view
+    }
+    
+    func updateNSView(_ nsView: AVPlayerView, context: Context) {
+        
+    }
+}
+
+
 struct ErrorPayload {
     let line: String
     let message: String
@@ -225,7 +242,7 @@ struct ExamplesView: View {
             title: "2: Type, Pause, Type",
             basename: "02-type-pause-type",
             description: [
-                "Type a few characters. Pause for bit. Then, type the rest of the line",
+                "Type a few characters. Pause for a bit. Then, type the rest of the line.",
             ]
         ),
     ]
@@ -243,6 +260,8 @@ struct ExamplesView: View {
         }
     }
     
+    let playerDidFinishNotification = NotificationCenter.default.publisher(for: .AVPlayerItemDidPlayToEndTime)
+    
     var body: some View {
         VStack{
             ScrollView {
@@ -257,27 +276,58 @@ struct ExamplesView: View {
                             }
                             Text(exampleItemHeadline).frame(maxWidth: .infinity, alignment: .leading)
                             HStack {
-                                Text("•").frame(maxHeight: .infinity, alignment: .top)
+                                Text(" ").frame(maxHeight: .infinity, alignment: .top)
                                 Divider()
                                 VStack {
-                                    HStack {
-                                        Text(scriptContents).frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading).monospaced()
-                                        Button("Copy") {
-                                            NSPasteboard.general.clearContents()
-                                            NSPasteboard.general.setString(scriptContents, forType: .string)
-                                        }.frame(maxHeight: .infinity, alignment: .top)
-                                    }
-                                    Divider()
+                                    
+                                    // TODO: Figure out how to get the isplaying stuff
+                                    // working. The original version was for a single
+                                    // video so need something that can deal with
+                                    // multiple ones on the same page. But for now,
+                                    // the clips are short enough that it doesn't
+                                    // matter
+                                    @State var isPlaying: Bool = false
+                                    
                                     if let url = Bundle.main.url(forResource: "\(exampleItem.basename)-video", withExtension: "mp4") {
-                                        VideoPlayer(player: AVPlayer(url: url))
-                                        //                                        .containerRelativeFrame(.vertical, count: 5, span: 2, spacing: 2)
-                                        //                                        .ignoresSafeArea()
-                                        //                                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
-                                            .frame(height: 280)
-                                            .padding()
+                                        let player = AVPlayer(url: url)
+                                        HStack {
+                                            AVPlayerControllerRepresented(player: player)
+                                                .frame(height: 210)
+                                                .disabled(true)
+                                            Button {
+                                                if isPlaying == true {
+                                                    player.pause()
+                                                } else {
+                                                    player.seek(to: .zero)
+                                                    player.play()
+                                                }
+                                                isPlaying.toggle()
+                                            } label: {
+                                                Image(systemName: isPlaying ? "stop" : "play")
+                                                    .padding()
+                                            }.onReceive(playerDidFinishNotification, perform: { _ in
+                                                isPlaying = false
+                                            })
+                                        }
                                     } else {
                                         Text("No video")
                                     }
+                                    Divider()
+                                    HStack {
+                                        Text(scriptContents)
+                                            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+                                            .monospaced()
+                                        Button {
+                                            NSPasteboard.general.clearContents()
+                                            NSPasteboard.general.setString(scriptContents, forType: .string)
+                                        } label: {
+                                            Image(systemName: "doc.on.doc")
+                                                .padding()
+                                        }
+                                        .frame(maxHeight: .infinity, alignment: .top)
+                                    }
+                                    Divider()
+                                    
                                     var exampleItemParagraphs: AttributedString {
                                         var text = AttributedString("")
                                         for paragraph in exampleItem.description {
@@ -288,8 +338,13 @@ struct ExamplesView: View {
                                     Text(exampleItemParagraphs).frame(maxWidth: .infinity, alignment: .leading)
                                 }.frame(maxWidth: .infinity, alignment: .leading)
                             }
-                            Divider()
                         }
+                        var bottomSpacer: AttributedString {
+                            var text = AttributedString("\n")
+                            text.font = .title3.bold()
+                            return text
+                        }
+                        Text(bottomSpacer).frame(maxWidth: .infinity, alignment: .leading)
                     }
                 }
             }

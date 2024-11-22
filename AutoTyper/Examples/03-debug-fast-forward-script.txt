@@ -1,0 +1,11 @@
+type-line|Get ready to fast forward
+pause|1.5
+debug|on
+type-line|alfa bravo charlie delta
+type-line|echo foxtrot golf hotel
+type-line|india juliet kilo lima
+type-line|mike november oscar papa
+debug|off
+pause|1.5
+type-line|And back to normal
+
