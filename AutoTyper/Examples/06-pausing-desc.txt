@@ -1,0 +1,12 @@
+There are two ways to use the 'pause' command. We'll start with 'pause: NUMBER' where you can pause for a specific amount of time measured in seconds. 
+
+The example uses 'pause: 1.5' to pause for a second and a half between 'Hello,' and 'World!' (and its preceding space)
+
+The second way to use 'pause' is without a ':' or number. Doing this pauses typing until you manually press 'F2' on your keyboard. 
+
+This is one of the main features I use when making videos. I'll set up a script that types out the individual things I want to talk about and then pause them while I give the explanation before pressing 'F2' to type in the next part of the script. 
+
+(Note: The default set up for macs is to have the 'F2' key change the brightness of the screen. If yours is set up that way you'll need to hold the 'fn' key with the little globe on it while pressing 'F2' to resume typing from a 'pause' command)
+
+
+

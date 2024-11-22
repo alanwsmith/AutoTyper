@@ -1,0 +1,8 @@
+The 'type:' command types out whatever you feed it and nothing more.
+
+Specifically, it doesn't add any newlines when it finishes typing your content. We'll see in later examples how this makes it useful for editing content in the middle of a line.
+
+The 'type:' command accepts standard letters, numbers, and symbols from a standard U.S. keyboard either with or without the Shift key being pressed. I haven't tested on international keyboards yet. I don't know how they'll behave. 
+
+You'll need to use the 'press:' command (show further below) if you want to type a character that requires holding Command, Control, or Option. 
+

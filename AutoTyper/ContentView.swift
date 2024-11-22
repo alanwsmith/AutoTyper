@@ -10,6 +10,10 @@ import SwiftUI
 
 // TODO: Handle unknow characters
 
+// TODO: Do a check for persmissions where it counts
+// the number of times you've tried and tells you to delete
+// things if necessary. Or, probably even better, update the
+// Status tab to show what you need to do.
 
 struct AVPlayerControllerRepresented : NSViewRepresentable {
     var player : AVPlayer
@@ -22,10 +26,11 @@ struct AVPlayerControllerRepresented : NSViewRepresentable {
     }
     
     func updateNSView(_ nsView: AVPlayerView, context: Context) {
-        
+        // This space was blank in the example. Not
+        // sure if it's required or just stubbed out for
+        // potential usage. I'm leaving it in regardless.
     }
 }
-
 
 struct ErrorPayload {
     let line: String
@@ -35,7 +40,7 @@ struct ErrorPayload {
 struct ExampleItem: Identifiable, Hashable {
     let title: String
     let basename: String
-    let description: [String]
+//    let description: [String]
     let id = UUID()
 }
 
@@ -68,103 +73,103 @@ struct StatusView: View{
 struct DocsView: View{
     let syntaxItems: [SyntaxItem] = [
         
-        SyntaxItem(headline: "debug|on", paragraphs: [
-            "Remove all delays and pauses to fast-forward until `debug|off` or the end of the script.",
+        SyntaxItem(headline: "debug: on", paragraphs: [
+            "Remove all delays and pauses to fast-forward until `debug: off` or the end of the script.",
         ]),
         
-        SyntaxItem(headline: "debug|off", paragraphs: [
+        SyntaxItem(headline: "debug: off", paragraphs: [
             "Restores all pauses so script runs at specified delays and pauses.",
         ]),
         
         SyntaxItem(headline: "newline", paragraphs: [
-            "This version of 'neline' doesn't have a '|' or number after it. It inserts a single newline.",
+            "This version of 'neline' doesn't have a ':' or number after it. It inserts a single newline.",
         ]),
         
-        SyntaxItem(headline: "newline|NUMBER", paragraphs: [
+        SyntaxItem(headline: "newline: NUMBER", paragraphs: [
             "Inserts the specified number of newlines. For example, this inserts 5 newlines:",
-            "newline|5"
+            "newline: 5"
         ]),
         
-        SyntaxItem(headline: "paste-file|FILE_PATH", paragraphs: [
+        SyntaxItem(headline: "paste-file: FILE_PATH", paragraphs: [
             "Copies the contents of the file at 'FILE_PATH' and pastes it in directly. For example, this pastes the contents of a 'code.txt' file on my Desktop:",
-            "paste-file|/Users/alan/Desktop/code.txt",
+            "paste-file: /Users/alan/Desktop/code.txt",
             "An easy way to get the FILE_PATH for a file is to right click on it in the Finder then hold the 'Option' key. The 'Copy' option turns into 'Copy ... as Pathname' which gives you what you need for the FILE_PATH.",
         ]),
         
         SyntaxItem(headline: "pause", paragraphs: [
-            "This is the version of 'pause' that doesn't have a '|' or number after it. It pauses the script fully.",
+            "This is the version of 'pause' that doesn't have a ':' or number after it. It pauses the script fully.",
             "Press the F2 key to resume the script.",
             "This is designed to make it easier to do live recordings of scripts where you have everything set up and then use the pause/F2 process to add break points for talking.",
             "Depending on how you mac is set up, you'll need to hold down the 'fn' key when you press 'F2' to get it to trigger instead of changing the brightness of your screen.",
         ]),
         
-        SyntaxItem(headline: "pause|SECONDS.SUBSECONDS", paragraphs: [
+        SyntaxItem(headline: "pause: SECONDS.SUBSECONDS", paragraphs: [
             "Pause for a specific amount of time. For example, this pauses for 1.2 seconds",
-            "pause|1.2",
+            "pause: 1.2",
             "I use this to add some padding between blocks of code that are output together which I find makes them easier to follow."
         ]),
         
-        SyntaxItem(headline: "press|KEY_NAME", paragraphs: [
+        SyntaxItem(headline: "press: KEY_NAME", paragraphs: [
             "Presses a single key on the keyboard.",
             "This can be used for pressing keys like 'escape', or arrow keys. For example:",
-            "press|escape\npress|down-arrow",
+            "press: escape\npress: down-arrow",
             "The full list of KEY_NAMES is listed in the 'Key Names' tab."
         ]),
         
-        SyntaxItem(headline: "press|MODIFIERS|KEY_NAME", paragraphs: [
+        SyntaxItem(headline: "press: MODIFIERS: KEY_NAME", paragraphs: [
             "Presses a single key on the keyboard while holding the specified MODIFIERS. For example, this will type 'Command + a' which does a select all in apps like VS Code:",
-            "press|command|a",
-            "Multiple MODIFIERS can be used by separating them with '|' characters. For example, this does 'Command + Shift + Left Arrow' which selects the prior word in apps like VS Code:",
-            "press|command|shift|left-arrow",
+            "press: command: a",
+            "Multiple MODIFIERS can be used by separating them with ':' characters. For example, this does 'Command + Shift + Left Arrow' which selects the prior word in apps like VS Code:",
+            "press: command: shift: left-arrow",
             "The available MODIFIERS are:",
             "- command\n- control\n- option\n- shift",
             "The full list of KEY_NAMES is listed in the 'Key Names' tab."
         ]),
         
-        SyntaxItem(headline: "repeat|NUMBER|KEY_NAME", paragraphs: [
-            "Works the same as 'press|KEY_NAME' but repeats the press NUMBER of times. For example:",
-            "repeat|5|left-arrow",
+        SyntaxItem(headline: "repeat: NUMBER: KEY_NAME", paragraphs: [
+            "Works the same as 'press: KEY_NAME' but repeats the press NUMBER of times. For example:",
+            "repeat: 5: left-arrow",
         ]),
         
-        SyntaxItem(headline: "repeat|MODIFIERS|KEY_NAME", paragraphs: [
-            "Works the same as 'press|MODIFIERS|KEY_NAME' but repeats the press NUMBER of times. For example:",
-            "repeat|5|command|shift|left-arrow",
+        SyntaxItem(headline: "repeat: MODIFIERS: KEY_NAME", paragraphs: [
+            "Works the same as 'press: MODIFIERS: KEY_NAME' but repeats the press NUMBER of times. For example:",
+            "repeat: 5: command: shift: left-arrow",
         ]),
         
         SyntaxItem(headline: "reset-delay", paragraphs: [
             "Resets the minimum and maximum times for the randomized delay between keystokes to their default values '0.03' and '0.05'",
         ]),
         
-        SyntaxItem(headline: "set-delay|NUMBER", paragraphs: [
+        SyntaxItem(headline: "set-delay: NUMBER", paragraphs: [
             "Set the delay between keystrokes to NUMBER. For example:",
-            "set-delay|0.07",
+            "set-delay: 0.07",
         ]),
         
-        SyntaxItem(headline: "set-delay|MIN|MAX", paragraphs: [
+        SyntaxItem(headline: "set-delay: MIN: MAX", paragraphs: [
             "Set the minimum and maximum times for the randomized delay between keystokes to the values defined in MIN and MAX. For example:",
-            "set-delay|0.05|0.1",
+            "set-delay: 0.05: 0.1",
         ]),
         
         SyntaxItem(headline: "stop", paragraphs: [
             "Stops the script.",
-            "I use this in conjunction with 'debug|on' to fast forward to a part of a script I want to check and then halt it there so I can verify the output.",
+            "I use this in conjunction with 'debug: on' to fast forward to a part of a script I want to check and then halt it there so I can verify the output.",
         ]),
         
-        SyntaxItem(headline: "type|STRING", paragraphs: [
+        SyntaxItem(headline: "type: STRING", paragraphs: [
             "Type the STRING of text without adding a newline or pressing the down arrow. This can be used for things like typing part of a line then doing a pause or changing the delay before finishing it.",
-            "Note: only the characters available in the 'Typing Keys' section of 'Key Names' can be used. If you need to type something else, you'll need to use 'press|MODIFIERS|KEY_NAME' (e.g. 'press|option|2' to type the ™ symbol)",
+            "Note: only the characters available in the 'Typing Keys' section of 'Key Names' can be used. If you need to type something else, you'll need to use 'press: MODIFIERS: KEY_NAME' (e.g. 'press: option: 2' to type the ™ symbol)",
             "Note: I wrote AutoTyper for my U.S. English keyboard. I'm not opposed to making a more international version, but I don't know what that would take and don't have the resources to look into right now.",
         ]),
         
-        SyntaxItem(headline: "type-down|STRING", paragraphs: [
-            "Same as 'type|STRING' but presses the down arrow key after the STRING is complete.",
-            "I generally use this instead of 'type-line|STRING' when I'm using VS Code.",
-            "Specifically, before I start the main script I run 'newline|50' then 'press|command|up-arrow' which adds 50 blank lines to the file then moves the cursor to the top.",
-            "Doing that and then using 'type-down|STRING' helps prevent the VS Code scrollbar from flashing as much. I find it less distracting that way.",
+        SyntaxItem(headline: "type-down: STRING", paragraphs: [
+            "Same as 'type: STRING' but presses the down arrow key after the STRING is complete.",
+            "I generally use this instead of 'type-line: STRING' when I'm using VS Code.",
+            "Specifically, before I start the main script I run 'newline: 50' then 'press: command: up-arrow' which adds 50 blank lines to the file then moves the cursor to the top.",
+            "Doing that and then using 'type-down: STRING' helps prevent the VS Code scrollbar from flashing as much. I find it less distracting that way.",
         ]),
         
-        SyntaxItem(headline: "type-line|STRING", paragraphs: [
-            "Same as 'type|STRING' but creates a newline after the STRING is complete.",
+        SyntaxItem(headline: "type-line: STRING", paragraphs: [
+            "Same as 'type: STRING' but creates a newline after the STRING is complete.",
         ]),
         
     ]
@@ -230,33 +235,52 @@ struct KeysView: View {
 
 struct ExamplesView: View {
     let exampleItems: [ExampleItem] = [
-        ExampleItem(
-            title: "1: Hello, World!",
-            basename: "01-hello-world",
-            description: [
-                "This is about as basic as you can get. It types 'Hello, World!' followed by a newline",
-            ]
-        ),
         
         ExampleItem(
-            title: "2: Type, Pause, Type",
-            basename: "02-type-pause-type",
-            description: [
-                "Type a few characters. Pause for a bit. Then, type the rest of the line.",
-            ]
+            title: "Example 1\nThe basic 'type' command",
+            basename: "01-type"
         ),
+        
+//        ExampleItem(
+//            title: "1: Hello, World!",
+//            basename: "01-hello-world",
+//            description: [
+//                "This is about as basic as you can get. It types 'Hello, World!' followed by a newline",
+//            ]
+//        ),
+        
+//        ExampleItem(
+//            title: "2: Type, Pause, Type",
+//            basename: "02-type-pause-type",
+//            description: [
+//                "Type a few characters. Pause for a bit. Then, type the rest of the line.",
+//            ]
+//        ),
     ]
     
-    func getScript(basename: String) -> String {
+//    func getScript(basename: String) -> String {
+//        do {
+//            if let exampleScriptUrl = Bundle.main.url(forResource: "\(basename)-script", withExtension: "txt") {
+//                let exampleScriptText = try String(contentsOf: exampleScriptUrl, encoding: String.Encoding.utf8)
+//                return exampleScriptText
+//            } else {
+//                return "Could not get script"
+//            }
+//        } catch {
+//            return "Could not get script"
+//        }
+//    }
+    
+    func getTextFromFile(basename: String, key: String) -> String {
         do {
-            if let exampleScriptUrl = Bundle.main.url(forResource: "\(basename)-script", withExtension: "txt") {
+            if let exampleScriptUrl = Bundle.main.url(forResource: "\(basename)-\(key)", withExtension: "txt") {
                 let exampleScriptText = try String(contentsOf: exampleScriptUrl, encoding: String.Encoding.utf8)
                 return exampleScriptText
             } else {
-                return "Could not get script"
+                return "Could not open file"
             }
         } catch {
-            return "Could not get script"
+            return "Could not open file"
         }
     }
     
@@ -268,16 +292,24 @@ struct ExamplesView: View {
                 VStack {
                     ForEach(exampleItems) { exampleItem in
                         VStack {
-                            let scriptContents = getScript(basename: exampleItem.basename)
+                            let scriptContents = getTextFromFile(basename: exampleItem.basename, key: "script")
+                            let descContents = getTextFromFile(basename: exampleItem.basename, key: "desc")
+                            
+                            // The Example Number And Title
                             var exampleItemHeadline: AttributedString {
                                 var text = AttributedString("\n" + exampleItem.title + "\n")
                                 text.font = .title3.bold()
                                 return text
                             }
                             Text(exampleItemHeadline).frame(maxWidth: .infinity, alignment: .leading)
+                            
+                            // The main horizontal wrapper for adding the line on the side
                             HStack {
+                                // spacer and line
                                 Text(" ").frame(maxHeight: .infinity, alignment: .top)
                                 Divider()
+                                
+                                // The main content area for the example
                                 VStack {
                                     
                                     // TODO: Figure out how to get the isplaying stuff
@@ -288,6 +320,7 @@ struct ExamplesView: View {
                                     // matter
                                     @State var isPlaying: Bool = false
                                     
+                                    // The video player or "No video" fallback
                                     if let url = Bundle.main.url(forResource: "\(exampleItem.basename)-video", withExtension: "mp4") {
                                         let player = AVPlayer(url: url)
                                         HStack {
@@ -312,31 +345,40 @@ struct ExamplesView: View {
                                     } else {
                                         Text("No video")
                                     }
-                                    Divider()
-                                    HStack {
-                                        Text(scriptContents)
-                                            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-                                            .monospaced()
-                                        Button {
-                                            NSPasteboard.general.clearContents()
-                                            NSPasteboard.general.setString(scriptContents, forType: .string)
-                                        } label: {
-                                            Image(systemName: "doc.on.doc")
-                                                .padding()
-                                        }
-                                        .frame(maxHeight: .infinity, alignment: .top)
-                                    }
-                                    Divider()
                                     
-                                    var exampleItemParagraphs: AttributedString {
-                                        var text = AttributedString("")
-                                        for paragraph in exampleItem.description {
-                                            text.append(AttributedString("\n" + paragraph + "\n"))
-                                        }
+                                    var scriptHeadline: AttributedString {
+                                        var text = AttributedString("\nScript")
+                                        text.font = .headline
                                         return text
                                     }
-                                    Text(exampleItemParagraphs).frame(maxWidth: .infinity, alignment: .leading)
-                                }.frame(maxWidth: .infinity, alignment: .leading)
+                                    
+                                    Text(scriptHeadline).frame(maxWidth: .infinity, alignment: .leading)
+                                    
+                                    
+                                    HStack {
+                                        VStack{
+                                            Text(scriptContents)
+                                                .frame(maxWidth: .infinity, alignment: .leading)
+                                        }
+                                        VStack {
+                                            Button {
+                                                NSPasteboard.general.clearContents()
+                                                NSPasteboard.general.setString(scriptContents, forType: .string)
+                                            } label: {
+                                                Image(systemName: "doc.on.doc").padding()
+                                            }
+                                        }
+                                    }
+                                    
+                                    var descHeadline: AttributedString {
+                                        var text = AttributedString("\nDescription")
+                                        text.font = .headline
+                                        return text
+                                    }
+                                    Text(descHeadline).frame(maxWidth: .infinity, alignment: .leading)
+                                    let exampleItemParagraphs = AttributedString(descContents)
+                                    Text(exampleItemParagraphs)
+                                }
                             }
                         }
                         var bottomSpacer: AttributedString {
@@ -344,9 +386,9 @@ struct ExamplesView: View {
                             text.font = .title3.bold()
                             return text
                         }
-                        Text(bottomSpacer).frame(maxWidth: .infinity, alignment: .leading)
-                    }
-                }
+                        Text(bottomSpacer).frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
+                    }.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
+                }.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
             }
             Spacer()
         }.padding()
@@ -610,7 +652,6 @@ struct ContentView: View {
         // TODO: Add errors
     }
     
-    
     func checkPermissions() -> Bool {
         let options : NSDictionary = [
             // I've read the docs, but I don't understand the difference
@@ -678,7 +719,7 @@ struct ContentView: View {
                 typeCharacter()
             }
         } else if parts.count >= 2 {
-            let newlineCount = Int(parts[1]) ?? 1
+            let newlineCount = Int(parts[1].trimmingCharacters(in: .whitespacesAndNewlines)) ?? 1
             for _ in (0..<newlineCount) {
                 charactersToType.append("\n")
             }
@@ -691,7 +732,7 @@ struct ContentView: View {
     func doPasteFile(parts: [String]) {
         if parts.count == 2 {
             do {
-                let fileUrl = URL(string: "file://" + parts[1])
+                let fileUrl = URL(string: "file://" + parts[1].trimmingCharacters(in: .whitespacesAndNewlines))
                 let contentToPaste = try String(contentsOf: fileUrl!, encoding: String.Encoding.utf8)
                 NSPasteboard.general.clearContents()
                 NSPasteboard.general.setString(contentToPaste, forType: .string)
@@ -718,7 +759,7 @@ struct ContentView: View {
         } else {
             if debugging == false {
                 if parts.count == 2 {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + (Double(parts[1]) ?? 0.0)) {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + (Double(parts[1].trimmingCharacters(in: .whitespacesAndNewlines)) ?? 0.0)) {
                         processLine()
                     }
                 }
@@ -733,6 +774,9 @@ struct ContentView: View {
     }
     
     func doPress(parts: [String]) {
+        // TODO: lowercase the incoming letters so
+        // they don't fail if someone types a capital.
+        // Either that, or throw an error? TBD on that.
         if parts.count > 1 {
             let keyToGet = parts.last!.trimmingCharacters(in: .whitespacesAndNewlines)
             if keyToGet != "" {
@@ -745,13 +789,13 @@ struct ContentView: View {
                         trimmedParts.reverse()
                         let _ = trimmedParts.popLast()
                         for trimmedPart in trimmedParts {
-                            if trimmedPart == "command" {
+                            if trimmedPart.trimmingCharacters(in: .whitespacesAndNewlines) == "command" {
                                 holdCommand = true
-                            } else if trimmedPart == "control" {
+                            } else if trimmedPart.trimmingCharacters(in: .whitespacesAndNewlines) == "control" {
                                 holdControl = true
-                            } else if trimmedPart == "option" {
+                            } else if trimmedPart.trimmingCharacters(in: .whitespacesAndNewlines) == "option" {
                                 holdOption = true
-                            } else if trimmedPart == "shift" {
+                            } else if trimmedPart.trimmingCharacters(in: .whitespacesAndNewlines) == "shift" {
                                 holdShift = true
                             }
                         }
@@ -773,7 +817,7 @@ struct ContentView: View {
         // the number isn't a number
         if parts.count > 2 {
             let keyToGet = parts.last!.trimmingCharacters(in: .whitespacesAndNewlines)
-            let repeatCount = Int32(truncating: NumberFormatter().number(from: parts[1])!)
+            let repeatCount = Int32(truncating: NumberFormatter().number(from: parts[1].trimmingCharacters(in: .whitespacesAndNewlines))!)
             if keyToGet != "" {
                 if let pressCode = pressCodes[keyToGet] {
                     for _ in (1...repeatCount) {
@@ -787,13 +831,13 @@ struct ContentView: View {
                         let _ = trimmedParts.popLast()
                         let _ = trimmedParts.popLast()
                         for trimmedPart in trimmedParts {
-                            if trimmedPart == "command" {
+                            if trimmedPart.trimmingCharacters(in: .whitespacesAndNewlines) == "command" {
                                 holdCommand = true
-                            } else if trimmedPart == "control" {
+                            } else if trimmedPart.trimmingCharacters(in: .whitespacesAndNewlines) == "control" {
                                 holdControl = true
-                            } else if trimmedPart == "option" {
+                            } else if trimmedPart.trimmingCharacters(in: .whitespacesAndNewlines) == "option" {
                                 holdOption = true
-                            } else if trimmedPart == "shift" {
+                            } else if trimmedPart.trimmingCharacters(in: .whitespacesAndNewlines) == "shift" {
                                 holdShift = true
                             }
                         }
@@ -819,11 +863,11 @@ struct ContentView: View {
     func doSetDelay(parts: [String]) {
         // TODO: Add error message if converstion to double fails
         if parts.count == 3 {
-            minDelay = Double(parts[1]) ?? defaultMinDelay
-            maxDelay = Double(parts[2]) ?? defaultMaxDelay
+            minDelay = Double(parts[1].trimmingCharacters(in: .whitespacesAndNewlines)) ?? defaultMinDelay
+            maxDelay = Double(parts[2].trimmingCharacters(in: .whitespacesAndNewlines)) ?? defaultMaxDelay
         } else if parts.count == 2 {
-            minDelay = Double(parts[1]) ?? defaultMinDelay
-            maxDelay = Double(parts[1]) ?? defaultMaxDelay
+            minDelay = Double(parts[1].trimmingCharacters(in: .whitespacesAndNewlines)) ?? defaultMinDelay
+            maxDelay = Double(parts[1].trimmingCharacters(in: .whitespacesAndNewlines)) ?? defaultMaxDelay
         } else {
             // TODO: Show Error message
         }
@@ -835,7 +879,7 @@ struct ContentView: View {
     }
     
     func doTypeCharacters(input: String) {
-        var charactersToLoad = input.split(separator: "")
+        var charactersToLoad = input.trimmingCharacters(in: .whitespacesAndNewlines).split(separator: "")
         charactersToLoad.reverse()
         for x in charactersToLoad {
             charactersToType.append(String(x))
@@ -845,8 +889,8 @@ struct ContentView: View {
     
     func doTypeDown(parts: [String]) {
         if parts.count > 1 {
-            // TODO: Deal with `|` coming in that need to be typed
-            var charactersToLoad = parts[1].split(separator: "")
+            // TODO: Deal with `:` coming in that need to be typed
+            var charactersToLoad = parts[1].trimmingCharacters(in: .whitespacesAndNewlines).split(separator: "")
             charactersToLoad.append("down-arrow")
             charactersToLoad.reverse()
             for x in charactersToLoad {
@@ -857,7 +901,7 @@ struct ContentView: View {
     }
     
     func doTypeLine(input: String) {
-        var charactersToLoad = input.split(separator: "")
+        var charactersToLoad = input.trimmingCharacters(in: .whitespacesAndNewlines).split(separator: "")
         charactersToLoad.append("\n")
         charactersToLoad.reverse()
         for x in charactersToLoad {
@@ -875,12 +919,12 @@ struct ContentView: View {
             statusLine = "Status: Running..."
             let line = scriptLines.popLast()
 //            print(line as Any)
-            let parts_substrings = line?.split(separator: "|")
+            let parts_substrings = line?.split(separator: ":")
             var parts: [String] = []
             for part in parts_substrings! {
                 parts.append(String(part))
             }
-            let action = parts[0]
+            let action = parts[0].trimmingCharacters(in: .whitespacesAndNewlines)
             if action == "debug" {
                 doDebug(parts: parts)
 //            } else if action == "hold" {
@@ -904,16 +948,16 @@ struct ContentView: View {
             } else if action == "type" {
                 // TODO: Send 'parts' so they can be
                 // combined if there's more than one
-                // separated by a `|`
-                doTypeCharacters(input: String(parts[1]))
+                // separated by a `:`
+                doTypeCharacters(input: String(parts[1].trimmingCharacters(in: .whitespacesAndNewlines)))
             } else if action == "type-down" {
                 doTypeDown(parts: parts)
             } else if action == "type-line" {
                 // TODO: Send 'parts' so they can be
                 // combined if there's more than one
-                // separated by a `|`
+                // separated by a `:`
                 if parts.count > 1 {
-                    doTypeLine(input: String(parts[1]))
+                    doTypeLine(input: String(parts[1].trimmingCharacters(in: .whitespacesAndNewlines)))
                 } else {
                     doTypeLine(input: "")
                 }

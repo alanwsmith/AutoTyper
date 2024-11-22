@@ -1,0 +1,7 @@
+type: Hello, orld!
+press: left-arrow
+press: left-arrow
+press: left-arrow
+press: left-arrow
+press: left-arrow
+press: shift: w

@@ -1,0 +1,10 @@
+The 'press:' command is used for single key presses. It's the same as pressing the given key on the keyboard without any "modifier" keys (i.e. command, control, option, or shift) being held.
+
+The example shows how the 'left-arrow' is pressed multiple times to move the cursor into position to type the "W" that was left off of "World" on the first pass. 
+
+The Command, Control, Option, and Shift modifier keys can be added to a 'press:' as well by placing them before the key to be pressed. 
+
+The example shows how typing a capital "W" with the 'press:' command requires adding 'shift:' to produce the line 'press: shift: w'
+
+
+

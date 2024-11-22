@@ -1,0 +1,9 @@
+Adding a newline (which is the same as pressing Return or Enter on the keyboard) can be done with the 'newline' command. 
+
+Notice that there's no ":" after 'newline'. Using just the word by itself outputs a single newline. 
+
+You can repeat multiple 'newline' commands one after another as seen after 'type: Hello'. 
+
+You can also add a ":" followed by a number to add a specific number of newlines at the same time (e.g. 'newline: 5' in this example which adds five newlines between 'World!' and 'etc...')
+
+

@@ -1,4 +1,0 @@
-type|Hello,
-pause|1.5
-press|space
-type-line|World

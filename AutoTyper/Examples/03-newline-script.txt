@@ -1,0 +1,7 @@
+type: Hello,
+newline
+newline
+newline
+type: World!
+newline: 5
+type: etc...

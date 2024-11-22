@@ -1,0 +1,6 @@
+newline: 50
+press: command: up-arrow
+pause: 3
+type-down: Hello,
+type-down: World!
+type-down: etc...
