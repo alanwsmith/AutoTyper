@@ -245,81 +245,86 @@ struct ExamplesView: View {
             title: "type: TEXT",
             basename: "01-type"
         ),
-        
-        ExampleItem(
-            title: "press: KEY",
-            basename: "02-press"
-        ),
-        
-        ExampleItem(
-            title: "press: MODIFIERS: KEY",
-            basename: "03-press-mod"
-        ),
-        
-        ExampleItem(
-            title: "repeat: NUMBER: KEY",
-            basename: "04-repeat"
-        ),
-        
-        ExampleItem(
-            title: "repeat: NUMBER: MODIFIERS: KEY",
-            basename: "05-repeat-mod"
-        ),
-        
-        ExampleItem(
-            title: "newline",
-            basename: "06-newline"
-        ),
-        
-        ExampleItem(
-            title: "newline: NUMBER",
-            basename: "07-newline-multi"
-        ),
-        
-        ExampleItem(
-            title: "pause",
-            basename: "08-pause"
-        ),
-        
-        ExampleItem(
-            title: "pause: NUMBER",
-            basename: "09-pause-num"
-        ),
-        
-        ExampleItem(
-            title: "type-line: TEXT",
-            basename: "10-type-line"
-        ),
-        
-        ExampleItem(
-            title: "type-down: TEXT",
-            basename: "11-type-down"
-        ),
-        
-        ExampleItem(
-            title: "paste-file: PATH",
-            basename: "12-paste-file"
-        ),
-        
-        ExampleItem(
-            title: "debug: on | debug: off",
-            basename: "13-debug"
-        ),
-        
-        ExampleItem(
-            title: "set-delay: NUMBER | set-delay: NUMBER: NUMBER",
-            basename: "14-set-delay"
-        ),
-        
-        ExampleItem(
-            title: "reset-delay",
-            basename: "15-reset-delay"
-        ),
-        
-        ExampleItem(
-            title: "stop",
-            basename: "16-stop"
-        ),
+//        
+//        ExampleItem(
+//            title: "press: KEY",
+//            basename: "02-press"
+//        ),
+//        
+//        ExampleItem(
+//            title: "press: MODIFIERS: KEY",
+//            basename: "03-press-mod"
+//        ),
+//        
+//        ExampleItem(
+//            title: "repeat: NUMBER: KEY",
+//            basename: "04-repeat"
+//        ),
+//        
+//        ExampleItem(
+//            title: "repeat: NUMBER: MODIFIERS: KEY",
+//            basename: "05-repeat-mod"
+//        ),
+//        
+//        ExampleItem(
+//            title: "newline",
+//            basename: "06-newline"
+//        ),
+//        
+//        ExampleItem(
+//            title: "newline: NUMBER",
+//            basename: "07-newline-multi"
+//        ),
+//        
+//        ExampleItem(
+//            title: "pause",
+//            basename: "08-pause"
+//        ),
+//        
+//        ExampleItem(
+//            title: "pause: NUMBER",
+//            basename: "09-pause-num"
+//        ),
+//        
+//        ExampleItem(
+//            title: "type-line: TEXT",
+//            basename: "10-type-line"
+//        ),
+//        
+//        ExampleItem(
+//            title: "type-down: TEXT",
+//            basename: "11-type-down"
+//        ),
+//        
+//        ExampleItem(
+//            title: "paste-file: PATH",
+//            basename: "12-paste-file"
+//        ),
+//        
+//        ExampleItem(
+//            title: "debug: on | debug: off",
+//            basename: "13-debug"
+//        ),
+//        
+//        ExampleItem(
+//            title: "set-delay: NUMBER | set-delay: NUMBER: NUMBER",
+//            basename: "14-set-delay"
+//        ),
+//        
+//        ExampleItem(
+//            title: "reset-delay",
+//            basename: "15-reset-delay"
+//        ),
+//        
+//        ExampleItem(
+//            title: "stop",
+//            basename: "16-stop"
+//        ),
+//        
+//        ExampleItem(
+//            title: "Full Example",
+//            basename: "17-full-1"
+//        ),
         
     ]
     
@@ -945,7 +950,7 @@ struct ContentView: View {
     }
     
     func doStop() {
-        // TODO: Show messages that you hit a stop
+        statusLine = "Process stopped in script."
     }
     
     func doTypeCharacters(input: String) {
