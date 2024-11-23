@@ -1,0 +1,4 @@
+type: Hello, World!
+stop
+type: You won't see this typed because
+type: the script was stopped. 

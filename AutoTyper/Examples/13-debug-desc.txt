@@ -1,0 +1,8 @@
+The 'debug: on' and 'debug: off' commands can be used to fast-forward through the script to make it easier to check different parts while you're working on it. 
+
+The 'debug: on' command turns off delays in typing and pauses. 
+
+The 'debug: off' returns delays in typing and pauses to normal. 
+
+(Note that depending on the app your typing somethings might not work as expected with debug. For example, doing 'press: f5' in VS Code to run code in the debugger might have a delay to it which throws off the script. You can stop debugging with 'debug: off' and then start it again after running 'press: f5' to avoid the issue)
+

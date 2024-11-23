@@ -1,0 +1,7 @@
+The 'paste-file: PATH' command copies the contents of a text file and pastes it directly in. 
+
+An easy way to get the PATH is to right click on a file in the Finder then hold down the 'Option' key which will turn the 'Copy' menu item into 'Copy ... as Pathname'. It's the full computer path to the file that you can paste into your script like:
+
+paste-file: /Users/alan/Desktop/sample.txt
+
+The 'paste-file: PATH' command works nicely with 'pause' and pressing 'F2' for showing changes in sections of code without showing the character by character typing. (I use things like 'repeat: NUMBER: shift: up-arrow' to select and then 'press: delete' to clear existing sections before pasting new ones)

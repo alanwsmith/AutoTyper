@@ -20,20 +20,15 @@
 
 [x] type-down
 
+[x] paste-file
 
+[x] debug: on|off
 
+[x] set-delay single
 
-- debug: on|off
+[x] reset-delay
 
-- paste-file
-
-- set-delay single
-
-- set-delay min max
-
-- reset-delay
-
-- stop
+[] stop
 
 
 

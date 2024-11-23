@@ -212,16 +212,7 @@ struct DocsView: View{
 }
 
 struct KeysView: View {
-    
-    //                    var keysHeadline: AttributedString {
-    //                        var text = AttributedString("\nAvailable Keys")
-    //                        text.font = .title
-    //                        text.append(AttributedString("\n\nThese are the keys you can use for `press` and `hold` lines in your scripts:\n"))
-    //                        text.append(AttributedString("\n\nTODO: Add keys"))
-    //                        return text
-    //                    }
-    //                    Text(keysHeadline).frame(maxWidth: .infinity, alignment: .leading)
-    
+    let pressCodes: [String: (UInt16, String)]
     
     var body: some View {
         VStack{
@@ -291,20 +282,32 @@ struct ExamplesView: View {
             basename: "11-type-down"
         ),
         
+        ExampleItem(
+            title: "paste-file: PATH",
+            basename: "12-paste-file"
+        ),
+        
+        ExampleItem(
+            title: "debug: on | debug: off",
+            basename: "13-debug"
+        ),
+        
+        ExampleItem(
+            title: "set-delay: NUMBER | set-delay: NUMBER: NUMBER",
+            basename: "14-set-delay"
+        ),
+        
+        ExampleItem(
+            title: "reset-delay",
+            basename: "15-reset-delay"
+        ),
+        
+        ExampleItem(
+            title: "stop",
+            basename: "16-stop"
+        ),
+        
     ]
-    
-//    func getScript(basename: String) -> String {
-//        do {
-//            if let exampleScriptUrl = Bundle.main.url(forResource: "\(basename)-script", withExtension: "txt") {
-//                let exampleScriptText = try String(contentsOf: exampleScriptUrl, encoding: String.Encoding.utf8)
-//                return exampleScriptText
-//            } else {
-//                return "Could not get script"
-//            }
-//        } catch {
-//            return "Could not get script"
-//        }
-//    }
     
     func getTextFromFile(basename: String, key: String) -> String {
         do {
@@ -617,6 +620,26 @@ struct ContentView: View {
         "f7": (0x62, ""),
         "f8": (0x64, ""),
         "f9": (0x65, ""),
+        "F1": (0x7A, ""),
+        "F10": (0x6D, ""),
+        "F11": (0x67, ""),
+        "F12": (0x6F, ""),
+        "F13": (0x69, ""),
+        "F14": (0x6B, ""),
+        "F15": (0x71, ""),
+        "F16": (0x6A, ""),
+        "F17": (0x40, ""),
+        "F18": (0x4F, ""),
+        "F19": (0x50, ""),
+        "F2": (0x78, ""),
+        "F20": (0x5A, ""),
+        "F3": (0x63, ""),
+        "F4": (0x76, ""),
+        "F5": (0x60, ""),
+        "F6": (0x61, ""),
+        "F7": (0x62, ""),
+        "F8": (0x64, ""),
+        "F9": (0x65, ""),
         "forward-delete": (0x75, ""),
         "function": (0x3F, ""),
         "g": (0x05, ""),
@@ -1191,7 +1214,7 @@ struct ContentView: View {
                 TabView{
                     StatusView(statusLine: statusLine, statusArea: statusArea).tabItem {Text("Status") }
                     DocsView().tabItem { Text("Docs") }
-                    KeysView().tabItem { Text("Key Names") }
+                    KeysView(pressCodes: pressCodes).tabItem { Text("Key Names") }
                     ExamplesView().tabItem { Text("Examples") }
                 }
                 Spacer()
