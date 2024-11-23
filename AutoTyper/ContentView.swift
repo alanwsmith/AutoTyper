@@ -188,6 +188,14 @@ struct DocsView: View{
                 }
                 Text(usageStuff).frame(maxWidth: .infinity, alignment: .leading)
                 Divider()
+                var stoppingNote:AttributedString {
+                    var text = AttributedString("Stopping\n")
+                    text.font = .title
+                    text.append(AttributedString("\nYou can stop the typing at any time by changing to any app other than the one that's being typed into."))
+                    return text
+                }
+                Text(stoppingNote).frame(maxWidth: .infinity, alignment: .leading)
+                
                 var scriptSyntaxHeadline: AttributedString {
                     var text = AttributedString("\nScript Commands")
                     text.font = .title
@@ -983,12 +991,22 @@ struct ContentView: View {
         typeCharacter()
     }
     
+    func focusedAppPid() -> Optional<pid_t> {
+        if let process = NSWorkspace.shared.frontmostApplication {
+            return process.processIdentifier
+        } else {
+            return Optional.none
+        }
+    }
+    
     func processLine() {
         holdCommand = false
         holdControl = false
         holdShift = false
         holdOption = false
-        if scriptLines.count > 0 {
+        if focusedAppPid() != Optional(selectedAppPid!) {
+                statusLine = "Process Stopped. App was changed."
+        } else if scriptLines.count > 0 {
             statusLine = "Status: Running..."
             // Some of this is hacky which was to figure out
             // how omittingEmptySubsequences was necessary
