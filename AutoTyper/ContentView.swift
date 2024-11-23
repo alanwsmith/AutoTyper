@@ -392,17 +392,13 @@ struct ExamplesView: View {
                                     Divider()
                                     
                                     HStack {
-                                        VStack{
-                                            Text(scriptContents)
-                                                .frame(maxWidth: .infinity, alignment: .leading)
-                                        }
-                                        VStack {
-                                            Button {
-                                                NSPasteboard.general.clearContents()
-                                                NSPasteboard.general.setString(scriptContents, forType: .string)
-                                            } label: {
-                                                Image(systemName: "doc.on.doc").padding()
-                                            }
+                                        Text(scriptContents)
+                                            .frame(maxWidth: .infinity, alignment: .topLeading)
+                                        Button {
+                                            NSPasteboard.general.clearContents()
+                                            NSPasteboard.general.setString(scriptContents, forType: .string)
+                                        } label: {
+                                            Image(systemName: "doc.on.doc").padding()
                                         }
                                     }
                                     
