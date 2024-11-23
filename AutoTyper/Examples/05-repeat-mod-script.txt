@@ -1,0 +1,4 @@
+type: alfa bravo charlie delta echo
+repeat: 4: option: left-arrow
+type: ECHO
+press: space

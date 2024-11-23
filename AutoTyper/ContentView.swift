@@ -137,7 +137,7 @@ struct DocsView: View{
         ]),
         
         SyntaxItem(headline: "reset-delay", paragraphs: [
-            "Resets the minimum and maximum times for the randomized delay between keystokes to their default values '0.03' and '0.05'",
+            "Resets the minimum and maximum times for the randomized delay between keystokes to their default values '0.01' and '0.03'",
         ]),
         
         SyntaxItem(headline: "set-delay: NUMBER", paragraphs: [
@@ -237,25 +237,60 @@ struct ExamplesView: View {
     let exampleItems: [ExampleItem] = [
         
         ExampleItem(
-            title: "Example 1\nThe basic 'type' command",
+            title: "type: TEXT",
             basename: "01-type"
         ),
         
-//        ExampleItem(
-//            title: "1: Hello, World!",
-//            basename: "01-hello-world",
-//            description: [
-//                "This is about as basic as you can get. It types 'Hello, World!' followed by a newline",
-//            ]
-//        ),
+        ExampleItem(
+            title: "press: KEY",
+            basename: "02-press"
+        ),
         
-//        ExampleItem(
-//            title: "2: Type, Pause, Type",
-//            basename: "02-type-pause-type",
-//            description: [
-//                "Type a few characters. Pause for a bit. Then, type the rest of the line.",
-//            ]
-//        ),
+        ExampleItem(
+            title: "press: MODIFIERS: KEY",
+            basename: "03-press-mod"
+        ),
+        
+        ExampleItem(
+            title: "repeat: NUMBER: KEY",
+            basename: "04-repeat"
+        ),
+        
+        ExampleItem(
+            title: "repeat: NUMBER: MODIFIERS: KEY",
+            basename: "05-repeat-mod"
+        ),
+        
+        ExampleItem(
+            title: "newline",
+            basename: "06-newline"
+        ),
+        
+        ExampleItem(
+            title: "newline: NUMBER",
+            basename: "07-newline-multi"
+        ),
+        
+        ExampleItem(
+            title: "pause",
+            basename: "08-pause"
+        ),
+        
+        ExampleItem(
+            title: "pause: NUMBER",
+            basename: "09-pause-num"
+        ),
+        
+        ExampleItem(
+            title: "type-line: TEXT",
+            basename: "10-type-line"
+        ),
+        
+        ExampleItem(
+            title: "type-down: TEXT",
+            basename: "11-type-down"
+        ),
+        
     ]
     
 //    func getScript(basename: String) -> String {
@@ -354,6 +389,7 @@ struct ExamplesView: View {
                                     
                                     Text(scriptHeadline).frame(maxWidth: .infinity, alignment: .leading)
                                     
+                                    Divider()
                                     
                                     HStack {
                                         VStack{
@@ -370,8 +406,10 @@ struct ExamplesView: View {
                                         }
                                     }
                                     
+                                    Divider()
+                                    
                                     var descHeadline: AttributedString {
-                                        var text = AttributedString("\nDescription")
+                                        var text = AttributedString("\nDescription\n")
                                         text.font = .headline
                                         return text
                                     }
@@ -381,21 +419,20 @@ struct ExamplesView: View {
                                 }
                             }
                         }
-                        var bottomSpacer: AttributedString {
-                            var text = AttributedString("\n")
-                            text.font = .title3.bold()
-                            return text
-                        }
-                        Text(bottomSpacer).frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
                     }.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
+                    var bottomSpacer: AttributedString {
+                        var text = AttributedString("\n")
+                        text.font = .title3.bold()
+                        return text
+                    }
+                    Text(bottomSpacer).frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
                 }.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
+
             }
             Spacer()
         }.padding()
     }
 }
-
-
 
 struct ContentView: View {
     @State var appToWriteTo: NSRunningApplication?
@@ -406,12 +443,12 @@ struct ContentView: View {
     @State var holdControl = false
     @State var holdOption = false
     @State var holdShift = false
-    @State var defaultMinDelay = 0.03
-    @State var defaultMaxDelay = 0.05
-    @State var minDelay = 0.03
-    @State var maxDelay = 0.05
-    @State var debugMinHold = 0.03
-    @State var debugMaxHold = 0.05
+    @State var defaultMinDelay = 0.01
+    @State var defaultMaxDelay = 0.03
+    @State var minDelay = 0.01
+    @State var maxDelay = 0.03
+    @State var debugMinHold = 0.01
+    @State var debugMaxHold = 0.03
     @State var debugging = false
     @State var hasPermissions = AXIsProcessTrusted()
     @State var selectedAppName = "Not Selected"
@@ -890,7 +927,18 @@ struct ContentView: View {
     func doTypeDown(parts: [String]) {
         if parts.count > 1 {
             // TODO: Deal with `:` coming in that need to be typed
-            var charactersToLoad = parts[1].trimmingCharacters(in: .whitespacesAndNewlines).split(separator: "")
+            var charLoader: [String] = []
+            print(parts)
+            var partsToLoad = parts
+            partsToLoad.reverse()
+            let _ = partsToLoad.popLast()
+            partsToLoad.reverse()
+            partsToLoad.forEach { thing in
+                charLoader.append(thing)
+            }
+            let characterLine = charLoader.joined(separator: ":").trimmingCharacters(in: .whitespacesAndNewlines)
+            print(characterLine)
+            var charactersToLoad = characterLine.split(separator: "")
             charactersToLoad.append("down-arrow")
             charactersToLoad.reverse()
             for x in charactersToLoad {
@@ -917,18 +965,21 @@ struct ContentView: View {
         holdOption = false
         if scriptLines.count > 0 {
             statusLine = "Status: Running..."
+            // Some of this is hacky which was to figure out
+            // how omittingEmptySubsequences was necessary
             let line = scriptLines.popLast()
+//            print(line)
 //            print(line as Any)
-            let parts_substrings = line?.split(separator: ":")
+            let parts_substrings = line?.split(separator: ":", omittingEmptySubsequences: false)
+//            print(parts_substrings)
             var parts: [String] = []
             for part in parts_substrings! {
+//                print(part)
                 parts.append(String(part))
             }
             let action = parts[0].trimmingCharacters(in: .whitespacesAndNewlines)
             if action == "debug" {
                 doDebug(parts: parts)
-//            } else if action == "hold" {
-//                doHold(parts: parts)
             } else if action == "newline" {
                 doNewline(parts: parts)
             } else if action == "paste-file" {
@@ -1033,7 +1084,6 @@ struct ContentView: View {
             }
         }
     }
-    
     
     func typeCharacterInApp(theCharacter: String) {
         let parts = keyCodes[theCharacter]!

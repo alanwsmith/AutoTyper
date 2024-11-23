@@ -1,5 +1,0 @@
-Having to add newlines manually at the end of ever piece of text would get annoying. That's where 'type-line:' comes in. 
-
-The 'type-line:' command types things out the same way as 'type:' but then automatically adds a newline at the end. 
-
-This was the original command I made to simplify AutoTyper but I don't use it as much anymore. I use 'type-down:' (which we'll see in the next example) most of the time. It can be used in a way that helps prevent scroll bars flashing. 

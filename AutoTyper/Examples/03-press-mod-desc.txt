@@ -1,0 +1,11 @@
+The 'press: MODIFIERS: KEY' command can also be used to type with with 'modifier' keys: Command, Control, Option, and Shift. 
+
+Using one 'modifier' looks like this:
+
+press: command: a
+
+And multiple looks like this:
+
+press: command: shift: left-arrow
+
+Check the 'Key Names' tab for the full list of available keys. 

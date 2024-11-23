@@ -1,0 +1,51 @@
+debug: on
+press: command: a
+press: delete
+newline: 50
+press: command: up-arrow
+debug: off
+pause: 2.5
+type: # Let's start with a list
+pause: 1.5
+repeat: 2: down-arrow
+type-down: words = ["alfa", "bravo"]
+pause: 1.2
+press: command: up-arrow
+press: command: shift: right-arrow
+type: # Now let's add a loop
+pause: 1.2
+press: command: left-arrow
+repeat: 4: down-arrow
+type-down: for word in words:
+press: tab
+type-down: print(f"{word} - is the word")
+pause: 1.2
+press: command: up-arrow
+press: command: shift: right-arrow
+type: # We can run the code in the debug console
+pause: 0.3
+press: control: f5
+pause: 2.6
+press: command: shift: left-arrow
+type: # Now, let's update the words
+pause: 1.4
+press: command: left-arrow
+repeat: 2: down-arrow
+repeat: 3: option: right-arrow
+press: option: shift: right-arrow
+pause: 0.4
+type: CHARLIE
+pause: 0.4
+repeat: 2: option: right-arrow
+press: option: shift: left-arrow
+pause: 0.4
+type: DELTA
+pause: 0.7
+press: command: up-arrow
+press: command: shift: right-arrow
+type: # And rerun the process to see the new words
+pause: 0.7
+press: control: f5
+pause: 2.8
+
+

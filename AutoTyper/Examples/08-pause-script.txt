@@ -1,0 +1,4 @@
+type: Pausing until I press F2
+pause
+newline
+type: You couldn't see it, but I pressed it

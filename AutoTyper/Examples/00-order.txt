@@ -1,33 +1,31 @@
 [x] type
 
-[x] press single and modifier
+[x] press single
 
-[x] newline single and multiple 
+[x] press modifier
+
+[] repeat
+
+[] repeat mod 
+
+[x] newline single 
+
+[x] and multiple 
+
+[x] pause 
+
+[x] pause number
 
 [x] type-line
 
 [x] type-down
 
-[] pause - number and F2
 
 
-
-
-- Number pause
-
-- F2 pause
 
 - debug: on|off
 
 - paste-file
-
-- press
-
-- press with modifiers
-
-- repeat
-
-- repeat with modifiers
 
 - set-delay single
 

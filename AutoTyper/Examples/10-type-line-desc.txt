@@ -1,0 +1,10 @@
+The 'type-line: TEXT' command is a shortcut to adding text and entering a newline after it. For example, doing this:
+
+type-line: Hello, World!
+
+is the same as doing:
+
+type: Hello, World!
+newline
+
+This was the original shortcut but I don't use it as much anymore. Instead, I generally use 'type-down: TEXT' (which we'll see in the next example). By prepping a file with multiple empty newlines it can help prevent scroll bars in apps like VS Code from flashing. 

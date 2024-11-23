@@ -1,7 +1,9 @@
-type: Hello, orld!
+type: World!
 press: left-arrow
 press: left-arrow
 press: left-arrow
 press: left-arrow
 press: left-arrow
-press: shift: w
+press: left-arrow
+type: Hello,
+press: space

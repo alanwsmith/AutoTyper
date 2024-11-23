@@ -1,4 +1,4 @@
-newline: 50
+newline: 16
 press: command: up-arrow
 pause: 3
 type-down: Hello,
