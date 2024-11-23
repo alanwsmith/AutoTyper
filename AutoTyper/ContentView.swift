@@ -214,10 +214,16 @@ struct DocsView: View{
 struct KeysView: View {
     let pressCodes: [String: (UInt16, String)]
     
+    func sortStuff() -> [String] {
+        []
+    }
+    
     var body: some View {
         VStack{
             ScrollView {
-//                Text(statusArea).frame(maxWidth: .infinity, alignment: .leading)
+                ForEach(Array(pressCodes.keys.sorted()), id: \.self) { item in
+                    Text(item)
+                }
             }
             Spacer()
         }.padding()
