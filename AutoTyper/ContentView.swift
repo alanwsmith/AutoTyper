@@ -344,86 +344,67 @@ struct ExamplesView: View {
                             return text
                         }
                         Text(exampleItemHeadline).frame(maxWidth: .infinity, alignment: .leading)
-                        
-                        // The main horizontal wrapper for adding the line on the side
+                        // TODO: Figure out how to get the isplaying stuff
+                        // working. The original version was for a single
+                        // video so need something that can deal with
+                        // multiple ones on the same page. But for now,
+                        // the clips are short enough that it doesn't
+                        // matter
+                        @State var isPlaying: Bool = false
+                        // The video player or "No video" fallback
+                        if let url = Bundle.main.url(forResource: "\(exampleItem.basename)-video", withExtension: "mp4") {
+                            let player = AVPlayer(url: url)
+                            HStack {
+                                AVPlayerControllerRepresented(player: player)
+                                    .frame(height: 210)
+                                    .disabled(true)
+                                Button {
+                                    if isPlaying == true {
+                                        player.pause()
+                                    } else {
+                                        player.seek(to: .zero)
+                                        player.play()
+                                    }
+                                    isPlaying.toggle()
+                                } label: {
+                                    Image(systemName: isPlaying ? "stop" : "play")
+                                        .padding()
+                                }.onReceive(playerDidFinishNotification, perform: { _ in
+                                    isPlaying = false
+                                })
+                            }
+                        } else {
+                            Text("No video")
+                        }
+                        var scriptHeadline: AttributedString {
+                            var text = AttributedString("\nScript")
+                            text.font = .headline
+                            return text
+                        }
+                        Text(scriptHeadline).frame(maxWidth: .infinity, alignment: .leading)
+                        Divider()
                         HStack {
-                            // spacer and line
-                            Text(" ").frame(maxHeight: .infinity, alignment: .top)
-                            Divider()
-                            
-                            // The main content area for the example
-                            VStack {
-                                
-                                // TODO: Figure out how to get the isplaying stuff
-                                // working. The original version was for a single
-                                // video so need something that can deal with
-                                // multiple ones on the same page. But for now,
-                                // the clips are short enough that it doesn't
-                                // matter
-                                @State var isPlaying: Bool = false
-                                
-                                // The video player or "No video" fallback
-                                if let url = Bundle.main.url(forResource: "\(exampleItem.basename)-video", withExtension: "mp4") {
-                                    let player = AVPlayer(url: url)
-                                    HStack {
-                                        AVPlayerControllerRepresented(player: player)
-                                            .frame(height: 210)
-                                            .disabled(true)
-                                        Button {
-                                            if isPlaying == true {
-                                                player.pause()
-                                            } else {
-                                                player.seek(to: .zero)
-                                                player.play()
-                                            }
-                                            isPlaying.toggle()
-                                        } label: {
-                                            Image(systemName: isPlaying ? "stop" : "play")
-                                                .padding()
-                                        }.onReceive(playerDidFinishNotification, perform: { _ in
-                                            isPlaying = false
-                                        })
-                                    }
-                                } else {
-                                    Text("No video")
-                                }
-                                
-                                var scriptHeadline: AttributedString {
-                                    var text = AttributedString("\nScript")
-                                    text.font = .headline
-                                    return text
-                                }
-                                
-                                Text(scriptHeadline).frame(maxWidth: .infinity, alignment: .leading)
-                                
-                                Divider()
-                                
-                                HStack {
-                                    Text(scriptContents)
-                                        .frame(maxWidth: .infinity, alignment: .topLeading)
-                                    Button {
-                                        NSPasteboard.general.clearContents()
-                                        NSPasteboard.general.setString(scriptContents, forType: .string)
-                                    } label: {
-                                        Image(systemName: "doc.on.doc").padding()
-                                    }
-                                }
-                                
-                                Divider()
-                                
-                                var descHeadline: AttributedString {
-                                    var text = AttributedString("\nDescription\n")
-                                    text.font = .headline
-                                    return text
-                                }
-                                Text(descHeadline).frame(maxWidth: .infinity, alignment: .leading)
-                                let exampleItemParagraphs = AttributedString(descContents)
-                                Text(exampleItemParagraphs)
+                            Text(scriptContents)
+                                .frame(maxWidth: .infinity, alignment: .topLeading)
+                            Button {
+                                NSPasteboard.general.clearContents()
+                                NSPasteboard.general.setString(scriptContents, forType: .string)
+                            } label: {
+                                Image(systemName: "doc.on.doc").padding()
                             }
                         }
+                        Divider()
+                        var descHeadline: AttributedString {
+                            var text = AttributedString("\nDescription\n")
+                            text.font = .headline
+                            return text
+                        }
+                        Text(descHeadline).frame(maxWidth: .infinity, alignment: .leading)
+                        let exampleItemParagraphs = AttributedString(descContents)
+                        Text(exampleItemParagraphs)
                     }
                 }.tabItem { Text(String(exampleItem.num)) }
-            }
+            }.padding()
         }
     }
 }
@@ -508,85 +489,69 @@ struct Examples2View: View {
                         }
                         Text(exampleItemHeadline).frame(maxWidth: .infinity, alignment: .leading)
                         
-                        // The main horizontal wrapper for adding the line on the side
+                        
+                        // TODO: Figure out how to get the isplaying stuff
+                        // working. The original version was for a single
+                        // video so need something that can deal with
+                        // multiple ones on the same page. But for now,
+                        // the clips are short enough that it doesn't
+                        // matter
+                        @State var isPlaying: Bool = false
+                        
+                        // The video player or "No video" fallback
+                        if let url = Bundle.main.url(forResource: "\(exampleItem.basename)-video", withExtension: "mp4") {
+                            let player = AVPlayer(url: url)
+                            HStack {
+                                AVPlayerControllerRepresented(player: player)
+                                    .frame(height: 210)
+                                    .disabled(true)
+                                Button {
+                                    if isPlaying == true {
+                                        player.pause()
+                                    } else {
+                                        player.seek(to: .zero)
+                                        player.play()
+                                    }
+                                    isPlaying.toggle()
+                                } label: {
+                                    Image(systemName: isPlaying ? "stop" : "play")
+                                        .padding()
+                                }.onReceive(playerDidFinishNotification, perform: { _ in
+                                    isPlaying = false
+                                })
+                            }
+                        } else {
+                            Text("No video")
+                        }
+                        var scriptHeadline: AttributedString {
+                            var text = AttributedString("\nScript")
+                            text.font = .headline
+                            return text
+                        }
+                        Text(scriptHeadline).frame(maxWidth: .infinity, alignment: .leading)
+                        Divider()
                         HStack {
-                            // spacer and line
-                            Text(" ").frame(maxHeight: .infinity, alignment: .top)
-                            Divider()
-                            
-                            // The main content area for the example
-                            VStack {
-                                
-                                // TODO: Figure out how to get the isplaying stuff
-                                // working. The original version was for a single
-                                // video so need something that can deal with
-                                // multiple ones on the same page. But for now,
-                                // the clips are short enough that it doesn't
-                                // matter
-                                @State var isPlaying: Bool = false
-                                
-                                // The video player or "No video" fallback
-                                if let url = Bundle.main.url(forResource: "\(exampleItem.basename)-video", withExtension: "mp4") {
-                                    let player = AVPlayer(url: url)
-                                    HStack {
-                                        AVPlayerControllerRepresented(player: player)
-                                            .frame(height: 210)
-                                            .disabled(true)
-                                        Button {
-                                            if isPlaying == true {
-                                                player.pause()
-                                            } else {
-                                                player.seek(to: .zero)
-                                                player.play()
-                                            }
-                                            isPlaying.toggle()
-                                        } label: {
-                                            Image(systemName: isPlaying ? "stop" : "play")
-                                                .padding()
-                                        }.onReceive(playerDidFinishNotification, perform: { _ in
-                                            isPlaying = false
-                                        })
-                                    }
-                                } else {
-                                    Text("No video")
-                                }
-                                
-                                var scriptHeadline: AttributedString {
-                                    var text = AttributedString("\nScript")
-                                    text.font = .headline
-                                    return text
-                                }
-                                
-                                Text(scriptHeadline).frame(maxWidth: .infinity, alignment: .leading)
-                                
-                                Divider()
-                                
-                                HStack {
-                                    Text(scriptContents)
-                                        .frame(maxWidth: .infinity, alignment: .topLeading)
-                                    Button {
-                                        NSPasteboard.general.clearContents()
-                                        NSPasteboard.general.setString(scriptContents, forType: .string)
-                                    } label: {
-                                        Image(systemName: "doc.on.doc").padding()
-                                    }
-                                }
-                                
-                                Divider()
-                                
-                                var descHeadline: AttributedString {
-                                    var text = AttributedString("\nDescription\n")
-                                    text.font = .headline
-                                    return text
-                                }
-                                Text(descHeadline).frame(maxWidth: .infinity, alignment: .leading)
-                                let exampleItemParagraphs = AttributedString(descContents)
-                                Text(exampleItemParagraphs)
+                            Text(scriptContents)
+                                .frame(maxWidth: .infinity, alignment: .topLeading)
+                            Button {
+                                NSPasteboard.general.clearContents()
+                                NSPasteboard.general.setString(scriptContents, forType: .string)
+                            } label: {
+                                Image(systemName: "doc.on.doc").padding()
                             }
                         }
+                        Divider()
+                        var descHeadline: AttributedString {
+                            var text = AttributedString("\nDescription\n")
+                            text.font = .headline
+                            return text
+                        }
+                        Text(descHeadline).frame(maxWidth: .infinity, alignment: .leading)
+                        let exampleItemParagraphs = AttributedString(descContents)
+                        Text(exampleItemParagraphs)
                     }
                 }.tabItem { Text(String(exampleItem.num)) }
-            }
+            }.padding()
         }
     }
 }
