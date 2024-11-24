@@ -560,30 +560,31 @@ struct Examples2View: View {
 
 struct ContentView: View {
     @State var appToWriteTo: NSRunningApplication?
+    @State var captureLines = false
     @State var charactersToType: [String] = []
     @State var codesToType: [UInt16] = []
-    @State var linesToPaste: [String] = []
-    @State var scriptLines: [Substring] = []
+    @State var debugging = false
+    @State var debugMaxHold = 0.03
+    @State var debugMinHold = 0.01
+    @State var defaultMaxDelay = 0.03
+    @State var defaultMinDelay = 0.01
+    @State var delayAfterPaste = 0.03
+    @State var errors: [String] = []
+    @State var hasPermissions = AXIsProcessTrusted()
     @State var holdCommand = false
     @State var holdControl = false
     @State var holdOption = false
     @State var holdShift = false
-    @State var defaultMinDelay = 0.01
-    @State var defaultMaxDelay = 0.03
-    @State var delayAfterPaste = 0.03
-    @State var minDelay = 0.01
-    @State var maxDelay = 0.03
-    @State var debugMinHold = 0.01
-    @State var debugMaxHold = 0.03
-    @State var debugging = false
-    @State var hasPermissions = AXIsProcessTrusted()
-    @State var selectedAppName = "Not Selected"
-    @State var scriptUrl: Optional<URL> = Optional.none
-    @State var selectedAppPid: Optional<pid_t> = Optional.none
-    @State var statusLine = "Status: Ready"
-    @State var statusArea = ""
-    @State var errors: [String] = []
     @State var isPaused = false
+    @State var linesToPaste: [String] = []
+    @State var maxDelay = 0.03
+    @State var minDelay = 0.01
+    @State var scriptLines: [Substring] = []
+    @State var scriptUrl: Optional<URL> = Optional.none
+    @State var selectedAppName = "Not Selected"
+    @State var selectedAppPid: Optional<pid_t> = Optional.none
+    @State var statusArea = ""
+    @State var statusLine = "Status: Ready"
     
     let keyCodes: [String: (UInt16, [CGEventFlags])] = [
         // NOTE: The arrows is special, they are for
@@ -1017,42 +1018,10 @@ struct ContentView: View {
             doDown?.postToPid(selectedAppPid!)
             doUp?.postToPid(selectedAppPid!)
             DispatchQueue.main.asyncAfter(deadline: .now() + delayAfterPaste) {
-//                charactersToType.append(String("\n"))
                 doPasteFileLine()
             }
         }
         processLine()
-        
-//        if parts.count > 1 {
-//            var charLoader: [String] = []
-//            var partsToLoad = parts
-//            partsToLoad.reverse()
-//            let _ = partsToLoad.popLast()
-//            partsToLoad.reverse()
-//            partsToLoad.forEach { thing in
-//                charLoader.append(thing)
-//            }
-//            let characterLine = charLoader.joined(separator: ":").trimmingCharacters(in: .whitespacesAndNewlines)
-//            NSPasteboard.general.clearContents()
-//            NSPasteboard.general.setString(characterLine, forType: .string)
-//            let src = CGEventSource(stateID: .privateState)
-//            let doDown = CGEvent(keyboardEventSource: src, virtualKey: 0x09, keyDown: true)
-//            let doUp = CGEvent(keyboardEventSource: src, virtualKey: 0x09, keyDown: false)
-//            let flagList: [CGEventFlags] = [CGEventFlags.maskCommand]
-//            let flags: CGEventFlags = CGEventFlags.init(flagList)
-//            doDown?.flags = flags
-//            doUp?.flags = flags
-//            doDown?.postToPid(selectedAppPid!)
-//            doUp?.postToPid(selectedAppPid!)
-//            DispatchQueue.main.asyncAfter(deadline: .now() + delayAfterPaste) {
-//                charactersToType.append(String("\n"))
-//                typeCharacter()
-//            }
-//        } else {
-//            addError(parts: parts, message: "Problem in doPasteDown")
-//            processLine()
-//        }
-        
     }
     
     func doPasteFileLines(parts: [String]) {
@@ -1063,21 +1032,6 @@ struct ContentView: View {
                 linesToPaste = contentToPaste.split(separator: "\n", omittingEmptySubsequences: false).map{ String($0) }
                 linesToPaste.reverse()
                 doPasteFileLine()
-//                NSPasteboard.general.clearContents()
-//                NSPasteboard.general.setString(contentToPaste, forType: .string)
-//                let src = CGEventSource(stateID: .privateState)
-//                let doDown = CGEvent(keyboardEventSource: src, virtualKey: 0x09, keyDown: true)
-//                let doUp = CGEvent(keyboardEventSource: src, virtualKey: 0x09, keyDown: false)
-//                let flagList: [CGEventFlags] = [CGEventFlags.maskCommand]
-//                let flags: CGEventFlags = CGEventFlags.init(flagList)
-//                doDown?.flags = flags
-//                doUp?.flags = flags
-//                doDown?.postToPid(selectedAppPid!)
-//                doUp?.postToPid(selectedAppPid!)
-//                DispatchQueue.main.asyncAfter(deadline: .now() + delayAfterPaste) {
-//                    processLine()
-//                }
-                
             } catch{
                 addError(parts: parts, message: "Could not copy file")
                 DispatchQueue.main.asyncAfter(deadline: .now() + delayAfterPaste) {
@@ -1327,19 +1281,25 @@ struct ContentView: View {
         holdShift = false
         holdOption = false
         if focusedAppPid() != Optional(selectedAppPid!) {
-                statusLine = "Process Stopped. App was changed."
+            statusLine = "Process Stopped. App was changed."
+        } else if captureLines == true {
+            let line = scriptLines.popLast()
+            if line?.trimmingCharacters(in: .whitespacesAndNewlines) == "end-lines" {
+                captureLines = false
+                linesToPaste.reverse()
+                doPasteFileLine()
+            } else {
+                if let lineToAdd = line {
+                    linesToPaste.append(String(lineToAdd))
+                }
+                processLine()
+            }
         } else if scriptLines.count > 0 {
             statusLine = "Status: Running..."
-            // Some of this is hacky which was to figure out
-            // how omittingEmptySubsequences was necessary
             let line = scriptLines.popLast()
-//            print(line)
-//            print(line as Any)
             let parts_substrings = line?.split(separator: ":", omittingEmptySubsequences: false)
-//            print(parts_substrings)
             var parts: [String] = []
             for part in parts_substrings! {
-//                print(part)
                 parts.append(String(part))
             }
             let action = parts[0].trimmingCharacters(in: .whitespacesAndNewlines)
@@ -1367,6 +1327,9 @@ struct ContentView: View {
                 doResetDelay()
             } else if action == "set-delay" {
                 doSetDelay(parts: parts)
+            } else if action == "start-lines" {
+                captureLines = true
+                processLine()
             } else if action == "stop" {
                 doStop()
             } else if action == "type" {
@@ -1436,7 +1399,7 @@ struct ContentView: View {
                         checkApp.activate()
                     }
                 }
-                scriptLines = scriptContents.split(separator: "\n")
+                scriptLines = scriptContents.split(separator: "\n", omittingEmptySubsequences: false)
                 scriptLines.reverse()
                 // wait a second after activation before running
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
