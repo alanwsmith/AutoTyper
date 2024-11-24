@@ -1055,13 +1055,24 @@ struct ContentView: View {
         statusLine = "Process stopped in script."
     }
     
-    func doTypeCharacters(input: String) {
-        var charactersToLoad = input.trimmingCharacters(in: .whitespacesAndNewlines).split(separator: "")
-        charactersToLoad.reverse()
-        for x in charactersToLoad {
-            charactersToType.append(String(x))
+    func doTypeCharacters(parts: [String]) {
+        if parts.count > 1 {
+            var charLoader: [String] = []
+            var partsToLoad = parts
+            partsToLoad.reverse()
+            let _ = partsToLoad.popLast()
+            partsToLoad.reverse()
+            partsToLoad.forEach { thing in
+                charLoader.append(thing)
+            }
+            let characterLine = charLoader.joined(separator: ":").trimmingCharacters(in: .whitespacesAndNewlines)
+            var charactersToLoad = characterLine.split(separator: "")
+            charactersToLoad.reverse()
+            for x in charactersToLoad {
+                charactersToType.append(String(x))
+            }
+            typeCharacter()
         }
-        typeCharacter()
     }
     
     func doTypeDown(parts: [String]) {
@@ -1155,10 +1166,7 @@ struct ContentView: View {
             } else if action == "stop" {
                 doStop()
             } else if action == "type" {
-                // TODO: Send 'parts' so they can be
-                // combined if there's more than one
-                // separated by a `:`
-                doTypeCharacters(input: String(parts[1].trimmingCharacters(in: .whitespacesAndNewlines)))
+                doTypeCharacters(parts: parts)
             } else if action == "type-down" {
                 doTypeDown(parts: parts)
             } else if action == "type-line" {
