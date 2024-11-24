@@ -28,8 +28,45 @@ Lorem ipsum dolor sit amet, consectetur
 adipiscing elit. Vestibulum a nibh et.
 
 Elit dapibus aliquam sollicitudin et 
-lectus. Aliquam erat volutpat.
+lectus. Aliquam erat volut.
 end-lines-down
+pause
+
+# Change the message
+
+up: 7
+press: command: left-arrow
+press: command: shift: right-arrow
+type: Now let's edit a word
+pause
+
+# Edit the word
+
+press: command: left-arrow
+down: 2
+press: option: right-arrow
+press: option: shift: right-arrow
+pause: 0.5
+press: space
+paste: CHANGED
+pause
+
+# Show thank you message
+
+up: 2
+press: command: left-arrow
+press: command: shift: right-arrow
+type: That's it for this example
+pause
+
+press: command: left-arrow
+press: command: shift: right-arrow
+type: Thanks for watching!
+
+
+
+
+
 
 
 

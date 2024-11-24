@@ -102,9 +102,9 @@ struct DocsView: View{
         
         SyntaxItem(headline: "pause", paragraphs: [
             "This is the version of 'pause' that doesn't have a ':' or number after it. It pauses the script fully.",
-            "Press the F2 key to resume the script.",
-            "This is designed to make it easier to do live recordings of scripts where you have everything set up and then use the pause/F2 process to add break points for talking.",
-            "Depending on how you mac is set up, you'll need to hold down the 'fn' key when you press 'F2' to get it to trigger instead of changing the brightness of your screen.",
+            "Press the F4 key to resume the instructions.",
+            "This is designed to make it easier to do live recordings of scripts where you have everything set up and then use the pause/F4 process to add break points for talking.",
+            "Depending on how you mac is set up, you'll need to hold down the 'fn' key when you press 'F4' to get it to trigger.",
         ]),
         
         SyntaxItem(headline: "pause: NUMBER", paragraphs: [
@@ -595,6 +595,9 @@ struct ContentView: View {
         // to prevent the scrollbar flashing when
         // the script types.
         "down-arrow": (0x7D, []),
+        "up-arrow": (0x7E, []),
+        "left-arrow": (0x7B, []),
+        "right-arrow": (0x7C, []),
         // These are the regular keys
         "0": (0x1D, []),
         ")": (0x1D, [.maskShift]),
@@ -898,6 +901,20 @@ struct ContentView: View {
         typeCharacter()
     }
     
+    func doLeft(parts: [String]) {
+        if parts.count == 1 {
+            charactersToType.append("left-arrow")
+        } else {
+            // TODO: Figure out how to throw an error here if
+            // there's not a valid number
+            let charactersDown = Int32(truncating: NumberFormatter().number(from: parts[1])!)
+            for _ in (0..<charactersDown) {
+                charactersToType.append("left-arrow")
+            }
+        }
+        typeCharacter()
+    }
+    
     // note that this handles newline and newlines. there's
     // no difference in the behavior. It's just nicer to
     // be able to use either for the instructions. Would
@@ -1139,8 +1156,8 @@ struct ContentView: View {
     func doPause(parts: [String]) {
         if parts.count == 1 {
             isPaused = true
-            statusLine = "Status: Paused. Press F2 to resume"
-            statusLineForRun = "Paused. Press F2 to resume"
+            statusLine = "Status: Paused. Press F4 to resume"
+            statusLineForRun = "Paused. Press F4 to resume"
         } else {
             if debugging == false {
                 if parts.count == 2 {
@@ -1246,6 +1263,20 @@ struct ContentView: View {
         processLine()
     }
     
+    func doRight(parts: [String]) {
+        if parts.count == 1 {
+            charactersToType.append("right-arrow")
+        } else {
+            // TODO: Figure out how to throw an error here if
+            // there's not a valid number
+            let charactersDown = Int32(truncating: NumberFormatter().number(from: parts[1])!)
+            for _ in (0..<charactersDown) {
+                charactersToType.append("right-arrow")
+            }
+        }
+        typeCharacter()
+    }
+    
     func doSetDelay(parts: [String]) {
         // TODO: Add error message if converstion to double fails
         if parts.count == 3 {
@@ -1327,6 +1358,20 @@ struct ContentView: View {
         }
     }
     
+    func doUp(parts: [String]) {
+        if parts.count == 1 {
+            charactersToType.append("up-arrow")
+        } else {
+            // TODO: Figure out how to throw an error here if
+            // there's not a valid number
+            let charactersDown = Int32(truncating: NumberFormatter().number(from: parts[1])!)
+            for _ in (0..<charactersDown) {
+                charactersToType.append("up-arrow")
+            }
+        }
+        typeCharacter()
+    }
+    
     func focusedAppPid() -> Optional<pid_t> {
         if let process = NSWorkspace.shared.frontmostApplication {
             return process.processIdentifier
@@ -1381,6 +1426,8 @@ struct ContentView: View {
                 doDebug(parts: parts)
             } else if action == "down" {
                 doDown(parts: parts)
+            } else if action == "left" {
+                doLeft(parts: parts)
             } else if action == "newline" {
                 doNewline(parts: parts)
             } else if action == "newlines" {
@@ -1405,6 +1452,8 @@ struct ContentView: View {
                 doRepeat(parts: parts)
             } else if action == "reset-delay" {
                 doResetDelay()
+            } else if action == "right" {
+                doRight(parts: parts)
             } else if action == "set-delay" {
                 doSetDelay(parts: parts)
             } else if action == "start-lines" {
@@ -1421,6 +1470,8 @@ struct ContentView: View {
                 doTypeDown(parts: parts)
             } else if action == "type-line" {
                 doTypeLine(parts: parts)
+            } else if action == "up" {
+                doUp(parts: parts)
             } else {
                 processLine()
             }
@@ -1475,7 +1526,7 @@ struct ContentView: View {
             statusLine = "Status: Running..."
             statusLineForRun = "Running..."
             NSEvent.addGlobalMonitorForEvents(matching: [.keyDown]) { (event) in
-                if isPaused == true && event.keyCode == 0x78 {
+                if isPaused == true && event.keyCode == 0x76 {
                     isPaused = false
                     processLine()
                 }
