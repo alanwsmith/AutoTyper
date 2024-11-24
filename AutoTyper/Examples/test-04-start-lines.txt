@@ -1,3 +1,6 @@
+press: command: a
+press: delete
+pause: 0.5
 start-lines
 Hello, World
 

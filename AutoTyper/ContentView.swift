@@ -561,6 +561,7 @@ struct Examples2View: View {
 struct ContentView: View {
     @State var appToWriteTo: NSRunningApplication?
     @State var captureLines = false
+    @State var captureLinesDown = false
     @State var charactersToType: [String] = []
     @State var codesToType: [UInt16] = []
     @State var debugging = false
@@ -1294,6 +1295,18 @@ struct ContentView: View {
                 }
                 processLine()
             }
+        } else if captureLinesDown == true {
+            let line = scriptLines.popLast()
+            if line?.trimmingCharacters(in: .whitespacesAndNewlines) == "end-lines-down" {
+                captureLinesDown = false
+                linesToPaste.reverse()
+                doPasteFileLine()
+            } else {
+                if let lineToAdd = line {
+                    linesToPaste.append(String(lineToAdd))
+                }
+                processLine()
+            }
         } else if scriptLines.count > 0 {
             statusLine = "Status: Running..."
             let line = scriptLines.popLast()
@@ -1329,6 +1342,9 @@ struct ContentView: View {
                 doSetDelay(parts: parts)
             } else if action == "start-lines" {
                 captureLines = true
+                processLine()
+            } else if action == "start-lines-down" {
+                captureLinesDown = true
                 processLine()
             } else if action == "stop" {
                 doStop()
