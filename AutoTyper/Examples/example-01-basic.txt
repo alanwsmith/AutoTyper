@@ -14,12 +14,14 @@ pause
 type-down: Welcome To AutoTyper
 pause
 
-# Load the text with a little pause
-# for a prepended message
+# Write the first message 
 
 down
 type: Let's load some text
-pause: 1.2
+pause
+
+# Create the initial content 
+
 down: 2
 start-lines-down
 Lorem ipsum dolor sit amet, consectetur 
@@ -28,6 +30,8 @@ adipiscing elit. Vestibulum a nibh et.
 Elit dapibus aliquam sollicitudin et 
 lectus. Aliquam erat volutpat.
 end-lines-down
+
+
 
 
 

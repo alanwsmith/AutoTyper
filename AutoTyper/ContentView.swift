@@ -936,13 +936,13 @@ struct ContentView: View {
             NSPasteboard.general.setString(characterLine, forType: .string)
             let src = CGEventSource(stateID: .privateState)
             let doKeyDown = CGEvent(keyboardEventSource: src, virtualKey: 0x09, keyDown: true)
-            let doUp = CGEvent(keyboardEventSource: src, virtualKey: 0x09, keyDown: false)
+            let doKeyUp = CGEvent(keyboardEventSource: src, virtualKey: 0x09, keyDown: false)
             let flagList: [CGEventFlags] = [CGEventFlags.maskCommand]
             let flags: CGEventFlags = CGEventFlags.init(flagList)
             doKeyDown?.flags = flags
-            doUp?.flags = flags
+            doKeyUp?.flags = flags
             doKeyDown?.postToPid(selectedAppPid!)
-            doUp?.postToPid(selectedAppPid!)
+            doKeyUp?.postToPid(selectedAppPid!)
         } else {
             addError(parts: parts, message: "Problem in doPaste")
         }
@@ -966,13 +966,13 @@ struct ContentView: View {
             NSPasteboard.general.setString(characterLine, forType: .string)
             let src = CGEventSource(stateID: .privateState)
             let doKeyDown = CGEvent(keyboardEventSource: src, virtualKey: 0x09, keyDown: true)
-            let doUp = CGEvent(keyboardEventSource: src, virtualKey: 0x09, keyDown: false)
+            let doKeyUp = CGEvent(keyboardEventSource: src, virtualKey: 0x09, keyDown: false)
             let flagList: [CGEventFlags] = [CGEventFlags.maskCommand]
             let flags: CGEventFlags = CGEventFlags.init(flagList)
             doKeyDown?.flags = flags
-            doUp?.flags = flags
+            doKeyUp?.flags = flags
             doKeyDown?.postToPid(selectedAppPid!)
-            doUp?.postToPid(selectedAppPid!)
+            doKeyUp?.postToPid(selectedAppPid!)
             DispatchQueue.main.asyncAfter(deadline: .now() + delayAfterPaste) {
                 charactersToType.append(String("down-arrow"))
                 typeCharacter()
@@ -992,13 +992,13 @@ struct ContentView: View {
                 NSPasteboard.general.setString(contentToPaste, forType: .string)
                 let src = CGEventSource(stateID: .privateState)
                 let doKeyDown = CGEvent(keyboardEventSource: src, virtualKey: 0x09, keyDown: true)
-                let doUp = CGEvent(keyboardEventSource: src, virtualKey: 0x09, keyDown: false)
+                let doKeyUp = CGEvent(keyboardEventSource: src, virtualKey: 0x09, keyDown: false)
                 let flagList: [CGEventFlags] = [CGEventFlags.maskCommand]
                 let flags: CGEventFlags = CGEventFlags.init(flagList)
                 doKeyDown?.flags = flags
-                doUp?.flags = flags
+                doKeyUp?.flags = flags
                 doKeyDown?.postToPid(selectedAppPid!)
-                doUp?.postToPid(selectedAppPid!)
+                doKeyUp?.postToPid(selectedAppPid!)
             } catch{
                 addError(parts: parts, message: "Could not copy file")
             }
@@ -1018,13 +1018,13 @@ struct ContentView: View {
             NSPasteboard.general.setString(lineToPaste, forType: .string)
             let src = CGEventSource(stateID: .privateState)
             let doKeyDown = CGEvent(keyboardEventSource: src, virtualKey: 0x09, keyDown: true)
-            let doUp = CGEvent(keyboardEventSource: src, virtualKey: 0x09, keyDown: false)
+            let doKeyUp = CGEvent(keyboardEventSource: src, virtualKey: 0x09, keyDown: false)
             let flagList: [CGEventFlags] = [CGEventFlags.maskCommand]
             let flags: CGEventFlags = CGEventFlags.init(flagList)
             doKeyDown?.flags = flags
-            doUp?.flags = flags
+            doKeyUp?.flags = flags
             doKeyDown?.postToPid(selectedAppPid!)
-            doUp?.postToPid(selectedAppPid!)
+            doKeyUp?.postToPid(selectedAppPid!)
             DispatchQueue.main.asyncAfter(deadline: .now() + delayAfterPaste) {
                 doPasteFileLine()
             }
@@ -1042,13 +1042,13 @@ struct ContentView: View {
             NSPasteboard.general.setString(lineToPaste, forType: .string)
             let src = CGEventSource(stateID: .privateState)
             let doKeyDown = CGEvent(keyboardEventSource: src, virtualKey: 0x09, keyDown: true)
-            let doUp = CGEvent(keyboardEventSource: src, virtualKey: 0x09, keyDown: false)
+            let doKeyUp = CGEvent(keyboardEventSource: src, virtualKey: 0x09, keyDown: false)
             let flagList: [CGEventFlags] = [CGEventFlags.maskCommand]
             let flags: CGEventFlags = CGEventFlags.init(flagList)
             doKeyDown?.flags = flags
-            doUp?.flags = flags
+            doKeyUp?.flags = flags
             doKeyDown?.postToPid(selectedAppPid!)
-            doUp?.postToPid(selectedAppPid!)
+            doKeyUp?.postToPid(selectedAppPid!)
             DispatchQueue.main.asyncAfter(deadline: .now() + delayAfterPaste) {
                 typeDownArrow()
                 doPasteFileLineDown()
@@ -1119,13 +1119,13 @@ struct ContentView: View {
             NSPasteboard.general.setString(characterLine, forType: .string)
             let src = CGEventSource(stateID: .privateState)
             let doKeyDown = CGEvent(keyboardEventSource: src, virtualKey: 0x09, keyDown: true)
-            let doUp = CGEvent(keyboardEventSource: src, virtualKey: 0x09, keyDown: false)
+            let doKeyUp = CGEvent(keyboardEventSource: src, virtualKey: 0x09, keyDown: false)
             let flagList: [CGEventFlags] = [CGEventFlags.maskCommand]
             let flags: CGEventFlags = CGEventFlags.init(flagList)
             doKeyDown?.flags = flags
-            doUp?.flags = flags
+            doKeyUp?.flags = flags
             doKeyDown?.postToPid(selectedAppPid!)
-            doUp?.postToPid(selectedAppPid!)
+            doKeyUp?.postToPid(selectedAppPid!)
             DispatchQueue.main.asyncAfter(deadline: .now() + delayAfterPaste) {
                 charactersToType.append(String("\n"))
                 typeCharacter()
@@ -1336,6 +1336,8 @@ struct ContentView: View {
     }
     
     func processLine() {
+        statusLine = "Status: Running..."
+        statusLineForRun = "Running..."
         holdCommand = false
         holdControl = false
         holdShift = false
@@ -1503,7 +1505,7 @@ struct ContentView: View {
         let parts = keyCodes[theCharacter]!
         let src = CGEventSource(stateID: .privateState)
         let doKeyDown = CGEvent(keyboardEventSource: src, virtualKey: parts.0, keyDown: true)
-        let doUp = CGEvent(keyboardEventSource: src, virtualKey: parts.0, keyDown: false)
+        let doKeyUp = CGEvent(keyboardEventSource: src, virtualKey: parts.0, keyDown: false)
         var flagList = parts.1
         if holdCommand == true {
             flagList.append(CGEventFlags.maskCommand)
@@ -1519,9 +1521,9 @@ struct ContentView: View {
         }
         let flags: CGEventFlags = CGEventFlags.init(flagList)
         doKeyDown?.flags = flags
-        doUp?.flags = flags
+        doKeyUp?.flags = flags
         doKeyDown?.postToPid(selectedAppPid!)
-        doUp?.postToPid(selectedAppPid!)
+        doKeyUp?.postToPid(selectedAppPid!)
         if charactersToType.count > 0 {
             typeCharacter()
         } else {
@@ -1532,7 +1534,7 @@ struct ContentView: View {
     func typeCodeInApp(theCode: UInt16) {
         let src = CGEventSource(stateID: .privateState)
         let doKeyDown = CGEvent(keyboardEventSource: src, virtualKey: theCode, keyDown: true)
-        let doUp = CGEvent(keyboardEventSource: src, virtualKey: theCode, keyDown: false)
+        let doKeyUp = CGEvent(keyboardEventSource: src, virtualKey: theCode, keyDown: false)
         var flagList: [CGEventFlags] = []
         if holdCommand == true {
             flagList.append(CGEventFlags.maskCommand)
@@ -1548,9 +1550,9 @@ struct ContentView: View {
         }
         let flags: CGEventFlags = CGEventFlags.init(flagList)
         doKeyDown?.flags = flags
-        doUp?.flags = flags
+        doKeyUp?.flags = flags
         doKeyDown?.postToPid(selectedAppPid!)
-        doUp?.postToPid(selectedAppPid!)
+        doKeyUp?.postToPid(selectedAppPid!)
         if codesToType.count > 0 {
             typeCode()
         } else {
@@ -1579,9 +1581,9 @@ struct ContentView: View {
     func typeDownArrow() {
         let src = CGEventSource(stateID: .privateState)
         let doKeyDown = CGEvent(keyboardEventSource: src, virtualKey: 0x7D, keyDown: true)
-        let doUp = CGEvent(keyboardEventSource: src, virtualKey: 0x7D, keyDown: false)
+        let doKeyUp = CGEvent(keyboardEventSource: src, virtualKey: 0x7D, keyDown: false)
         doKeyDown?.postToPid(selectedAppPid!)
-        doUp?.postToPid(selectedAppPid!)
+        doKeyUp?.postToPid(selectedAppPid!)
     }
     
     func getUrlFileName() -> String {
