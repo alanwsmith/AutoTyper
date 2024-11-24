@@ -1,6 +1,6 @@
-The 'set-delay: NUMBER' and 'set-delay: NUMBER: NUMBER' commands change the typing delay between characters. 
+The 'set-delay: NUMBER' and 'set-delay: MIN: MAX' commands change the typing delay between characters. 
 
-The default delay is set up to produce a random delay between 0.01 and 0.03 seconds. Changing these minimum and maximum for the random value is done with 'set-delay: NUMBER: NUMBER' like:
+The default delay is set up to produce a random delay between 0.01 and 0.03 seconds. Changing these minimum and maximum for the random value is done with 'set-delay: MIN: MAX' like:
 
 set-delay: 0.05: 0.09
 

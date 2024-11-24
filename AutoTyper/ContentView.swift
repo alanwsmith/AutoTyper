@@ -103,7 +103,7 @@ struct DocsView: View{
             "Depending on how you mac is set up, you'll need to hold down the 'fn' key when you press 'F2' to get it to trigger instead of changing the brightness of your screen.",
         ]),
         
-        SyntaxItem(headline: "pause: SECONDS.SUBSECONDS", paragraphs: [
+        SyntaxItem(headline: "pause: NUMBER", paragraphs: [
             "Pause for a specific amount of time. For example, this pauses for 1.2 seconds",
             "pause: 1.2",
             "I use this to add some padding between blocks of code that are output together which I find makes them easier to follow."
@@ -231,6 +231,15 @@ struct KeysView: View {
     
     var body: some View {
         VStack{
+            
+            var titleStuff: AttributedString {
+                var text = AttributedString("Key Names\n")
+                text.font = .title
+                text.append(AttributedString("\nThese are the KEYs you can use for 'press' and 'repeat' commands.\n\n"))
+                return text
+            }
+            Text(titleStuff).frame(maxWidth: .infinity, alignment: .leading)
+            
             ScrollView {
                 ForEach(Array(pressCodes.keys.sorted()), id: \.self) { item in
                     Text(item).frame(maxWidth: .infinity, alignment: .leading)
@@ -444,7 +453,7 @@ struct Examples2View: View {
         ),
         
         ExampleItem(
-            title: "set-delay: NUMBER | set-delay: NUMBER: NUMBER",
+            title: "set-delay: NUMBER | set-delay: MIN: MAX",
             basename: "14-set-delay",
             num: 14
         ),
@@ -582,117 +591,6 @@ struct Examples2View: View {
         }
     }
 }
-
-
-
-
-//        VStack{
-//            ScrollView {
-//                VStack {
-//                    ForEach(exampleItems) { exampleItem in
-//                        VStack {
-//                            let scriptContents = getTextFromFile(basename: exampleItem.basename, key: "script")
-//                            let descContents = getTextFromFile(basename: exampleItem.basename, key: "desc")
-//
-//                            // The Example Number And Title
-//                            var exampleItemHeadline: AttributedString {
-//                                var text = AttributedString("\n" + exampleItem.title + "\n")
-//                                text.font = .title3.bold()
-//                                return text
-//                            }
-//                            Text(exampleItemHeadline).frame(maxWidth: .infinity, alignment: .leading)
-//
-//                            // The main horizontal wrapper for adding the line on the side
-//                            HStack {
-//                                // spacer and line
-//                                Text(" ").frame(maxHeight: .infinity, alignment: .top)
-//                                Divider()
-//
-//                                // The main content area for the example
-//                                VStack {
-//
-//                                    // TODO: Figure out how to get the isplaying stuff
-//                                    // working. The original version was for a single
-//                                    // video so need something that can deal with
-//                                    // multiple ones on the same page. But for now,
-//                                    // the clips are short enough that it doesn't
-//                                    // matter
-//                                    @State var isPlaying: Bool = false
-//
-//                                    // The video player or "No video" fallback
-//                                    if let url = Bundle.main.url(forResource: "\(exampleItem.basename)-video", withExtension: "mp4") {
-//                                        let player = AVPlayer(url: url)
-//                                        HStack {
-//                                            AVPlayerControllerRepresented(player: player)
-//                                                .frame(height: 210)
-//                                                .disabled(true)
-//                                            Button {
-//                                                if isPlaying == true {
-//                                                    player.pause()
-//                                                } else {
-//                                                    player.seek(to: .zero)
-//                                                    player.play()
-//                                                }
-//                                                isPlaying.toggle()
-//                                            } label: {
-//                                                Image(systemName: isPlaying ? "stop" : "play")
-//                                                    .padding()
-//                                            }.onReceive(playerDidFinishNotification, perform: { _ in
-//                                                isPlaying = false
-//                                            })
-//                                        }
-//                                    } else {
-//                                        Text("No video")
-//                                    }
-//
-//                                    var scriptHeadline: AttributedString {
-//                                        var text = AttributedString("\nScript")
-//                                        text.font = .headline
-//                                        return text
-//                                    }
-//
-//                                    Text(scriptHeadline).frame(maxWidth: .infinity, alignment: .leading)
-//
-//                                    Divider()
-//
-//                                    HStack {
-//                                        Text(scriptContents)
-//                                            .frame(maxWidth: .infinity, alignment: .topLeading)
-//                                        Button {
-//                                            NSPasteboard.general.clearContents()
-//                                            NSPasteboard.general.setString(scriptContents, forType: .string)
-//                                        } label: {
-//                                            Image(systemName: "doc.on.doc").padding()
-//                                        }
-//                                    }
-//
-//                                    Divider()
-//
-//                                    var descHeadline: AttributedString {
-//                                        var text = AttributedString("\nDescription\n")
-//                                        text.font = .headline
-//                                        return text
-//                                    }
-//                                    Text(descHeadline).frame(maxWidth: .infinity, alignment: .leading)
-//                                    let exampleItemParagraphs = AttributedString(descContents)
-//                                    Text(exampleItemParagraphs)
-//                                }
-//                            }
-//                        }
-//                    }.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
-//                    var bottomSpacer: AttributedString {
-//                        var text = AttributedString("\n")
-//                        text.font = .title3.bold()
-//                        return text
-//                    }
-//                    Text(bottomSpacer).frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
-//                }.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
-//
-//            }
-//            Spacer()
-//        }.padding()
-
-
 
 struct ContentView: View {
     @State var appToWriteTo: NSRunningApplication?
