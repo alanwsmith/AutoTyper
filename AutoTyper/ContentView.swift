@@ -109,30 +109,30 @@ struct DocsView: View{
             "I use this to add some padding between blocks of code that are output together which I find makes them easier to follow."
         ]),
         
-        SyntaxItem(headline: "press: KEY_NAME", paragraphs: [
+        SyntaxItem(headline: "press: KEY", paragraphs: [
             "Presses a single key on the keyboard.",
             "This can be used for pressing keys like 'escape', or arrow keys. For example:",
             "press: escape\npress: down-arrow",
-            "The full list of KEY_NAMES is listed in the 'Key Names' tab."
+            "The full list of KEYs is listed in the 'Keys' tab."
         ]),
         
-        SyntaxItem(headline: "press: MODIFIERS: KEY_NAME", paragraphs: [
+        SyntaxItem(headline: "press: MODIFIERS: KEY", paragraphs: [
             "Presses a single key on the keyboard while holding the specified MODIFIERS. For example, this will type 'Command + a' which does a select all in apps like VS Code:",
             "press: command: a",
             "Multiple MODIFIERS can be used by separating them with ':' characters. For example, this does 'Command + Shift + Left Arrow' which selects the prior word in apps like VS Code:",
             "press: command: shift: left-arrow",
             "The available MODIFIERS are:",
             "- command\n- control\n- option\n- shift",
-            "The full list of KEY_NAMES is listed in the 'Key Names' tab."
+            "The full list of KEY is listed in the 'Keys' tab."
         ]),
         
-        SyntaxItem(headline: "repeat: NUMBER: KEY_NAME", paragraphs: [
-            "Works the same as 'press: KEY_NAME' but repeats the press NUMBER of times. For example:",
+        SyntaxItem(headline: "repeat: NUMBER: KEY", paragraphs: [
+            "Works the same as 'press: KEY' but repeats the press NUMBER of times. For example:",
             "repeat: 5: left-arrow",
         ]),
         
-        SyntaxItem(headline: "repeat: MODIFIERS: KEY_NAME", paragraphs: [
-            "Works the same as 'press: MODIFIERS: KEY_NAME' but repeats the press NUMBER of times. For example:",
+        SyntaxItem(headline: "repeat: MODIFIERS: KEY", paragraphs: [
+            "Works the same as 'press: MODIFIERS: KEY' but repeats the press NUMBER of times. For example:",
             "repeat: 5: command: shift: left-arrow",
         ]),
         
@@ -157,7 +157,7 @@ struct DocsView: View{
         
         SyntaxItem(headline: "type: STRING", paragraphs: [
             "Type the STRING of text without adding a newline or pressing the down arrow. This can be used for things like typing part of a line then doing a pause or changing the delay before finishing it.",
-            "Note: only the characters available in the 'Typing Keys' section of 'Key Names' can be used. If you need to type something else, you'll need to use 'press: MODIFIERS: KEY_NAME' (e.g. 'press: option: 2' to type the ™ symbol)",
+            "Note: only the characters available in the 'Typing Keys' section of 'Key Names' can be used. If you need to type something else, you'll need to use 'press: MODIFIERS: KEY' (e.g. 'press: option: 2' to type the ™ symbol)",
             "Note: I wrote AutoTyper for my U.S. English keyboard. I'm not opposed to making a more international version, but I don't know what that would take and don't have the resources to look into right now.",
         ]),
         
@@ -172,7 +172,6 @@ struct DocsView: View{
             "Same as 'type: STRING' but creates a newline after the STRING is complete.",
         ]),
         
-
     ]
     
     var body: some View {
