@@ -7,14 +7,22 @@ is necessary. Instead of doing it manually,
 the app will do it for you. Faster and without 
 flubbing keys. 
 
+## Installation
+
+- Download the AutoTyper.dmg file. Open it
+and copy the AutoTyper.app file to your
+Applications folder. 
+
+## Usage
+
+- Documentation and examples are included
+in the app itself. 
+
 ## Notes
 
 - This is my first SwiftUI macOS app. There's
 lots about the code that feels pretty hacky, 
 but it works. 
-
-- The main documentation and some examples 
-are built into the app itself. 
 
 - The app works on macOS 14.x. I'm not currently 
 set up to test other versions. 
