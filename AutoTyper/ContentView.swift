@@ -1075,6 +1075,28 @@ struct ContentView: View {
         }
     }
     
+    func doPasteFileLinesDown(parts: [String]) {
+        if parts.count == 2 {
+            do {
+                let fileUrl = URL(string: "file://" + parts[1].trimmingCharacters(in: .whitespacesAndNewlines))
+                let contentToPaste = try String(contentsOf: fileUrl!, encoding: String.Encoding.utf8)
+                linesToPaste = contentToPaste.split(separator: "\n", omittingEmptySubsequences: false).map{ String($0) }
+                linesToPaste.reverse()
+                doPasteFileLineDown()
+            } catch{
+                addError(parts: parts, message: "Could not copy file")
+                DispatchQueue.main.asyncAfter(deadline: .now() + delayAfterPaste) {
+                    processLine()
+                }
+            }
+        } else {
+            addError(parts: parts, message: "Problem in doPasteFile")
+            DispatchQueue.main.asyncAfter(deadline: .now() + delayAfterPaste) {
+                processLine()
+            }
+        }
+    }
+    
     func doPasteLine(parts: [String]) {
         if parts.count > 1 {
             var charLoader: [String] = []
@@ -1358,6 +1380,8 @@ struct ContentView: View {
                 doPasteFile(parts: parts)
             } else if action == "paste-file-lines" {
                 doPasteFileLines(parts: parts)
+            } else if action == "paste-file-lines-down" {
+                doPasteFileLinesDown(parts: parts)
             } else if action == "pause" {
                 doPause(parts: parts)
             } else if action == "press" {

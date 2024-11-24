@@ -1,0 +1,19 @@
+# Clear the file and add a dozen lines
+
+press: command: a
+press: delete
+newline: 11
+press: command: up-arrow
+pause: 2
+
+# paste the file
+
+paste-file-lines-down: /Users/alan/Desktop/sample.txt
+
+# print the final message
+
+pause: 0.5
+press: down-arrow
+type: Process complete
+
+
