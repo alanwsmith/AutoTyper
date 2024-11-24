@@ -1030,7 +1030,7 @@ struct ContentView: View {
     
     func doPasteFileLineDown() {
         if linesToPaste.count > 0 {
-            var lineToPaste = linesToPaste.popLast()!
+            let lineToPaste = linesToPaste.popLast()!
             NSPasteboard.general.clearContents()
             NSPasteboard.general.setString(lineToPaste, forType: .string)
             let src = CGEventSource(stateID: .privateState)
@@ -1043,6 +1043,7 @@ struct ContentView: View {
             doDown?.postToPid(selectedAppPid!)
             doUp?.postToPid(selectedAppPid!)
             DispatchQueue.main.asyncAfter(deadline: .now() + delayAfterPaste) {
+                typeDownArrow()
                 doPasteFileLineDown()
             }
         } else {
@@ -1529,6 +1530,14 @@ struct ContentView: View {
                 self.typeCodeInApp(theCode: theCode)
             }
         }
+    }
+    
+    func typeDownArrow() {
+        let src = CGEventSource(stateID: .privateState)
+        let doDown = CGEvent(keyboardEventSource: src, virtualKey: 0x7D, keyDown: true)
+        let doUp = CGEvent(keyboardEventSource: src, virtualKey: 0x7D, keyDown: false)
+        doDown?.postToPid(selectedAppPid!)
+        doUp?.postToPid(selectedAppPid!)
     }
     
     func getUrlFileName() -> String {
