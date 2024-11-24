@@ -8,6 +8,10 @@
 import AVKit
 import SwiftUI
 
+// TODO: Rename "script" stuff to "instructions"
+
+// TODO: Rename "command" stuff to "instruction"
+
 // TODO: Handle unknow characters
 
 // TODO: Do a check for persmissions where it counts
@@ -565,6 +569,7 @@ struct ContentView: View {
     @State var holdShift = false
     @State var defaultMinDelay = 0.01
     @State var defaultMaxDelay = 0.03
+    @State var delayAfterPaste = 0.03
     @State var minDelay = 0.01
     @State var maxDelay = 0.03
     @State var debugMinHold = 0.01
@@ -906,6 +911,36 @@ struct ContentView: View {
         }
     }
     
+    func doPaste(parts: [String]) {
+        if parts.count > 1 {
+            var charLoader: [String] = []
+            var partsToLoad = parts
+            partsToLoad.reverse()
+            let _ = partsToLoad.popLast()
+            partsToLoad.reverse()
+            partsToLoad.forEach { thing in
+                charLoader.append(thing)
+            }
+            let characterLine = charLoader.joined(separator: ":").trimmingCharacters(in: .whitespacesAndNewlines)
+            NSPasteboard.general.clearContents()
+            NSPasteboard.general.setString(characterLine, forType: .string)
+            let src = CGEventSource(stateID: .privateState)
+            let doDown = CGEvent(keyboardEventSource: src, virtualKey: 0x09, keyDown: true)
+            let doUp = CGEvent(keyboardEventSource: src, virtualKey: 0x09, keyDown: false)
+            let flagList: [CGEventFlags] = [CGEventFlags.maskCommand]
+            let flags: CGEventFlags = CGEventFlags.init(flagList)
+            doDown?.flags = flags
+            doUp?.flags = flags
+            doDown?.postToPid(selectedAppPid!)
+            doUp?.postToPid(selectedAppPid!)
+        } else {
+            addError(parts: parts, message: "Problem in doPaste")
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + delayAfterPaste) {
+            processLine()
+        }
+    }
+    
     func doPasteFile(parts: [String]) {
         if parts.count == 2 {
             do {
@@ -926,7 +961,9 @@ struct ContentView: View {
                 addError(parts: parts, message: "Could not copy file")
             }
         }
-        processLine()
+        DispatchQueue.main.asyncAfter(deadline: .now() + delayAfterPaste) {
+            processLine()
+        }
     }
     
     func doPause(parts: [String]) {
@@ -1151,6 +1188,8 @@ struct ContentView: View {
                 doDebug(parts: parts)
             } else if action == "newline" {
                 doNewline(parts: parts)
+            } else if action == "paste" {
+                doPaste(parts: parts)
             } else if action == "paste-file" {
                 doPasteFile(parts: parts)
             } else if action == "pause" {

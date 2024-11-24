@@ -1,0 +1,3 @@
+paste: alfa bravo
+press: space
+paste: charlie : delta: echo: foxtrot::golf:::hotel
