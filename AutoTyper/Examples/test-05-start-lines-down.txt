@@ -2,7 +2,7 @@
 
 press: command: a
 press: delete
-newline: 10
+newline: 9
 press: command: up-arrow
 pause: 2
 
@@ -17,4 +17,10 @@ overall file
 
 etc...
 end-lines-down
+
+# Print the final message to make sure 
+# that everything worked
+
+repeat: 2: down-arrow
+type: Process complete
 
