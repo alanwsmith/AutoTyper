@@ -1,0 +1,35 @@
+[x] type
+
+[x] press single
+
+[x] press modifier
+
+[] repeat
+
+[] repeat mod 
+
+[x] newline single 
+
+[x] and multiple 
+
+[x] pause 
+
+[x] pause number
+
+[x] type-line
+
+[x] type-down
+
+[x] paste-file
+
+[x] debug: on|off
+
+[x] set-delay single
+
+[x] reset-delay
+
+[] stop
+
+
+
+

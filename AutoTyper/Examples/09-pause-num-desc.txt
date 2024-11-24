@@ -1,0 +1,8 @@
+The 'pause: NUMBER' command pauses for a specific NUMBER of seconds then continues automatically. 
+
+The NUMBER works with or without a decimal place. These are all valid:
+
+pause: 0.2
+pause: 1
+pause: 1.2
+

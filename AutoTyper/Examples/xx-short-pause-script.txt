@@ -1,0 +1,5 @@
+type-line: Here's a two second pause
+pause: 2
+type-line: And, we're back
+
+

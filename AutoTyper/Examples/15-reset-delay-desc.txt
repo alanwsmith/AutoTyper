@@ -1,0 +1,1 @@
+The 'reset-delay' command resets the delay to the default values of 0.01 and 0.03 for the random delay in typing.

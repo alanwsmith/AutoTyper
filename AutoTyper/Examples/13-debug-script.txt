@@ -1,0 +1,15 @@
+type-line: This goes at normal speed
+pause: 1
+debug: on
+newline
+type-line: And this goes as fast as possible
+type-line: because debug is set to 'on'. So there's
+type-line: basically no delay in typing. 
+newline
+type-line: Lorem ipsum dolor sit amet, consectetur 
+type-line: adipiscing elit. Proin sodales lorem enim. 
+type-line: Etiam id velit sollicitudin.
+newline
+debug: off
+pause: 1
+type-line: And this is back to normal

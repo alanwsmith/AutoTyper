@@ -1,0 +1,5 @@
+The 'stop' command will stop the script from running at a specific point. 
+
+I use this in conjunction with 'debug: on' when I'm writing scripts to jump to whatever part I'm working on. 
+
+

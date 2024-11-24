@@ -1,0 +1,7 @@
+The 'repeat: NUMBER: KEY' command works just like 'press: KEY' with the addition of a NUMBER of times to press the key. For example, this 'press: KEY' will type the left-arrow key one time:
+
+press: left-arrow
+
+And this 'repeat: NUMBER: KEY' will press it five times
+
+repeat: 5: left-arrow

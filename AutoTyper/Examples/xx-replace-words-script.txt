@@ -1,0 +1,24 @@
+debug: on
+press: command: a
+press: delete
+newline: 50
+press: command: up-arrow
+debug: off
+pause: 3
+type-down: Hello, World!
+press: down-arrow
+type-down: alfa bravo charlie delta
+type-down: echo foxtrot golf hotel
+type-down: india juliett kilo mike
+pause: 1.5
+repeat: 2: up-arrow
+repeat: 2: option: left-arrow
+pause: 0.3
+press: option: shift: left-arrow
+pause: 0.5
+press: delete
+pause: 0.5
+type: FOXTROT 
+press: space
+
+

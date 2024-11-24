@@ -1,0 +1,5 @@
+type: Hello, World!
+press: command: left-arrow
+press: option: shift: right-arrow
+press: delete
+type: Hi

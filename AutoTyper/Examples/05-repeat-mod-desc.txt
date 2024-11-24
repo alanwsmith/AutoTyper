@@ -1,0 +1,9 @@
+The 'repeat: NUMBER: MODIFIERS: KEY' command works just 'press: MODIFIERS: KEY' command but with the addition of NUMBER to determine how many times the key should be pressed. 
+
+For example, this 'press: MODIFIERS: KEY' command presses Option + left-arrow once:
+
+press: option: left-arrow
+
+And this 'repeat: NUMBER: MODIFIERS: KEY' command presses Option + left-arrow five times:
+
+repeat: 5: option: left-arrow

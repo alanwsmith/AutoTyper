@@ -1,0 +1,11 @@
+type: alfa bravo
+pause: 1
+set-delay: 0.2: 0.5
+press: space
+type: charlie
+pause: 1
+set-delay: 0.03
+press: space
+type: delta 
+
+

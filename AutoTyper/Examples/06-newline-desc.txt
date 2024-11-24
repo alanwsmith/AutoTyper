@@ -1,0 +1,1 @@
+The 'newline' command (without a trailing ':') types a newline (which is the same as pressing Return or Enter on the keyboard).

@@ -35,6 +35,11 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		E70D7FBF2CEF98FC00A9E654 /* Support */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Support;
+			sourceTree = "<group>";
+		};
 		E7C37DAC2CEF9469005B42B3 /* AutoTyper */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = AutoTyper;
@@ -85,6 +90,7 @@
 		E7C37DA12CEF9469005B42B3 = {
 			isa = PBXGroup;
 			children = (
+				E70D7FBF2CEF98FC00A9E654 /* Support */,
 				E7C37DE02CEF9681005B42B3 /* README.md */,
 				E7C37DD92CEF960C005B42B3 /* TestScripts */,
 				E7C37DAC2CEF9469005B42B3 /* AutoTyper */,
@@ -120,6 +126,7 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
+				E70D7FBF2CEF98FC00A9E654 /* Support */,
 				E7C37DAC2CEF9469005B42B3 /* AutoTyper */,
 				E7C37DD92CEF960C005B42B3 /* TestScripts */,
 			);

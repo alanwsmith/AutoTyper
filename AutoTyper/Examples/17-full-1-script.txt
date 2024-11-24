@@ -1,0 +1,77 @@
+# Clear the file
+
+debug: on
+press: command: a
+press: delete
+newline: 50
+press: command: up-arrow
+debug: off
+
+# Print the initial message
+
+pause: 2.5
+type: # This is an example of how I might make a GIF 
+
+# Do the demo
+
+pause: 2.0
+press: command: shift: left-arrow
+press: delete
+type: # Let's start with a list
+pause: 1.5
+repeat: 2: down-arrow
+type-down: words = ["alfa", "bravo"]
+pause: 1.2
+press: command: up-arrow
+press: command: shift: right-arrow
+type: # Now let's add a loop
+pause: 1.2
+press: command: left-arrow
+repeat: 4: down-arrow
+type-down: for word in words:
+press: tab
+type-down: print(f"{word} - is the word")
+pause: 1.2
+press: command: up-arrow
+press: command: shift: right-arrow
+
+# Run the code in the debug console
+
+type: # We can run the code in the debug console
+pause: 0.3
+press: control: f5
+pause: 2.6
+press: command: shift: left-arrow
+
+# Keep going with the demo back in the file
+
+type: # Now, let's update the words
+pause: 1.4
+press: command: left-arrow
+repeat: 2: down-arrow
+repeat: 3: option: right-arrow
+press: option: shift: right-arrow
+pause: 0.4
+type: CHARLIE
+pause: 0.4
+repeat: 2: option: right-arrow
+press: option: shift: left-arrow
+pause: 0.4
+type: DELTA
+pause: 0.7
+press: command: up-arrow
+press: command: shift: right-arrow
+
+# Run the process again
+
+type: # And rerun the process to see the new words
+pause: 0.7
+press: control: f5
+pause: 1.8
+
+# Print the final message
+
+press: command: up-arrow
+press: command: shift: right-arrow
+type: # Most anything you can do with the keyboard you can do with AutoTyper
+

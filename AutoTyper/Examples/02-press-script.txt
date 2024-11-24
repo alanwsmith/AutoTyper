@@ -1,0 +1,9 @@
+type: World!
+press: left-arrow
+press: left-arrow
+press: left-arrow
+press: left-arrow
+press: left-arrow
+press: left-arrow
+type: Hello,
+press: space

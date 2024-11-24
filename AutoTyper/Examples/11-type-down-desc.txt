@@ -1,0 +1,11 @@
+The 'type-down: TEXT' command types out what it's given then presses the down arrow instead of the return/enter key to create a newline. 
+
+The command is designed to work a file that already has empty lines in it. 
+
+The way I set that up is to do something like 'newline: 20' to create the lines, then 'press: command: up-arrow' to go to the top of the file. 
+
+I added this feature to help reduce the amount of flashing the scrollbar does in VS Code and similar apps. 
+
+Specifically, the default version of VS Code at the time I'm making AutoTyper flashes the scrollbar every time a new line is added with the 'type-line: TEXT' command. 
+
+Using 'type-down: TEXT' with a file that's already set up with newlines prevents the flash and reduces the visual movement to just the line marker moving. 

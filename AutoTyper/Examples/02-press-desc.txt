@@ -1,0 +1,1 @@
+The 'press: KEY' command is used for single key presses. It's primary purpose is for arrow keys, escape, delete, the space bar, etc... (The full list of available KEYs is under the 'Key Names' tab)
