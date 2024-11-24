@@ -260,76 +260,89 @@ struct ExamplesView: View {
             num: 3
         ),
         
-//
-//        ExampleItem(
-//            title: "repeat: NUMBER: KEY",
-//            basename: "04-repeat"
-//        ),
-//        
-//        ExampleItem(
-//            title: "repeat: NUMBER: MODIFIERS: KEY",
-//            basename: "05-repeat-mod"
-//        ),
-//        
-//        ExampleItem(
-//            title: "newline",
-//            basename: "06-newline"
-//        ),
-//        
-//        ExampleItem(
-//            title: "newline: NUMBER",
-//            basename: "07-newline-multi"
-//        ),
-//        
-//        ExampleItem(
-//            title: "pause",
-//            basename: "08-pause"
-//        ),
-//        
-//        ExampleItem(
-//            title: "pause: NUMBER",
-//            basename: "09-pause-num"
-//        ),
-//        
-//        ExampleItem(
-//            title: "type-line: TEXT",
-//            basename: "10-type-line"
-//        ),
-//        
-//        ExampleItem(
-//            title: "type-down: TEXT",
-//            basename: "11-type-down"
-//        ),
-//        
-//        ExampleItem(
-//            title: "paste-file: PATH",
-//            basename: "12-paste-file"
-//        ),
-//        
-//        ExampleItem(
-//            title: "debug: on | debug: off",
-//            basename: "13-debug"
-//        ),
-//        
-//        ExampleItem(
-//            title: "set-delay: NUMBER | set-delay: NUMBER: NUMBER",
-//            basename: "14-set-delay"
-//        ),
-//        
-//        ExampleItem(
-//            title: "reset-delay",
-//            basename: "15-reset-delay"
-//        ),
-//        
-//        ExampleItem(
-//            title: "stop",
-//            basename: "16-stop"
-//        ),
-//        
-//        ExampleItem(
-//            title: "Full Example",
-//            basename: "17-full-1"
-//        ),
+        ExampleItem(
+            title: "repeat: NUMBER: KEY",
+            basename: "04-repeat",
+            num: 4
+        ),
+        
+        ExampleItem(
+            title: "repeat: NUMBER: MODIFIERS: KEY",
+            basename: "05-repeat-mod",
+            num: 5
+        ),
+        
+        ExampleItem(
+            title: "newline",
+            basename: "06-newline",
+            num: 6
+        ),
+        
+        ExampleItem(
+            title: "newline: NUMBER",
+            basename: "07-newline-multi",
+            num: 7
+        ),
+        
+        ExampleItem(
+            title: "pause",
+            basename: "08-pause",
+            num: 8
+        ),
+        
+        ExampleItem(
+            title: "pause: NUMBER",
+            basename: "09-pause-num",
+            num: 9
+        ),
+        
+        ExampleItem(
+            title: "type-line: TEXT",
+            basename: "10-type-line",
+            num: 10
+        ),
+        
+        ExampleItem(
+            title: "type-down: TEXT",
+            basename: "11-type-down",
+            num: 11
+        ),
+        
+        ExampleItem(
+            title: "paste-file: PATH",
+            basename: "12-paste-file",
+            num: 12
+        ),
+        
+        ExampleItem(
+            title: "debug: on | debug: off",
+            basename: "13-debug",
+            num: 13
+        ),
+        
+        ExampleItem(
+            title: "set-delay: NUMBER | set-delay: NUMBER: NUMBER",
+            basename: "14-set-delay",
+            num: 14
+        ),
+        
+        ExampleItem(
+            title: "reset-delay",
+            basename: "15-reset-delay",
+            num: 15
+        ),
+        
+        ExampleItem(
+            title: "stop",
+            basename: "16-stop",
+            num: 16
+        ),
+        
+        ExampleItem(
+            title: "Full Example",
+            basename: "17-full-1",
+            num: 17
+        ),
         
     ]
     
