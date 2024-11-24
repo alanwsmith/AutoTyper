@@ -1,0 +1,35 @@
+# Clean the file and prep the line numbers
+# then pause until F2 is pressed to kick 
+# things off
+
+press: command: a
+press: delete
+newlines: 29
+press: command: up-arrow
+pause
+
+# Do the initial output and pause
+# to wait for F2 again
+
+type-down: Welcome To AutoTyper
+pause
+
+# Load the text with a little pause
+# for a prepended message
+
+down
+type: Let's load some text
+pause: 1.2
+down: 2
+start-lines-down
+Lorem ipsum dolor sit amet, consectetur 
+adipiscing elit. Vestibulum a nibh et.
+
+Elit dapibus aliquam sollicitudin et 
+lectus. Aliquam erat volutpat.
+end-lines-down
+
+
+
+
+

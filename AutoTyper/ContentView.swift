@@ -184,8 +184,8 @@ struct DocsView: View{
                 var usageStuff: AttributedString {
                     var text = AttributedString("Usage\n")
                     text.font = .title
-                    text.append(AttributedString("\n1. Create a .txt file with a script in it (see 'Examples' for ideas).\n\n"))
-                    text.append(AttributedString("2. Use the 'Choose Script' button to select your script file.\n\n"))
+                    text.append(AttributedString("\n1. Create a .txt file with instructions in it (see 'Examples' for ideas).\n\n"))
+                    text.append(AttributedString("2. Use the 'Choose Instructions File' button to select your script file.\n\n"))
                     text.append(AttributedString("3. Click on the app you want to output the script to in the 'Select App' section.\n\n"))
                     text.append(AttributedString("4. Click 'Run'. You may be asked to allow the app permissions in the System Preferences. This is required to let AutoTyper simulate a keyboard to do that actual typing. (Note that sometimes you have to delete the AutoTyper item, click Run, and turn it back on to reset it.)\n\n"))
                     return text
@@ -586,6 +586,7 @@ struct ContentView: View {
     @State var selectedAppPid: Optional<pid_t> = Optional.none
     @State var statusArea = ""
     @State var statusLine = "Status: Ready"
+    @State var statusLineForRun = ""
     
     let keyCodes: [String: (UInt16, [CGEventFlags])] = [
         // NOTE: The arrows is special, they are for
@@ -897,6 +898,12 @@ struct ContentView: View {
         typeCharacter()
     }
     
+    // note that this handles newline and newlines. there's
+    // no difference in the behavior. It's just nicer to
+    // be able to use either for the instructions. Would
+    // be slightly better to split to 'newline' and 'newlines: NUMBER'
+    // explicilty in the code. That's what the docs (will) show
+    // even though it doesn't matter in the code
     func doNewline(parts: [String]) {
         if parts.count == 1 {
             charactersToType.append("\n")
@@ -1133,6 +1140,7 @@ struct ContentView: View {
         if parts.count == 1 {
             isPaused = true
             statusLine = "Status: Paused. Press F2 to resume"
+            statusLineForRun = "Paused. Press F2 to resume"
         } else {
             if debugging == false {
                 if parts.count == 2 {
@@ -1253,7 +1261,8 @@ struct ContentView: View {
     }
     
     func doStop() {
-        statusLine = "Process stopped in script."
+        statusLine = "Status: Received 'stop' instruction. Process halted"
+        statusLineForRun = "Received 'stop' instruction. Process halted"
     }
     
     func doTypeCharacters(parts: [String]) {
@@ -1332,7 +1341,8 @@ struct ContentView: View {
         holdShift = false
         holdOption = false
         if focusedAppPid() != Optional(selectedAppPid!) {
-            statusLine = "Process Stopped. App was changed."
+            statusLine = "Status: Process halted becuase app lost focus"
+            statusLineForRun = "Process halted becuase app lost focus"
         } else if captureLines == true {
             let line = scriptLines.popLast()
             if line?.trimmingCharacters(in: .whitespacesAndNewlines) == "end-lines" {
@@ -1358,7 +1368,6 @@ struct ContentView: View {
                 processLine()
             }
         } else if scriptLines.count > 0 {
-            statusLine = "Status: Running..."
             let line = scriptLines.popLast()
             let parts_substrings = line?.split(separator: ":", omittingEmptySubsequences: false)
             var parts: [String] = []
@@ -1368,7 +1377,11 @@ struct ContentView: View {
             let action = parts[0].trimmingCharacters(in: .whitespacesAndNewlines)
             if action == "debug" {
                 doDebug(parts: parts)
+            } else if action == "down" {
+                doDown(parts: parts)
             } else if action == "newline" {
+                doNewline(parts: parts)
+            } else if action == "newlines" {
                 doNewline(parts: parts)
             } else if action == "paste" {
                 doPaste(parts: parts)
@@ -1411,6 +1424,7 @@ struct ContentView: View {
             }
         } else {
             statusLine = "Status: Process complete"
+            statusLineForRun = "Process complete"
         }
     }
     
@@ -1447,12 +1461,17 @@ struct ContentView: View {
         holdOption = false
         holdShift = false
         if scriptUrl == Optional.none {
-            statusLine = "Status: Choose a script file first"
+            statusLine = "Status: Choose an Insturctions File first"
+            statusLineForRun = "Choose an Insturctions File first"
         } else if selectedAppPid == Optional.none {
             statusLine = "Status: Choose an app first"
+            statusLineForRun = "Choose an app first"
         } else if checkPermissions() == false {
             statusLine = "Status: Provide permissions then Run again"
+            statusLineForRun = "Provide permissions then Run again"
         } else {
+            statusLine = "Status: Running..."
+            statusLineForRun = "Running..."
             NSEvent.addGlobalMonitorForEvents(matching: [.keyDown]) { (event) in
                 if isPaused == true && event.keyCode == 0x78 {
                     isPaused = false
@@ -1475,6 +1494,7 @@ struct ContentView: View {
                 }
             } catch{
                 statusLine = "Status: ERROR: Could not open file"
+                statusLineForRun = "ERROR: Could not open file"
             }
         }
     }
@@ -1577,29 +1597,34 @@ struct ContentView: View {
         HStack{
             VStack {
                 HStack {
-                    Button("Choose Script") {
+                    Button("Choose Instructions File") {
                         chooseScript()
                     }
                     Text(getUrlFileName()).frame(maxWidth: .infinity, alignment: .leading)
-                }
+                }.padding()
                 Divider()
-                Text("Select App").frame(maxWidth: .infinity, alignment: .leading)
-                List(runningApps(), selection: $selectedAppPid) {
-                    Text($0.app.localizedName ?? "unknown name")
-                }
+                VStack {
+                    Text("Select App").frame(maxWidth: .infinity, alignment: .leading)
+                    List(runningApps(), selection: $selectedAppPid) {
+                        Text($0.app.localizedName ?? "unknown name")
+                    }
+                }.padding()
                 Divider()
-                Button("Run") {
-                    runScript()
-                }.frame(maxWidth: .infinity, alignment: .trailing)
-            }.frame(maxWidth: .infinity).padding()
+                HStack {
+                    Text(statusLineForRun)
+                    Button("Run") {
+                        runScript()
+                    }
+                }.frame(maxWidth: .infinity, alignment: .trailing).padding()
+            }.frame(maxWidth: .infinity)
             Divider()
             VStack {
                 TabView{
-                    StatusView(statusLine: statusLine, statusArea: statusArea).tabItem {Text("Status") }
+//                    StatusView(statusLine: statusLine, statusArea: statusArea).tabItem {Text("Status") }
                     DocsView().tabItem { Text("Docs") }
                     KeysView(pressCodes: pressCodes).tabItem { Text("Key Names") }
-                    ExamplesView().tabItem { Text("Examples") }
-                    Examples2View().tabItem { Text("Examples2") }
+//                    ExamplesView().tabItem { Text("Examples") }
+//                    Examples2View().tabItem { Text("Examples2") }
                 }
                 Spacer()
             }.padding()
