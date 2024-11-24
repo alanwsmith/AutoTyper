@@ -562,6 +562,7 @@ struct ContentView: View {
     @State var appToWriteTo: NSRunningApplication?
     @State var charactersToType: [String] = []
     @State var codesToType: [UInt16] = []
+    @State var linesToPaste: [String] = []
     @State var scriptLines: [Substring] = []
     @State var holdCommand = false
     @State var holdControl = false
@@ -993,10 +994,101 @@ struct ContentView: View {
                 addError(parts: parts, message: "Could not copy file")
             }
         } else {
-            addError(parts: parts, message: "Problem in doPasteFile")
+            addError(parts: parts, message: "Issue in doPasteFile")
         }
         DispatchQueue.main.asyncAfter(deadline: .now() + delayAfterPaste) {
             processLine()
+        }
+    }
+    
+    func doPasteFileLine() {
+        if linesToPaste.count > 0 {
+            var lineToPaste = linesToPaste.popLast()!
+            lineToPaste.append("\n")
+            NSPasteboard.general.clearContents()
+            NSPasteboard.general.setString(lineToPaste, forType: .string)
+            let src = CGEventSource(stateID: .privateState)
+            let doDown = CGEvent(keyboardEventSource: src, virtualKey: 0x09, keyDown: true)
+            let doUp = CGEvent(keyboardEventSource: src, virtualKey: 0x09, keyDown: false)
+            let flagList: [CGEventFlags] = [CGEventFlags.maskCommand]
+            let flags: CGEventFlags = CGEventFlags.init(flagList)
+            doDown?.flags = flags
+            doUp?.flags = flags
+            doDown?.postToPid(selectedAppPid!)
+            doUp?.postToPid(selectedAppPid!)
+            DispatchQueue.main.asyncAfter(deadline: .now() + delayAfterPaste) {
+//                charactersToType.append(String("\n"))
+                doPasteFileLine()
+            }
+        }
+        processLine()
+        
+//        if parts.count > 1 {
+//            var charLoader: [String] = []
+//            var partsToLoad = parts
+//            partsToLoad.reverse()
+//            let _ = partsToLoad.popLast()
+//            partsToLoad.reverse()
+//            partsToLoad.forEach { thing in
+//                charLoader.append(thing)
+//            }
+//            let characterLine = charLoader.joined(separator: ":").trimmingCharacters(in: .whitespacesAndNewlines)
+//            NSPasteboard.general.clearContents()
+//            NSPasteboard.general.setString(characterLine, forType: .string)
+//            let src = CGEventSource(stateID: .privateState)
+//            let doDown = CGEvent(keyboardEventSource: src, virtualKey: 0x09, keyDown: true)
+//            let doUp = CGEvent(keyboardEventSource: src, virtualKey: 0x09, keyDown: false)
+//            let flagList: [CGEventFlags] = [CGEventFlags.maskCommand]
+//            let flags: CGEventFlags = CGEventFlags.init(flagList)
+//            doDown?.flags = flags
+//            doUp?.flags = flags
+//            doDown?.postToPid(selectedAppPid!)
+//            doUp?.postToPid(selectedAppPid!)
+//            DispatchQueue.main.asyncAfter(deadline: .now() + delayAfterPaste) {
+//                charactersToType.append(String("\n"))
+//                typeCharacter()
+//            }
+//        } else {
+//            addError(parts: parts, message: "Problem in doPasteDown")
+//            processLine()
+//        }
+        
+    }
+    
+    func doPasteFileLines(parts: [String]) {
+        if parts.count == 2 {
+            do {
+                let fileUrl = URL(string: "file://" + parts[1].trimmingCharacters(in: .whitespacesAndNewlines))
+                let contentToPaste = try String(contentsOf: fileUrl!, encoding: String.Encoding.utf8)
+                linesToPaste = contentToPaste.split(separator: "\n", omittingEmptySubsequences: false).map{ String($0) }
+                linesToPaste.reverse()
+                doPasteFileLine()
+//                NSPasteboard.general.clearContents()
+//                NSPasteboard.general.setString(contentToPaste, forType: .string)
+//                let src = CGEventSource(stateID: .privateState)
+//                let doDown = CGEvent(keyboardEventSource: src, virtualKey: 0x09, keyDown: true)
+//                let doUp = CGEvent(keyboardEventSource: src, virtualKey: 0x09, keyDown: false)
+//                let flagList: [CGEventFlags] = [CGEventFlags.maskCommand]
+//                let flags: CGEventFlags = CGEventFlags.init(flagList)
+//                doDown?.flags = flags
+//                doUp?.flags = flags
+//                doDown?.postToPid(selectedAppPid!)
+//                doUp?.postToPid(selectedAppPid!)
+//                DispatchQueue.main.asyncAfter(deadline: .now() + delayAfterPaste) {
+//                    processLine()
+//                }
+                
+            } catch{
+                addError(parts: parts, message: "Could not copy file")
+                DispatchQueue.main.asyncAfter(deadline: .now() + delayAfterPaste) {
+                    processLine()
+                }
+            }
+        } else {
+            addError(parts: parts, message: "Problem in doPasteFile")
+            DispatchQueue.main.asyncAfter(deadline: .now() + delayAfterPaste) {
+                processLine()
+            }
         }
     }
     
@@ -1263,6 +1355,8 @@ struct ContentView: View {
                 doPasteLine(parts: parts)
             } else if action == "paste-file" {
                 doPasteFile(parts: parts)
+            } else if action == "paste-file-lines" {
+                doPasteFileLines(parts: parts)
             } else if action == "pause" {
                 doPause(parts: parts)
             } else if action == "press" {
