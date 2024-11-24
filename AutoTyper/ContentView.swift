@@ -941,6 +941,38 @@ struct ContentView: View {
         }
     }
     
+    func doPasteDown(parts: [String]) {
+        if parts.count > 1 {
+            var charLoader: [String] = []
+            var partsToLoad = parts
+            partsToLoad.reverse()
+            let _ = partsToLoad.popLast()
+            partsToLoad.reverse()
+            partsToLoad.forEach { thing in
+                charLoader.append(thing)
+            }
+            let characterLine = charLoader.joined(separator: ":").trimmingCharacters(in: .whitespacesAndNewlines)
+            NSPasteboard.general.clearContents()
+            NSPasteboard.general.setString(characterLine, forType: .string)
+            let src = CGEventSource(stateID: .privateState)
+            let doDown = CGEvent(keyboardEventSource: src, virtualKey: 0x09, keyDown: true)
+            let doUp = CGEvent(keyboardEventSource: src, virtualKey: 0x09, keyDown: false)
+            let flagList: [CGEventFlags] = [CGEventFlags.maskCommand]
+            let flags: CGEventFlags = CGEventFlags.init(flagList)
+            doDown?.flags = flags
+            doUp?.flags = flags
+            doDown?.postToPid(selectedAppPid!)
+            doUp?.postToPid(selectedAppPid!)
+            DispatchQueue.main.asyncAfter(deadline: .now() + delayAfterPaste) {
+                charactersToType.append(String("down-arrow"))
+                typeCharacter()
+            }
+        } else {
+            addError(parts: parts, message: "Problem in doPasteDown")
+            processLine()
+        }
+    }
+    
     func doPasteFile(parts: [String]) {
         if parts.count == 2 {
             do {
@@ -960,8 +992,42 @@ struct ContentView: View {
             } catch{
                 addError(parts: parts, message: "Could not copy file")
             }
+        } else {
+            addError(parts: parts, message: "Problem in doPasteFile")
         }
         DispatchQueue.main.asyncAfter(deadline: .now() + delayAfterPaste) {
+            processLine()
+        }
+    }
+    
+    func doPasteLine(parts: [String]) {
+        if parts.count > 1 {
+            var charLoader: [String] = []
+            var partsToLoad = parts
+            partsToLoad.reverse()
+            let _ = partsToLoad.popLast()
+            partsToLoad.reverse()
+            partsToLoad.forEach { thing in
+                charLoader.append(thing)
+            }
+            let characterLine = charLoader.joined(separator: ":").trimmingCharacters(in: .whitespacesAndNewlines)
+            NSPasteboard.general.clearContents()
+            NSPasteboard.general.setString(characterLine, forType: .string)
+            let src = CGEventSource(stateID: .privateState)
+            let doDown = CGEvent(keyboardEventSource: src, virtualKey: 0x09, keyDown: true)
+            let doUp = CGEvent(keyboardEventSource: src, virtualKey: 0x09, keyDown: false)
+            let flagList: [CGEventFlags] = [CGEventFlags.maskCommand]
+            let flags: CGEventFlags = CGEventFlags.init(flagList)
+            doDown?.flags = flags
+            doUp?.flags = flags
+            doDown?.postToPid(selectedAppPid!)
+            doUp?.postToPid(selectedAppPid!)
+            DispatchQueue.main.asyncAfter(deadline: .now() + delayAfterPaste) {
+                charactersToType.append(String("\n"))
+                typeCharacter()
+            }
+        } else {
+            addError(parts: parts, message: "Problem in doPasteDown")
             processLine()
         }
     }
@@ -991,6 +1057,7 @@ struct ContentView: View {
         // TODO: lowercase the incoming letters so
         // they don't fail if someone types a capital.
         // Either that, or throw an error? TBD on that.
+        // or, if they are capital, just do that? probably the best option
         if parts.count > 1 {
             let keyToGet = parts.last!.trimmingCharacters(in: .whitespacesAndNewlines)
             if keyToGet != "" {
@@ -1190,6 +1257,10 @@ struct ContentView: View {
                 doNewline(parts: parts)
             } else if action == "paste" {
                 doPaste(parts: parts)
+            } else if action == "paste-down" {
+                doPasteDown(parts: parts)
+            } else if action == "paste-line" {
+                doPasteLine(parts: parts)
             } else if action == "paste-file" {
                 doPasteFile(parts: parts)
             } else if action == "pause" {
