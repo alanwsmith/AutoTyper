@@ -1003,30 +1003,6 @@ struct ContentView: View {
         }
     }
     
-    func doPasteFileLineDown() {
-        if linesToPaste.count > 0 {
-            var lineToPaste = linesToPaste.popLast()!
-            NSPasteboard.general.clearContents()
-            NSPasteboard.general.setString(lineToPaste, forType: .string)
-            let src = CGEventSource(stateID: .privateState)
-            let doDown = CGEvent(keyboardEventSource: src, virtualKey: 0x09, keyDown: true)
-            let doUp = CGEvent(keyboardEventSource: src, virtualKey: 0x09, keyDown: false)
-            let flagList: [CGEventFlags] = [CGEventFlags.maskCommand]
-            let flags: CGEventFlags = CGEventFlags.init(flagList)
-            doDown?.flags = flags
-            doUp?.flags = flags
-            doDown?.postToPid(selectedAppPid!)
-            doUp?.postToPid(selectedAppPid!)
-            DispatchQueue.main.asyncAfter(deadline: .now() + delayAfterPaste) {
-                doPasteFileLineDown()
-            }
-        } else {
-            DispatchQueue.main.asyncAfter(deadline: .now() + delayAfterPaste) {
-                processLine()
-            }
-        }
-    }
-    
     func doPasteFileLine() {
         if linesToPaste.count > 0 {
             var lineToPaste = linesToPaste.popLast()!
@@ -1044,6 +1020,30 @@ struct ContentView: View {
             doUp?.postToPid(selectedAppPid!)
             DispatchQueue.main.asyncAfter(deadline: .now() + delayAfterPaste) {
                 doPasteFileLine()
+            }
+        } else {
+            DispatchQueue.main.asyncAfter(deadline: .now() + delayAfterPaste) {
+                processLine()
+            }
+        }
+    }
+    
+    func doPasteFileLineDown() {
+        if linesToPaste.count > 0 {
+            var lineToPaste = linesToPaste.popLast()!
+            NSPasteboard.general.clearContents()
+            NSPasteboard.general.setString(lineToPaste, forType: .string)
+            let src = CGEventSource(stateID: .privateState)
+            let doDown = CGEvent(keyboardEventSource: src, virtualKey: 0x09, keyDown: true)
+            let doUp = CGEvent(keyboardEventSource: src, virtualKey: 0x09, keyDown: false)
+            let flagList: [CGEventFlags] = [CGEventFlags.maskCommand]
+            let flags: CGEventFlags = CGEventFlags.init(flagList)
+            doDown?.flags = flags
+            doUp?.flags = flags
+            doDown?.postToPid(selectedAppPid!)
+            doUp?.postToPid(selectedAppPid!)
+            DispatchQueue.main.asyncAfter(deadline: .now() + delayAfterPaste) {
+                doPasteFileLineDown()
             }
         } else {
             DispatchQueue.main.asyncAfter(deadline: .now() + delayAfterPaste) {
