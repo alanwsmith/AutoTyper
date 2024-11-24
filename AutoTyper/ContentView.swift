@@ -409,8 +409,6 @@ struct ExamplesView: View {
     }
 }
 
-
-
 struct Examples2View: View {
     let exampleItems: [ExampleItem] = [
         
@@ -1068,9 +1066,7 @@ struct ContentView: View {
     
     func doTypeDown(parts: [String]) {
         if parts.count > 1 {
-            // TODO: Deal with `:` coming in that need to be typed
             var charLoader: [String] = []
-            print(parts)
             var partsToLoad = parts
             partsToLoad.reverse()
             let _ = partsToLoad.popLast()
@@ -1079,7 +1075,6 @@ struct ContentView: View {
                 charLoader.append(thing)
             }
             let characterLine = charLoader.joined(separator: ":").trimmingCharacters(in: .whitespacesAndNewlines)
-            print(characterLine)
             var charactersToLoad = characterLine.split(separator: "")
             charactersToLoad.append("down-arrow")
             charactersToLoad.reverse()
@@ -1090,14 +1085,25 @@ struct ContentView: View {
         }
     }
     
-    func doTypeLine(input: String) {
-        var charactersToLoad = input.trimmingCharacters(in: .whitespacesAndNewlines).split(separator: "")
-        charactersToLoad.append("\n")
-        charactersToLoad.reverse()
-        for x in charactersToLoad {
-            charactersToType.append(String(x))
+    func doTypeLine(parts: [String]) {
+        if parts.count > 1 {
+            var charLoader: [String] = []
+            var partsToLoad = parts
+            partsToLoad.reverse()
+            let _ = partsToLoad.popLast()
+            partsToLoad.reverse()
+            partsToLoad.forEach { thing in
+                charLoader.append(thing)
+            }
+            let characterLine = charLoader.joined(separator: ":").trimmingCharacters(in: .whitespacesAndNewlines)
+            var charactersToLoad = characterLine.split(separator: "")
+            charactersToLoad.append("\n")
+            charactersToLoad.reverse()
+            for x in charactersToLoad {
+                charactersToType.append(String(x))
+            }
+            typeCharacter()
         }
-        typeCharacter()
     }
     
     func focusedAppPid() -> Optional<pid_t> {
@@ -1156,14 +1162,7 @@ struct ContentView: View {
             } else if action == "type-down" {
                 doTypeDown(parts: parts)
             } else if action == "type-line" {
-                // TODO: Send 'parts' so they can be
-                // combined if there's more than one
-                // separated by a `:`
-                if parts.count > 1 {
-                    doTypeLine(input: String(parts[1].trimmingCharacters(in: .whitespacesAndNewlines)))
-                } else {
-                    doTypeLine(input: "")
-                }
+                doTypeLine(parts: parts)
             } else {
                 processLine()
             }
