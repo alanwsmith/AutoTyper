@@ -73,7 +73,6 @@ struct StatusView: View{
 
 struct DocsView: View{
     let syntaxItems: [SyntaxItem] = [
-        
         SyntaxItem(headline: "debug: on", paragraphs: [
             "Remove all delays and pauses to fast-forward until `debug: off` or the end of the script.",
         ]),
@@ -83,7 +82,7 @@ struct DocsView: View{
         ]),
         
         SyntaxItem(headline: "newline", paragraphs: [
-            "This version of 'neline' doesn't have a ':' or number after it. It inserts a single newline.",
+            "This version of 'newline' doesn't have a ':' or number after it. It inserts a single newline.",
         ]),
         
         SyntaxItem(headline: "newline: NUMBER", paragraphs: [
@@ -173,6 +172,7 @@ struct DocsView: View{
             "Same as 'type: STRING' but creates a newline after the STRING is complete.",
         ]),
         
+
     ]
     
     var body: some View {
@@ -196,6 +196,8 @@ struct DocsView: View{
                     return text
                 }
                 Text(stoppingNote).frame(maxWidth: .infinity, alignment: .leading)
+                
+                Divider()
                 
                 var scriptSyntaxHeadline: AttributedString {
                     var text = AttributedString("\nScript Commands")
@@ -231,11 +233,11 @@ struct KeysView: View {
         VStack{
             ScrollView {
                 ForEach(Array(pressCodes.keys.sorted()), id: \.self) { item in
-                    Text(item)
+                    Text(item).frame(maxWidth: .infinity, alignment: .leading)
                 }
             }
-            Spacer()
-        }.padding()
+        }
+        .padding()
     }
 }
 
@@ -302,48 +304,6 @@ struct ExamplesView: View {
             num: 10
         ),
         
-        ExampleItem(
-            title: "type-down: TEXT",
-            basename: "11-type-down",
-            num: 11
-        ),
-        
-        ExampleItem(
-            title: "paste-file: PATH",
-            basename: "12-paste-file",
-            num: 12
-        ),
-        
-        ExampleItem(
-            title: "debug: on | debug: off",
-            basename: "13-debug",
-            num: 13
-        ),
-        
-        ExampleItem(
-            title: "set-delay: NUMBER | set-delay: NUMBER: NUMBER",
-            basename: "14-set-delay",
-            num: 14
-        ),
-        
-        ExampleItem(
-            title: "reset-delay",
-            basename: "15-reset-delay",
-            num: 15
-        ),
-        
-        ExampleItem(
-            title: "stop",
-            basename: "16-stop",
-            num: 16
-        ),
-        
-        ExampleItem(
-            title: "Full Example",
-            basename: "17-full-1",
-            num: 17
-        ),
-        
     ]
     
     func getTextFromFile(basename: String, key: String) -> String {
@@ -361,7 +321,6 @@ struct ExamplesView: View {
     
     let playerDidFinishNotification = NotificationCenter.default.publisher(for: .AVPlayerItemDidPlayToEndTime)
 
-    
     var body: some View {
         TabView{
             ForEach(exampleItems) { exampleItem in
@@ -458,7 +417,175 @@ struct ExamplesView: View {
                 }.tabItem { Text(String(exampleItem.num)) }
             }
         }
+    }
+}
+
+
+
+struct Examples2View: View {
+    let exampleItems: [ExampleItem] = [
         
+        ExampleItem(
+            title: "type-down: TEXT",
+            basename: "11-type-down",
+            num: 11
+        ),
+        
+        ExampleItem(
+            title: "paste-file: PATH",
+            basename: "12-paste-file",
+            num: 12
+        ),
+        
+        ExampleItem(
+            title: "debug: on | debug: off",
+            basename: "13-debug",
+            num: 13
+        ),
+        
+        ExampleItem(
+            title: "set-delay: NUMBER | set-delay: NUMBER: NUMBER",
+            basename: "14-set-delay",
+            num: 14
+        ),
+        
+        ExampleItem(
+            title: "reset-delay",
+            basename: "15-reset-delay",
+            num: 15
+        ),
+        
+        ExampleItem(
+            title: "stop",
+            basename: "16-stop",
+            num: 16
+        ),
+        
+        ExampleItem(
+            title: "Full Example",
+            basename: "17-full-1",
+            num: 17
+        ),
+        
+    ]
+    
+    func getTextFromFile(basename: String, key: String) -> String {
+        do {
+            if let exampleScriptUrl = Bundle.main.url(forResource: "\(basename)-\(key)", withExtension: "txt") {
+                let exampleScriptText = try String(contentsOf: exampleScriptUrl, encoding: String.Encoding.utf8)
+                return exampleScriptText
+            } else {
+                return "Could not open file"
+            }
+        } catch {
+            return "Could not open file"
+        }
+    }
+    
+    let playerDidFinishNotification = NotificationCenter.default.publisher(for: .AVPlayerItemDidPlayToEndTime)
+
+    var body: some View {
+        TabView{
+            ForEach(exampleItems) { exampleItem in
+                ScrollView {
+                    VStack {
+                        let scriptContents = getTextFromFile(basename: exampleItem.basename, key: "script")
+                        let descContents = getTextFromFile(basename: exampleItem.basename, key: "desc")
+                        
+                        // The Example Number And Title
+                        var exampleItemHeadline: AttributedString {
+                            var text = AttributedString("\n" + exampleItem.title + "\n")
+                            text.font = .title3.bold()
+                            return text
+                        }
+                        Text(exampleItemHeadline).frame(maxWidth: .infinity, alignment: .leading)
+                        
+                        // The main horizontal wrapper for adding the line on the side
+                        HStack {
+                            // spacer and line
+                            Text(" ").frame(maxHeight: .infinity, alignment: .top)
+                            Divider()
+                            
+                            // The main content area for the example
+                            VStack {
+                                
+                                // TODO: Figure out how to get the isplaying stuff
+                                // working. The original version was for a single
+                                // video so need something that can deal with
+                                // multiple ones on the same page. But for now,
+                                // the clips are short enough that it doesn't
+                                // matter
+                                @State var isPlaying: Bool = false
+                                
+                                // The video player or "No video" fallback
+                                if let url = Bundle.main.url(forResource: "\(exampleItem.basename)-video", withExtension: "mp4") {
+                                    let player = AVPlayer(url: url)
+                                    HStack {
+                                        AVPlayerControllerRepresented(player: player)
+                                            .frame(height: 210)
+                                            .disabled(true)
+                                        Button {
+                                            if isPlaying == true {
+                                                player.pause()
+                                            } else {
+                                                player.seek(to: .zero)
+                                                player.play()
+                                            }
+                                            isPlaying.toggle()
+                                        } label: {
+                                            Image(systemName: isPlaying ? "stop" : "play")
+                                                .padding()
+                                        }.onReceive(playerDidFinishNotification, perform: { _ in
+                                            isPlaying = false
+                                        })
+                                    }
+                                } else {
+                                    Text("No video")
+                                }
+                                
+                                var scriptHeadline: AttributedString {
+                                    var text = AttributedString("\nScript")
+                                    text.font = .headline
+                                    return text
+                                }
+                                
+                                Text(scriptHeadline).frame(maxWidth: .infinity, alignment: .leading)
+                                
+                                Divider()
+                                
+                                HStack {
+                                    Text(scriptContents)
+                                        .frame(maxWidth: .infinity, alignment: .topLeading)
+                                    Button {
+                                        NSPasteboard.general.clearContents()
+                                        NSPasteboard.general.setString(scriptContents, forType: .string)
+                                    } label: {
+                                        Image(systemName: "doc.on.doc").padding()
+                                    }
+                                }
+                                
+                                Divider()
+                                
+                                var descHeadline: AttributedString {
+                                    var text = AttributedString("\nDescription\n")
+                                    text.font = .headline
+                                    return text
+                                }
+                                Text(descHeadline).frame(maxWidth: .infinity, alignment: .leading)
+                                let exampleItemParagraphs = AttributedString(descContents)
+                                Text(exampleItemParagraphs)
+                            }
+                        }
+                    }
+                }.tabItem { Text(String(exampleItem.num)) }
+            }
+        }
+    }
+}
+
+
+
+
 //        VStack{
 //            ScrollView {
 //                VStack {
@@ -466,7 +593,7 @@ struct ExamplesView: View {
 //                        VStack {
 //                            let scriptContents = getTextFromFile(basename: exampleItem.basename, key: "script")
 //                            let descContents = getTextFromFile(basename: exampleItem.basename, key: "desc")
-//                            
+//
 //                            // The Example Number And Title
 //                            var exampleItemHeadline: AttributedString {
 //                                var text = AttributedString("\n" + exampleItem.title + "\n")
@@ -474,16 +601,16 @@ struct ExamplesView: View {
 //                                return text
 //                            }
 //                            Text(exampleItemHeadline).frame(maxWidth: .infinity, alignment: .leading)
-//                            
+//
 //                            // The main horizontal wrapper for adding the line on the side
 //                            HStack {
 //                                // spacer and line
 //                                Text(" ").frame(maxHeight: .infinity, alignment: .top)
 //                                Divider()
-//                                
+//
 //                                // The main content area for the example
 //                                VStack {
-//                                    
+//
 //                                    // TODO: Figure out how to get the isplaying stuff
 //                                    // working. The original version was for a single
 //                                    // video so need something that can deal with
@@ -491,7 +618,7 @@ struct ExamplesView: View {
 //                                    // the clips are short enough that it doesn't
 //                                    // matter
 //                                    @State var isPlaying: Bool = false
-//                                    
+//
 //                                    // The video player or "No video" fallback
 //                                    if let url = Bundle.main.url(forResource: "\(exampleItem.basename)-video", withExtension: "mp4") {
 //                                        let player = AVPlayer(url: url)
@@ -517,17 +644,17 @@ struct ExamplesView: View {
 //                                    } else {
 //                                        Text("No video")
 //                                    }
-//                                    
+//
 //                                    var scriptHeadline: AttributedString {
 //                                        var text = AttributedString("\nScript")
 //                                        text.font = .headline
 //                                        return text
 //                                    }
-//                                    
+//
 //                                    Text(scriptHeadline).frame(maxWidth: .infinity, alignment: .leading)
-//                                    
+//
 //                                    Divider()
-//                                    
+//
 //                                    HStack {
 //                                        Text(scriptContents)
 //                                            .frame(maxWidth: .infinity, alignment: .topLeading)
@@ -538,9 +665,9 @@ struct ExamplesView: View {
 //                                            Image(systemName: "doc.on.doc").padding()
 //                                        }
 //                                    }
-//                                    
+//
 //                                    Divider()
-//                                    
+//
 //                                    var descHeadline: AttributedString {
 //                                        var text = AttributedString("\nDescription\n")
 //                                        text.font = .headline
@@ -564,9 +691,8 @@ struct ExamplesView: View {
 //            }
 //            Spacer()
 //        }.padding()
-   
-    }
-}
+
+
 
 struct ContentView: View {
     @State var appToWriteTo: NSRunningApplication?
@@ -1361,6 +1487,7 @@ struct ContentView: View {
                     DocsView().tabItem { Text("Docs") }
                     KeysView(pressCodes: pressCodes).tabItem { Text("Key Names") }
                     ExamplesView().tabItem { Text("Examples") }
+                    Examples2View().tabItem { Text("Examples2") }
                 }
                 Spacer()
             }.padding()
