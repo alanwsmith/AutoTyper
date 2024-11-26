@@ -115,9 +115,13 @@ struct DocsView: View{
         DocItem(title: "right: NUMBER", basename: "right-num"),
         DocItem(title: "set-delay: TIME", basename: "set-delay-time"),
         DocItem(title: "set-delay: MIN_TIME: MAX_TIME", basename: "set-delay-min-max"),
+        DocItem(title: "space", basename: "space"),
+        DocItem(title: "space: NUMBER", basename: "space-num"),
         DocItem(title: "start-lines", basename: "start-lines"),
         DocItem(title: "start-lines-down", basename: "start-lines-down"),
         DocItem(title: "stop", basename: "stop"),
+        DocItem(title: "tab", basename: "tab"),
+        DocItem(title: "tab: NUMBER", basename: "tab-num"),
         DocItem(title: "type: TEXT", basename: "type"),
         DocItem(title: "type-down: TEXT", basename: "type-down"),
         DocItem(title: "type-line: TEXT", basename: "type-line"),
@@ -139,20 +143,50 @@ struct DocsView: View{
     }
     
     var body: some View {
-        ScrollView {
-            ForEach(docItems) { item in
-                VStack {
-                    let descContents = getTextFromFile(basename: item.basename)
-                    var itemHeadline: AttributedString {
-                        var text = AttributedString("\n" + item.title + "\n")
-                        text.font = .title2.bold()
-                        return text
-                    }
-                    Text(itemHeadline).frame(maxWidth: .infinity, alignment: .leading)
-                    let exampleItemParagraphs = AttributedString(descContents)
-                    Text(exampleItemParagraphs).frame(maxWidth: .infinity, alignment: .leading)
+        VStack {
+            ScrollView {
+                var usageStuff: AttributedString {
+                    var text = AttributedString("Usage\n")
+                    text.font = .title
+                    text.append(AttributedString("\n1. Create a .txt file with instructions in it (see the 'Example'tab for ideas).\n\n"))
+                    text.append(AttributedString("2. Use the 'Choose Instructions File' button to select your script file.\n\n"))
+                    text.append(AttributedString("3. Click on the app you want to output the script to in the 'Select App' section.\n\n"))
+                    text.append(AttributedString("4. Click 'Run'. You may be asked to allow the app permissions in the System Preferences. This is required to let AutoTyper simulate a keyboard to do that actual typing. (Note that sometimes you have to delete the AutoTyper item, click Run, and turn it back on to reset it.)\n\n"))
+                    return text
                 }
+                Text(usageStuff).frame(maxWidth: .infinity, alignment: .leading)
                 Divider()
+                var stoppingNote:AttributedString {
+                    var text = AttributedString("Stopping\n")
+                    text.font = .title
+                    text.append(AttributedString("\nYou can stop the typing at any time by changing to any app other than the one that's being typed into."))
+                    return text
+                }
+                Text(stoppingNote).frame(maxWidth: .infinity, alignment: .leading)
+
+                Divider()
+
+                var scriptSyntaxHeadline: AttributedString {
+                    var text = AttributedString("\nInstructions")
+                    text.font = .title
+                    return text
+                }
+                Text(scriptSyntaxHeadline).frame(maxWidth: .infinity, alignment: .leading)
+                
+                ForEach(docItems) { item in
+                    VStack {
+                        let descContents = getTextFromFile(basename: item.basename)
+                        var itemHeadline: AttributedString {
+                            var text = AttributedString("\n" + item.title + "\n")
+                            text.font = .title2.bold()
+                            return text
+                        }
+                        Text(itemHeadline).frame(maxWidth: .infinity, alignment: .leading)
+                        let exampleItemParagraphs = AttributedString(descContents)
+                        Text(exampleItemParagraphs).frame(maxWidth: .infinity, alignment: .leading)
+                    }
+                    Divider()
+                }
             }
         }.padding()
     }
