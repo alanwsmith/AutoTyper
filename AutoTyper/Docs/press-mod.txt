@@ -1,0 +1,25 @@
+Press the given KEY one time while holding down the MODIFIERS. 
+
+The MODIFIERS are:
+
+- command
+- control
+- option
+- shift
+
+One or more MODIFIERS can be used at a time.
+
+### Examples ###
+
+press: command: a
+
+press: option: right-arrow
+
+press: option: shift: right-arrow
+
+### Note ###
+
+- Only lower case letters can be used with 'press:'. Use 'press: shift: KEY' to make them upper case. 
+
+- The list of available KEYs is provided in the Keys tab above. 
+

@@ -1,0 +1,5 @@
+Pastes the TEXT by pressing 'command + v' then presses the return key to move to the next line. 
+
+### Usage ###
+
+paste-line: The quick brown fox

@@ -1,0 +1,5 @@
+Resets the minimum and maximum times that the random delay between key presses uses to their default values. 
+
+### Usage ###
+
+reset-delay

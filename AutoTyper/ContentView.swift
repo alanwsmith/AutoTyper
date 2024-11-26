@@ -8,6 +8,10 @@
 import AVKit
 import SwiftUI
 
+// TODO: Handle if you can't parse the repeat number
+
+// TODO: Handle if an invalid key code is sent
+
 // TODO: Rename "script" stuff to "instructions"
 
 // TODO: Rename "command" stuff to "instruction"
@@ -34,6 +38,12 @@ struct AVPlayerControllerRepresented : NSViewRepresentable {
         // sure if it's required or just stubbed out for
         // potential usage. I'm leaving it in regardless.
     }
+}
+
+struct DocItem: Identifiable, Hashable {
+    let title: String
+    let basename: String
+    let id = UUID()
 }
 
 struct ErrorPayload {
@@ -76,153 +86,209 @@ struct StatusView: View{
 }
 
 struct DocsView: View{
-    let syntaxItems: [SyntaxItem] = [
-        SyntaxItem(headline: "debug: on", paragraphs: [
-            "Remove all delays and pauses to fast-forward until `debug: off` or the end of the script.",
-        ]),
-        
-        SyntaxItem(headline: "debug: off", paragraphs: [
-            "Restores all pauses so script runs at specified delays and pauses.",
-        ]),
-        
-        SyntaxItem(headline: "newline", paragraphs: [
-            "This version of 'newline' doesn't have a ':' or number after it. It inserts a single newline.",
-        ]),
-        
-        SyntaxItem(headline: "newline: NUMBER", paragraphs: [
-            "Inserts the specified number of newlines. For example, this inserts 5 newlines:",
-            "newline: 5"
-        ]),
-        
-        SyntaxItem(headline: "paste-file: FILE_PATH", paragraphs: [
-            "Copies the contents of the file at 'FILE_PATH' and pastes it in directly. For example, this pastes the contents of a 'code.txt' file on my Desktop:",
-            "paste-file: /Users/alan/Desktop/code.txt",
-            "An easy way to get the FILE_PATH for a file is to right click on it in the Finder then hold the 'Option' key. The 'Copy' option turns into 'Copy ... as Pathname' which gives you what you need for the FILE_PATH.",
-        ]),
-        
-        SyntaxItem(headline: "pause", paragraphs: [
-            "This is the version of 'pause' that doesn't have a ':' or number after it. It pauses the script fully.",
-            "Press the F4 key to resume the instructions.",
-            "This is designed to make it easier to do live recordings of scripts where you have everything set up and then use the pause/F4 process to add break points for talking.",
-            "Depending on how you mac is set up, you'll need to hold down the 'fn' key when you press 'F4' to get it to trigger.",
-        ]),
-        
-        SyntaxItem(headline: "pause: NUMBER", paragraphs: [
-            "Pause for a specific amount of time. For example, this pauses for 1.2 seconds",
-            "pause: 1.2",
-            "I use this to add some padding between blocks of code that are output together which I find makes them easier to follow."
-        ]),
-        
-        SyntaxItem(headline: "press: KEY", paragraphs: [
-            "Presses a single key on the keyboard.",
-            "This can be used for pressing keys like 'escape', or arrow keys. For example:",
-            "press: escape\npress: down-arrow",
-            "The full list of KEYs is listed in the 'Keys' tab."
-        ]),
-        
-        SyntaxItem(headline: "press: MODIFIERS: KEY", paragraphs: [
-            "Presses a single key on the keyboard while holding the specified MODIFIERS. For example, this will type 'Command + a' which does a select all in apps like VS Code:",
-            "press: command: a",
-            "Multiple MODIFIERS can be used by separating them with ':' characters. For example, this does 'Command + Shift + Left Arrow' which selects the prior word in apps like VS Code:",
-            "press: command: shift: left-arrow",
-            "The available MODIFIERS are:",
-            "- command\n- control\n- option\n- shift",
-            "The full list of KEY is listed in the 'Keys' tab."
-        ]),
-        
-        SyntaxItem(headline: "repeat: NUMBER: KEY", paragraphs: [
-            "Works the same as 'press: KEY' but repeats the press NUMBER of times. For example:",
-            "repeat: 5: left-arrow",
-        ]),
-        
-        SyntaxItem(headline: "repeat: MODIFIERS: KEY", paragraphs: [
-            "Works the same as 'press: MODIFIERS: KEY' but repeats the press NUMBER of times. For example:",
-            "repeat: 5: command: shift: left-arrow",
-        ]),
-        
-        SyntaxItem(headline: "reset-delay", paragraphs: [
-            "Resets the minimum and maximum times for the randomized delay between keystokes to their default values '0.01' and '0.03'",
-        ]),
-        
-        SyntaxItem(headline: "set-delay: NUMBER", paragraphs: [
-            "Set the delay between keystrokes to NUMBER. For example:",
-            "set-delay: 0.07",
-        ]),
-        
-        SyntaxItem(headline: "set-delay: MIN: MAX", paragraphs: [
-            "Set the minimum and maximum times for the randomized delay between keystokes to the values defined in MIN and MAX. For example:",
-            "set-delay: 0.05: 0.1",
-        ]),
-        
-        SyntaxItem(headline: "stop", paragraphs: [
-            "Stops the script.",
-            "I use this in conjunction with 'debug: on' to fast forward to a part of a script I want to check and then halt it there so I can verify the output.",
-        ]),
-        
-        SyntaxItem(headline: "type: STRING", paragraphs: [
-            "Type the STRING of text without adding a newline or pressing the down arrow. This can be used for things like typing part of a line then doing a pause or changing the delay before finishing it.",
-            "Note: only the characters available in the 'Typing Keys' section of 'Key Names' can be used. If you need to type something else, you'll need to use 'press: MODIFIERS: KEY' (e.g. 'press: option: 2' to type the ™ symbol)",
-            "Note: I wrote AutoTyper for my U.S. English keyboard. I'm not opposed to making a more international version, but I don't know what that would take and don't have the resources to look into right now.",
-        ]),
-        
-        SyntaxItem(headline: "type-down: STRING", paragraphs: [
-            "Same as 'type: STRING' but presses the down arrow key after the STRING is complete.",
-            "I generally use this instead of 'type-line: STRING' when I'm using VS Code.",
-            "Specifically, before I start the main script I run 'newline: 50' then 'press: command: up-arrow' which adds 50 blank lines to the file then moves the cursor to the top.",
-            "Doing that and then using 'type-down: STRING' helps prevent the VS Code scrollbar from flashing as much. I find it less distracting that way.",
-        ]),
-        
-        SyntaxItem(headline: "type-line: STRING", paragraphs: [
-            "Same as 'type: STRING' but creates a newline after the STRING is complete.",
-        ]),
-        
+    
+    let docItems: [DocItem] = [
+        DocItem(title: "debug: on", basename: "debug-on"),
+        DocItem(title: "debug: off", basename: "debug-off"),
+        DocItem(title: "down", basename: "down"),
+        DocItem(title: "down: NUMBER", basename: "down-num"),
+        DocItem(title: "end-lines", basename: "end-lines"),
+        DocItem(title: "end-lines-down", basename: "end-lines-down"),
+        DocItem(title: "left", basename: "left"),
+        DocItem(title: "left: NUMBER", basename: "left-num"),
+        DocItem(title: "paste: TEXT", basename: "paste"),
+        DocItem(title: "paste-down: TEXT", basename: "paste-down"),
+        DocItem(title: "paste-line: TEXT", basename: "paste-line"),
+        DocItem(title: "paste-file: PATH", basename: "paste-file"),
+        DocItem(title: "paste-file-lines: PATH", basename: "paste-file-lines"),
+        DocItem(title: "paste-file-lines-down: PATH", basename: "paste-file-lines-down"),
+        DocItem(title: "pause", basename: "pause"),
+        DocItem(title: "pause: TIME", basename: "pause-time"),
+        DocItem(title: "press: KEY", basename: "press"),
+        DocItem(title: "press: MODIFIERS: KEY", basename: "press-mod"),
+        DocItem(title: "repeat: NUMBER: KEY", basename: "repeat"),
+        DocItem(title: "repeat: NUMBER: MODIFIERS: KEY", basename: "repeat-mod"),
+        DocItem(title: "reset-delay", basename: "reset-delay"),
+        DocItem(title: "return", basename: "return"),
+        DocItem(title: "return: NUMBER", basename: "return-num"),
+        DocItem(title: "right", basename: "right"),
+        DocItem(title: "right: NUMBER", basename: "right-num"),
+        DocItem(title: "set-delay: TIME", basename: "set-delay-time"),
+        DocItem(title: "set-delay: MIN_TIME: MAX_TIME", basename: "set-delay-min-max"),
+        DocItem(title: "start-lines", basename: "start-lines"),
+        DocItem(title: "start-lines-down", basename: "start-lines-down"),
+        DocItem(title: "stop", basename: "stop"),
+        DocItem(title: "type: TEXT", basename: "type"),
+        DocItem(title: "type-down: TEXT", basename: "type-down"),
+        DocItem(title: "type-line: TEXT", basename: "type-line"),
+        DocItem(title: "up", basename: "up"),
+        DocItem(title: "up: NUMBER", basename: "up-num"),
     ]
     
+    func getTextFromFile(basename: String) -> String {
+        do {
+            if let exampleScriptUrl = Bundle.main.url(forResource: "\(basename)", withExtension: "txt") {
+                let exampleScriptText = try String(contentsOf: exampleScriptUrl, encoding: String.Encoding.utf8)
+                return exampleScriptText
+            } else {
+                return "Could not open file"
+            }
+        } catch {
+            return "Could not open file"
+        }
+    }
+    
     var body: some View {
-        ScrollView{
-            VStack{
-                var usageStuff: AttributedString {
-                    var text = AttributedString("Usage\n")
-                    text.font = .title
-                    text.append(AttributedString("\n1. Create a .txt file with instructions in it (see 'Examples' for ideas).\n\n"))
-                    text.append(AttributedString("2. Use the 'Choose Instructions File' button to select your script file.\n\n"))
-                    text.append(AttributedString("3. Click on the app you want to output the script to in the 'Select App' section.\n\n"))
-                    text.append(AttributedString("4. Click 'Run'. You may be asked to allow the app permissions in the System Preferences. This is required to let AutoTyper simulate a keyboard to do that actual typing. (Note that sometimes you have to delete the AutoTyper item, click Run, and turn it back on to reset it.)\n\n"))
-                    return text
-                }
-                Text(usageStuff).frame(maxWidth: .infinity, alignment: .leading)
-                Divider()
-                var stoppingNote:AttributedString {
-                    var text = AttributedString("Stopping\n")
-                    text.font = .title
-                    text.append(AttributedString("\nYou can stop the typing at any time by changing to any app other than the one that's being typed into."))
-                    return text
-                }
-                Text(stoppingNote).frame(maxWidth: .infinity, alignment: .leading)
-                
-                Divider()
-                
-                var scriptSyntaxHeadline: AttributedString {
-                    var text = AttributedString("\nScript Commands")
-                    text.font = .title
-                    return text
-                }
-                Text(scriptSyntaxHeadline).frame(maxWidth: .infinity, alignment: .leading)
-                ForEach(syntaxItems) { syntaxItem in
-                    var syntaxItemHeadline: AttributedString {
-                        var text = AttributedString("\n" + syntaxItem.headline + "\n")
+        ScrollView {
+            ForEach(docItems) { item in
+                VStack {
+                    let descContents = getTextFromFile(basename: item.basename)
+                    var itemHeadline: AttributedString {
+                        var text = AttributedString("\n" + item.title + "\n")
                         text.font = .title3.bold()
-                        for paragraph in syntaxItem.paragraphs {
-                            text.append(AttributedString("\n" + paragraph + "\n"))
-                        }
                         return text
                     }
-                    Text(syntaxItemHeadline).frame(maxWidth: .infinity, alignment: .leading)
-                    Divider()
+                    Text(itemHeadline).frame(maxWidth: .infinity, alignment: .leading)
+                    let exampleItemParagraphs = AttributedString(descContents)
+                    Text(exampleItemParagraphs).frame(maxWidth: .infinity, alignment: .leading)
                 }
+                Divider()
             }
         }.padding()
     }
+    
+    
+//    let syntaxItems: [SyntaxItem] = [
+//        SyntaxItem(headline: "debug: on", paragraphs: [
+//            "Remove all delays and pauses to fast-forward until `debug: off` or the end of the script.",
+//        ]),
+//        SyntaxItem(headline: "debug: off", paragraphs: [
+//            "Restores all pauses so script runs at specified delays and pauses.",
+//        ]),
+//        SyntaxItem(headline: "newline", paragraphs: [
+//            "This version of 'newline' doesn't have a ':' or number after it. It inserts a single newline.",
+//        ]),
+//        SyntaxItem(headline: "newline: NUMBER", paragraphs: [
+//            "Inserts the specified number of newlines. For example, this inserts 5 newlines:",
+//            "newline: 5"
+//        ]),
+//        SyntaxItem(headline: "paste-file: FILE_PATH", paragraphs: [
+//            "Copies the contents of the file at 'FILE_PATH' and pastes it in directly. For example, this pastes the contents of a 'code.txt' file on my Desktop:",
+//            "paste-file: /Users/alan/Desktop/code.txt",
+//            "An easy way to get the FILE_PATH for a file is to right click on it in the Finder then hold the 'Option' key. The 'Copy' option turns into 'Copy ... as Pathname' which gives you what you need for the FILE_PATH.",
+//        ]),
+//        SyntaxItem(headline: "pause", paragraphs: [
+//            "This is the version of 'pause' that doesn't have a ':' or number after it. It pauses the script fully.",
+//            "Press the F4 key to resume the instructions.",
+//            "This is designed to make it easier to do live recordings of scripts where you have everything set up and then use the pause/F4 process to add break points for talking.",
+//            "Depending on how you mac is set up, you'll need to hold down the 'fn' key when you press 'F4' to get it to trigger.",
+//        ]),
+//        SyntaxItem(headline: "pause: NUMBER", paragraphs: [
+//            "Pause for a specific amount of time. For example, this pauses for 1.2 seconds",
+//            "pause: 1.2",
+//            "I use this to add some padding between blocks of code that are output together which I find makes them easier to follow."
+//        ]),
+//        SyntaxItem(headline: "press: KEY", paragraphs: [
+//            "Presses a single key on the keyboard.",
+//            "This can be used for pressing keys like 'escape', or arrow keys. For example:",
+//            "press: escape\npress: down-arrow",
+//            "The full list of KEYs is listed in the 'Keys' tab."
+//        ]),
+//        SyntaxItem(headline: "press: MODIFIERS: KEY", paragraphs: [
+//            "Presses a single key on the keyboard while holding the specified MODIFIERS. For example, this will type 'Command + a' which does a select all in apps like VS Code:",
+//            "press: command: a",
+//            "Multiple MODIFIERS can be used by separating them with ':' characters. For example, this does 'Command + Shift + Left Arrow' which selects the prior word in apps like VS Code:",
+//            "press: command: shift: left-arrow",
+//            "The available MODIFIERS are:",
+//            "- command\n- control\n- option\n- shift",
+//            "The full list of KEY is listed in the 'Keys' tab."
+//        ]),
+//        SyntaxItem(headline: "repeat: NUMBER: KEY", paragraphs: [
+//            "Works the same as 'press: KEY' but repeats the press NUMBER of times. For example:",
+//            "repeat: 5: left-arrow",
+//        ]),
+//        SyntaxItem(headline: "repeat: MODIFIERS: KEY", paragraphs: [
+//            "Works the same as 'press: MODIFIERS: KEY' but repeats the press NUMBER of times. For example:",
+//            "repeat: 5: command: shift: left-arrow",
+//        ]),
+//        SyntaxItem(headline: "reset-delay", paragraphs: [
+//            "Resets the minimum and maximum times for the randomized delay between keystokes to their default values '0.01' and '0.03'",
+//        ]),
+//        SyntaxItem(headline: "set-delay: NUMBER", paragraphs: [
+//            "Set the delay between keystrokes to NUMBER. For example:",
+//            "set-delay: 0.07",
+//        ]),
+//        SyntaxItem(headline: "set-delay: MIN: MAX", paragraphs: [
+//            "Set the minimum and maximum times for the randomized delay between keystokes to the values defined in MIN and MAX. For example:",
+//            "set-delay: 0.05: 0.1",
+//        ]),
+//        SyntaxItem(headline: "stop", paragraphs: [
+//            "Stops the script.",
+//            "I use this in conjunction with 'debug: on' to fast forward to a part of a script I want to check and then halt it there so I can verify the output.",
+//        ]),
+//        SyntaxItem(headline: "type: STRING", paragraphs: [
+//            "Type the STRING of text without adding a newline or pressing the down arrow. This can be used for things like typing part of a line then doing a pause or changing the delay before finishing it.",
+//            "Note: only the characters available in the 'Typing Keys' section of 'Key Names' can be used. If you need to type something else, you'll need to use 'press: MODIFIERS: KEY' (e.g. 'press: option: 2' to type the ™ symbol)",
+//            "Note: I wrote AutoTyper for my U.S. English keyboard. I'm not opposed to making a more international version, but I don't know what that would take and don't have the resources to look into right now.",
+//        ]),
+//        SyntaxItem(headline: "type-down: STRING", paragraphs: [
+//            "Same as 'type: STRING' but presses the down arrow key after the STRING is complete.",
+//            "I generally use this instead of 'type-line: STRING' when I'm using VS Code.",
+//            "Specifically, before I start the main script I run 'newline: 50' then 'press: command: up-arrow' which adds 50 blank lines to the file then moves the cursor to the top.",
+//            "Doing that and then using 'type-down: STRING' helps prevent the VS Code scrollbar from flashing as much. I find it less distracting that way.",
+//        ]),
+//        SyntaxItem(headline: "type-line: STRING", paragraphs: [
+//            "Same as 'type: STRING' but creates a newline after the STRING is complete.",
+//        ]),
+//    ]
+    
+//    var body: some View {
+//        ScrollView{
+//            VStack{
+//                var usageStuff: AttributedString {
+//                    var text = AttributedString("Usage\n")
+//                    text.font = .title
+//                    text.append(AttributedString("\n1. Create a .txt file with instructions in it (see 'Examples' for ideas).\n\n"))
+//                    text.append(AttributedString("2. Use the 'Choose Instructions File' button to select your script file.\n\n"))
+//                    text.append(AttributedString("3. Click on the app you want to output the script to in the 'Select App' section.\n\n"))
+//                    text.append(AttributedString("4. Click 'Run'. You may be asked to allow the app permissions in the System Preferences. This is required to let AutoTyper simulate a keyboard to do that actual typing. (Note that sometimes you have to delete the AutoTyper item, click Run, and turn it back on to reset it.)\n\n"))
+//                    return text
+//                }
+//                Text(usageStuff).frame(maxWidth: .infinity, alignment: .leading)
+//                Divider()
+//                var stoppingNote:AttributedString {
+//                    var text = AttributedString("Stopping\n")
+//                    text.font = .title
+//                    text.append(AttributedString("\nYou can stop the typing at any time by changing to any app other than the one that's being typed into."))
+//                    return text
+//                }
+//                Text(stoppingNote).frame(maxWidth: .infinity, alignment: .leading)
+//                
+//                Divider()
+//                
+//                var scriptSyntaxHeadline: AttributedString {
+//                    var text = AttributedString("\nScript Commands")
+//                    text.font = .title
+//                    return text
+//                }
+//                Text(scriptSyntaxHeadline).frame(maxWidth: .infinity, alignment: .leading)
+//                ForEach(syntaxItems) { syntaxItem in
+//                    var syntaxItemHeadline: AttributedString {
+//                        var text = AttributedString("\n" + syntaxItem.headline + "\n")
+//                        text.font = .title3.bold()
+//                        for paragraph in syntaxItem.paragraphs {
+//                            text.append(AttributedString("\n" + paragraph + "\n"))
+//                        }
+//                        return text
+//                    }
+//                    Text(syntaxItemHeadline).frame(maxWidth: .infinity, alignment: .leading)
+//                    Divider()
+//                }
+//            }
+//        }.padding()
+//    }
+    
+    
 }
 
 struct KeysView: View {
@@ -236,9 +302,9 @@ struct KeysView: View {
         VStack{
             
             var titleStuff: AttributedString {
-                var text = AttributedString("Key Names\n")
+                var text = AttributedString("Keys\n")
                 text.font = .title
-                text.append(AttributedString("\nThese are the KEYs you can use for 'press' and 'repeat' commands.\n\n"))
+                text.append(AttributedString("\nThese are the KEYs you can use for 'press' and 'repeat' commands.\n\nNote that only lowercase letters are availabe. They can be made uppercase by using the 'shift:' modifier"))
                 return text
             }
             Text(titleStuff).frame(maxWidth: .infinity, alignment: .leading)
@@ -252,6 +318,13 @@ struct KeysView: View {
         .padding()
     }
 }
+
+struct ExamplesView3: View {
+    var body: some View {
+        Text("here")
+    }
+}
+
 
 struct ExamplesView: View {
     let exampleItems: [ExampleItem] = [
@@ -569,7 +642,7 @@ struct ContentView: View {
     @State var debugMinHold = 0.01
     @State var defaultMaxDelay = 0.03
     @State var defaultMinDelay = 0.01
-    @State var delayAfterPaste = 0.03
+    @State var delayAfterPaste = 0.05
     @State var errors: [String] = []
     @State var hasPermissions = AXIsProcessTrusted()
     @State var holdCommand = false
@@ -855,6 +928,8 @@ struct ContentView: View {
     }
     
     func chooseScript() {
+        statusLine = ""
+        statusLineForRun = ""
         let picker = NSOpenPanel()
         picker.canChooseFiles = true
         picker.runModal()
@@ -1220,6 +1295,7 @@ struct ContentView: View {
         // the number isn't a number
         if parts.count > 2 {
             let keyToGet = parts.last!.trimmingCharacters(in: .whitespacesAndNewlines)
+            // TODO: Print ERROR message if repeat is wrong and doesn't have a number that can be parsed.
             let repeatCount = Int32(truncating: NumberFormatter().number(from: parts[1].trimmingCharacters(in: .whitespacesAndNewlines))!)
             if keyToGet != "" {
                 if let pressCode = pressCodes[keyToGet] {
@@ -1428,10 +1504,6 @@ struct ContentView: View {
                 doDown(parts: parts)
             } else if action == "left" {
                 doLeft(parts: parts)
-            } else if action == "newline" {
-                doNewline(parts: parts)
-            } else if action == "newlines" {
-                doNewline(parts: parts)
             } else if action == "paste" {
                 doPaste(parts: parts)
             } else if action == "paste-down" {
@@ -1452,6 +1524,8 @@ struct ContentView: View {
                 doRepeat(parts: parts)
             } else if action == "reset-delay" {
                 doResetDelay()
+            } else if action == "return" {
+                doNewline(parts: parts)
             } else if action == "right" {
                 doRight(parts: parts)
             } else if action == "set-delay" {
@@ -1542,7 +1616,7 @@ struct ContentView: View {
                 scriptLines = scriptContents.split(separator: "\n", omittingEmptySubsequences: false)
                 scriptLines.reverse()
                 // wait a second after activation before running
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                     processLine()
                 }
             } catch{
@@ -1676,6 +1750,8 @@ struct ContentView: View {
 //                    StatusView(statusLine: statusLine, statusArea: statusArea).tabItem {Text("Status") }
                     DocsView().tabItem { Text("Docs") }
                     KeysView(pressCodes: pressCodes).tabItem { Text("Key Names") }
+                    ExamplesView3().tabItem { Text("Examples")}
+                    
 //                    ExamplesView().tabItem { Text("Examples") }
 //                    Examples2View().tabItem { Text("Examples2") }
                 }

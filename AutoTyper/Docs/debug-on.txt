@@ -1,0 +1,5 @@
+Remove all delays and pauses to fast-forward until 'debug: off' or the end of the script.
+
+### Usage ###
+
+debug: on

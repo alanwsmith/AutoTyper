@@ -1,0 +1,5 @@
+Presses the right arrow key the specified NUMBER of times.
+
+### Example ###
+
+right: 3

@@ -1,0 +1,9 @@
+Pastes the contents of the file at the given PATH. Each line in the file is pasted individually via 'command + v'. The 'return' key is pressed after each line is pasted to move to the next line. 
+
+### Usage ###
+
+paste-file-lines: /Users/alan/Desktop/example.txt
+
+### Note ###
+
+You can get the PATH for a file by right clicking on it in the Finder then holding the 'option' key. When you do, the 'Copy' menu item will turn into 'Copy ... as Pathname' which is what PATH uses. 

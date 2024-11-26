@@ -1,0 +1,5 @@
+Presses the 'return' key one time.
+
+### Usage ###
+
+return

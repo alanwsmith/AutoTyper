@@ -1,0 +1,5 @@
+Resets the minimum and maximum times that the random delay between key presses uses to MIN_TIME and MAX_TIME, respectively.
+
+### Example ###
+
+set-delay: 0.05: 0.1

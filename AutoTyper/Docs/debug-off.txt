@@ -1,0 +1,5 @@
+Restores all pauses so the instruction runs with their specified delays and pauses.
+
+### Usage ###
+
+debug: off

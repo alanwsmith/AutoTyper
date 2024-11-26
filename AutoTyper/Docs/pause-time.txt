@@ -1,0 +1,10 @@
+Pauses typing for the given amount of TIME which is measured in seconds. 
+
+### Examples ###
+
+pause: 1 
+
+pause: 1.2
+
+pause: 0.3
+

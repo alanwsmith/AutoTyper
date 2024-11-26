@@ -1,0 +1,11 @@
+##### Clear the prior run
+press: command: a
+press: delete
+
+##### Load the initial file and save it
+paste-file-lines: /Users/alan/Xcode-Projects/AutoTyper/Example-Video/initial.html
+press: command: s
+
+#####
+
+

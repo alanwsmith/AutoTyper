@@ -1,0 +1,13 @@
+Presses the KEY the specified NUMBER of times.
+
+### Examples ###
+
+repeat: 3: space
+
+repeat: 3: up-arrow
+
+### Notes ### 
+
+- Only lower case letters can be used with 'repeat:'. Use 'repeat: NUMBER: shift: KEY' to make them upper case. 
+
+- The list of available KEYs is provided in the Keys tab above. 

@@ -1,0 +1,5 @@
+Presses the up arrow the specified NUMBER of times
+
+### Example ###
+
+up: 3

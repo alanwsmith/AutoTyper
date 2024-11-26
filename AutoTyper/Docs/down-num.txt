@@ -1,0 +1,5 @@
+Presses the down arrow key the specified NUMBER of times.
+
+### Usage ###
+
+down: 3
