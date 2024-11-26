@@ -1105,7 +1105,9 @@ struct ContentView: View {
     func doPasteFileLine() {
         if linesToPaste.count > 0 {
             var lineToPaste = linesToPaste.popLast()!
-            lineToPaste.append("\n")
+            if linesToPaste.count != 0 {
+                lineToPaste.append("\n")
+            }
             NSPasteboard.general.clearContents()
             NSPasteboard.general.setString(lineToPaste, forType: .string)
             let src = CGEventSource(stateID: .privateState)
@@ -1157,7 +1159,7 @@ struct ContentView: View {
             do {
                 let fileUrl = URL(string: "file://" + parts[1].trimmingCharacters(in: .whitespacesAndNewlines))
                 let contentToPaste = try String(contentsOf: fileUrl!, encoding: String.Encoding.utf8)
-                linesToPaste = contentToPaste.split(separator: "\n", omittingEmptySubsequences: false).map{ String($0) }
+                linesToPaste = contentToPaste.trimmingCharacters(in: .whitespacesAndNewlines).split(separator: "\n", omittingEmptySubsequences: false).map{ String($0) }
                 linesToPaste.reverse()
                 doPasteFileLine()
             } catch{
