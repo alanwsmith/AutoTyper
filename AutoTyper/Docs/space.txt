@@ -1,0 +1,5 @@
+Presses the 'space' key one time.
+
+### Usage ###
+
+space

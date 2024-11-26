@@ -1,0 +1,46 @@
+##### Clear the prior run
+press: command: a
+press: delete
+
+##### Load the initial file and save it
+paste-file-lines: /Users/alan/sample/initial.html
+press: command: s
+pause
+
+##### Add style sheet
+up: 9
+press: command: right-arrow
+return
+tab
+paste-file-lines: /Users/alan/sample/initial.css
+press: command: s
+pause
+
+##### Change to green
+up: 2
+press: command: right-arrow
+press: option: left-arrow
+press: option: shift: right-arrow
+pause: 0.3
+type: green
+pause: 0.3
+press: command: s
+pause
+
+##### Change to red
+press: option: left-arrow
+press: option: shift: right-arrow
+pause: 0.3
+type: red 
+pause: 0.3
+press: command: s
+pause
+
+##### Type thank you
+down: 7
+press: command: left-arrow
+press: command: shift: right-arrow
+press: shift: down-arrow
+type: Thanks for watching!
+press: command: s
+

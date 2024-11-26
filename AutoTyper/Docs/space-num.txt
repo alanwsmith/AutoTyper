@@ -1,0 +1,5 @@
+Presses the 'space' key the specified NUMBER of times. 
+
+### Example ###
+
+space: 3

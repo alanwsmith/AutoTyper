@@ -145,7 +145,7 @@ struct DocsView: View{
                     let descContents = getTextFromFile(basename: item.basename)
                     var itemHeadline: AttributedString {
                         var text = AttributedString("\n" + item.title + "\n")
-                        text.font = .title3.bold()
+                        text.font = .title2.bold()
                         return text
                     }
                     Text(itemHeadline).frame(maxWidth: .infinity, alignment: .leading)
@@ -300,7 +300,6 @@ struct KeysView: View {
     
     var body: some View {
         VStack{
-            
             var titleStuff: AttributedString {
                 var text = AttributedString("Keys\n")
                 text.font = .title
@@ -320,8 +319,57 @@ struct KeysView: View {
 }
 
 struct ExamplesView3: View {
+    
+    func getTextFromFile() -> String {
+        do {
+            if let exampleScriptUrl = Bundle.main.url(forResource: "instructions", withExtension: "txt") {
+                let exampleScriptText = try String(contentsOf: exampleScriptUrl, encoding: String.Encoding.utf8)
+                return exampleScriptText.trimmingCharacters(in: .whitespacesAndNewlines)
+            } else {
+                return "Could not open file"
+            }
+        } catch {
+            return "Could not open file"
+        }
+    }
+    
+    let playerDidFinishNotification = NotificationCenter.default.publisher(for: .AVPlayerItemDidPlayToEndTime)
+    
     var body: some View {
-        Text("here")
+        VStack {
+            Text("This is an example set of instructions showing the basics of what AutoTyper can do.")
+                .frame(maxWidth: .infinity, alignment: .leading)
+            @State var isPlaying: Bool = false
+            // The video player or "No video" fallback
+            if let url = Bundle.main.url(forResource: "example-single-01", withExtension: "mp4") {
+                let player = AVPlayer(url: url)
+                HStack {
+                    AVPlayerControllerRepresented(player: player)
+                        .frame(height: 210)
+                        .disabled(true)
+                    Button {
+                        if isPlaying == true {
+                            player.pause()
+                        } else {
+                            player.seek(to: .zero)
+                            player.play()
+                        }
+                        isPlaying.toggle()
+                    } label: {
+                        Image(systemName: isPlaying ? "stop" : "play")
+                            .padding()
+                    }.onReceive(playerDidFinishNotification, perform: { _ in
+                        isPlaying = false
+                    })
+                }
+            } else {
+                Text("Could not load video")
+            }
+            
+            ScrollView {
+                Text(getTextFromFile()).frame(maxWidth: .infinity, alignment: .leading)
+            }
+        }.padding()
     }
 }
 
@@ -667,10 +715,12 @@ struct ContentView: View {
         // creating a bunch of pre-existing newlines
         // to prevent the scrollbar flashing when
         // the script types.
-        "down-arrow": (0x7D, []),
         "up-arrow": (0x7E, []),
+        "down-arrow": (0x7D, []),
         "left-arrow": (0x7B, []),
         "right-arrow": (0x7C, []),
+        "space": (0x31, []),
+        "tab": (0x30, []),
         // These are the regular keys
         "0": (0x1D, []),
         ")": (0x1D, [.maskShift]),
@@ -1369,9 +1419,37 @@ struct ContentView: View {
         processLine()
     }
     
+    func doSpace(parts: [String]) {
+        if parts.count == 1 {
+            charactersToType.append("space")
+        } else {
+            // TODO: Figure out how to throw an error here if
+            // there's not a valid number
+            let charactersDown = Int32(truncating: NumberFormatter().number(from: parts[1])!)
+            for _ in (0..<charactersDown) {
+                charactersToType.append("space")
+            }
+        }
+        typeCharacter()
+    }
+    
     func doStop() {
         statusLine = "Status: Received 'stop' instruction. Process halted"
         statusLineForRun = "Received 'stop' instruction. Process halted"
+    }
+    
+    func doTab(parts: [String]) {
+        if parts.count == 1 {
+            charactersToType.append("tab")
+        } else {
+            // TODO: Figure out how to throw an error here if
+            // there's not a valid number
+            let charactersDown = Int32(truncating: NumberFormatter().number(from: parts[1])!)
+            for _ in (0..<charactersDown) {
+                charactersToType.append("tab")
+            }
+        }
+        typeCharacter()
     }
     
     func doTypeCharacters(parts: [String]) {
@@ -1532,6 +1610,8 @@ struct ContentView: View {
                 doRight(parts: parts)
             } else if action == "set-delay" {
                 doSetDelay(parts: parts)
+            } else if action == "space" {
+                doSpace(parts: parts)
             } else if action == "start-lines" {
                 captureLines = true
                 processLine()
@@ -1540,6 +1620,8 @@ struct ContentView: View {
                 processLine()
             } else if action == "stop" {
                 doStop()
+            } else if action == "tab" {
+                doTab(parts: parts)
             } else if action == "type" {
                 doTypeCharacters(parts: parts)
             } else if action == "type-down" {
@@ -1752,7 +1834,7 @@ struct ContentView: View {
 //                    StatusView(statusLine: statusLine, statusArea: statusArea).tabItem {Text("Status") }
                     DocsView().tabItem { Text("Docs") }
                     KeysView(pressCodes: pressCodes).tabItem { Text("Key Names") }
-                    ExamplesView3().tabItem { Text("Examples")}
+                    ExamplesView3().tabItem { Text("Example")}
                     
 //                    ExamplesView().tabItem { Text("Examples") }
 //                    Examples2View().tabItem { Text("Examples2") }
