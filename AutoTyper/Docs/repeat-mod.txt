@@ -1,0 +1,24 @@
+Press the given KEY the specified NUMBER of times while holding down the MODIFIERS. 
+
+The MODIFIERS are:
+
+- command
+- control
+- option
+- shift
+
+One or more MODIFIERS can be used at a time.
+
+### Examples ###
+
+repeat: 3: shift: a
+
+repeat: 5: option: right-arrow
+
+repeat: 2: option: shift: right-arrow
+
+### Notes ###
+
+- Only lower case letters can be used with 'repeat:'. Use 'repeat: NUMBER: shift: KEY' to make them upper case. 
+
+- The list of available KEYs is provided in the Keys tab above. 

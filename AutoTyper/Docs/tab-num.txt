@@ -1,0 +1,5 @@
+Presses the 'tab' key the specified NUMBER of times. 
+
+### Example ###
+
+tab: 3

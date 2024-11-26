@@ -7,9 +7,13 @@ is necessary. Instead of doing it manually,
 the app will do it for you. Faster and without 
 flubbing keys. 
 
+You can check out an intro video here:
+
+[https://youtu.be/VrT6AG_jMwE](https://youtu.be/VrT6AG_jMwE)
+
 ## Installation
 
-- Download the AutoTyper.dmg file. Open it
+- Download the AutoTyper.zip file. Unzip it
 and copy the AutoTyper.app file to your
 Applications folder. 
 

@@ -1,0 +1,13 @@
+Types the given TEXT followed by pressing the 'return' key. 
+
+### Example ###
+
+type-line: The quick brown fox
+
+### Notes ###
+
+- Any spaces at the start of the TEXT are removed.
+
+- Any spaces at the end of the TEXT are removed.
+
+- Use a 'press: space' instruction to add spaces at either the start or the end of a piece of text if necessary. 

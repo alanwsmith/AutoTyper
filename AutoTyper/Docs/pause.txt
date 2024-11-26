@@ -1,0 +1,5 @@
+Pauses typing until F4 is pressed on the keyboard. 
+
+### Usage ###
+
+pause

@@ -1,0 +1,5 @@
+Pastes the TEXT by pressing 'command + v' then presses the down arrow.
+
+### Usage ###
+
+paste-down: The quick brown fox

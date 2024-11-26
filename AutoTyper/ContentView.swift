@@ -8,6 +8,14 @@
 import AVKit
 import SwiftUI
 
+// TODO: Handle if you can't parse the repeat number
+
+// TODO: Handle if an invalid key code is sent
+
+// TODO: Rename "script" stuff to "instructions"
+
+// TODO: Rename "command" stuff to "instruction"
+
 // TODO: Handle unknow characters
 
 // TODO: Do a check for persmissions where it counts
@@ -30,6 +38,12 @@ struct AVPlayerControllerRepresented : NSViewRepresentable {
         // sure if it's required or just stubbed out for
         // potential usage. I'm leaving it in regardless.
     }
+}
+
+struct DocItem: Identifiable, Hashable {
+    let title: String
+    let basename: String
+    let id = UUID()
 }
 
 struct ErrorPayload {
@@ -72,116 +86,70 @@ struct StatusView: View{
 }
 
 struct DocsView: View{
-    let syntaxItems: [SyntaxItem] = [
-        SyntaxItem(headline: "debug: on", paragraphs: [
-            "Remove all delays and pauses to fast-forward until `debug: off` or the end of the script.",
-        ]),
-        
-        SyntaxItem(headline: "debug: off", paragraphs: [
-            "Restores all pauses so script runs at specified delays and pauses.",
-        ]),
-        
-        SyntaxItem(headline: "newline", paragraphs: [
-            "This version of 'newline' doesn't have a ':' or number after it. It inserts a single newline.",
-        ]),
-        
-        SyntaxItem(headline: "newline: NUMBER", paragraphs: [
-            "Inserts the specified number of newlines. For example, this inserts 5 newlines:",
-            "newline: 5"
-        ]),
-        
-        SyntaxItem(headline: "paste-file: FILE_PATH", paragraphs: [
-            "Copies the contents of the file at 'FILE_PATH' and pastes it in directly. For example, this pastes the contents of a 'code.txt' file on my Desktop:",
-            "paste-file: /Users/alan/Desktop/code.txt",
-            "An easy way to get the FILE_PATH for a file is to right click on it in the Finder then hold the 'Option' key. The 'Copy' option turns into 'Copy ... as Pathname' which gives you what you need for the FILE_PATH.",
-        ]),
-        
-        SyntaxItem(headline: "pause", paragraphs: [
-            "This is the version of 'pause' that doesn't have a ':' or number after it. It pauses the script fully.",
-            "Press the F2 key to resume the script.",
-            "This is designed to make it easier to do live recordings of scripts where you have everything set up and then use the pause/F2 process to add break points for talking.",
-            "Depending on how you mac is set up, you'll need to hold down the 'fn' key when you press 'F2' to get it to trigger instead of changing the brightness of your screen.",
-        ]),
-        
-        SyntaxItem(headline: "pause: NUMBER", paragraphs: [
-            "Pause for a specific amount of time. For example, this pauses for 1.2 seconds",
-            "pause: 1.2",
-            "I use this to add some padding between blocks of code that are output together which I find makes them easier to follow."
-        ]),
-        
-        SyntaxItem(headline: "press: KEY", paragraphs: [
-            "Presses a single key on the keyboard.",
-            "This can be used for pressing keys like 'escape', or arrow keys. For example:",
-            "press: escape\npress: down-arrow",
-            "The full list of KEYs is listed in the 'Keys' tab."
-        ]),
-        
-        SyntaxItem(headline: "press: MODIFIERS: KEY", paragraphs: [
-            "Presses a single key on the keyboard while holding the specified MODIFIERS. For example, this will type 'Command + a' which does a select all in apps like VS Code:",
-            "press: command: a",
-            "Multiple MODIFIERS can be used by separating them with ':' characters. For example, this does 'Command + Shift + Left Arrow' which selects the prior word in apps like VS Code:",
-            "press: command: shift: left-arrow",
-            "The available MODIFIERS are:",
-            "- command\n- control\n- option\n- shift",
-            "The full list of KEY is listed in the 'Keys' tab."
-        ]),
-        
-        SyntaxItem(headline: "repeat: NUMBER: KEY", paragraphs: [
-            "Works the same as 'press: KEY' but repeats the press NUMBER of times. For example:",
-            "repeat: 5: left-arrow",
-        ]),
-        
-        SyntaxItem(headline: "repeat: MODIFIERS: KEY", paragraphs: [
-            "Works the same as 'press: MODIFIERS: KEY' but repeats the press NUMBER of times. For example:",
-            "repeat: 5: command: shift: left-arrow",
-        ]),
-        
-        SyntaxItem(headline: "reset-delay", paragraphs: [
-            "Resets the minimum and maximum times for the randomized delay between keystokes to their default values '0.01' and '0.03'",
-        ]),
-        
-        SyntaxItem(headline: "set-delay: NUMBER", paragraphs: [
-            "Set the delay between keystrokes to NUMBER. For example:",
-            "set-delay: 0.07",
-        ]),
-        
-        SyntaxItem(headline: "set-delay: MIN: MAX", paragraphs: [
-            "Set the minimum and maximum times for the randomized delay between keystokes to the values defined in MIN and MAX. For example:",
-            "set-delay: 0.05: 0.1",
-        ]),
-        
-        SyntaxItem(headline: "stop", paragraphs: [
-            "Stops the script.",
-            "I use this in conjunction with 'debug: on' to fast forward to a part of a script I want to check and then halt it there so I can verify the output.",
-        ]),
-        
-        SyntaxItem(headline: "type: STRING", paragraphs: [
-            "Type the STRING of text without adding a newline or pressing the down arrow. This can be used for things like typing part of a line then doing a pause or changing the delay before finishing it.",
-            "Note: only the characters available in the 'Typing Keys' section of 'Key Names' can be used. If you need to type something else, you'll need to use 'press: MODIFIERS: KEY' (e.g. 'press: option: 2' to type the ™ symbol)",
-            "Note: I wrote AutoTyper for my U.S. English keyboard. I'm not opposed to making a more international version, but I don't know what that would take and don't have the resources to look into right now.",
-        ]),
-        
-        SyntaxItem(headline: "type-down: STRING", paragraphs: [
-            "Same as 'type: STRING' but presses the down arrow key after the STRING is complete.",
-            "I generally use this instead of 'type-line: STRING' when I'm using VS Code.",
-            "Specifically, before I start the main script I run 'newline: 50' then 'press: command: up-arrow' which adds 50 blank lines to the file then moves the cursor to the top.",
-            "Doing that and then using 'type-down: STRING' helps prevent the VS Code scrollbar from flashing as much. I find it less distracting that way.",
-        ]),
-        
-        SyntaxItem(headline: "type-line: STRING", paragraphs: [
-            "Same as 'type: STRING' but creates a newline after the STRING is complete.",
-        ]),
-        
+    
+    let docItems: [DocItem] = [
+        DocItem(title: "debug: on", basename: "debug-on"),
+        DocItem(title: "debug: off", basename: "debug-off"),
+        DocItem(title: "down", basename: "down"),
+        DocItem(title: "down: NUMBER", basename: "down-num"),
+        DocItem(title: "end-lines", basename: "end-lines"),
+        DocItem(title: "end-lines-down", basename: "end-lines-down"),
+        DocItem(title: "left", basename: "left"),
+        DocItem(title: "left: NUMBER", basename: "left-num"),
+        DocItem(title: "paste: TEXT", basename: "paste"),
+        DocItem(title: "paste-down: TEXT", basename: "paste-down"),
+        DocItem(title: "paste-line: TEXT", basename: "paste-line"),
+        DocItem(title: "paste-file: PATH", basename: "paste-file"),
+        DocItem(title: "paste-file-lines: PATH", basename: "paste-file-lines"),
+        DocItem(title: "paste-file-lines-down: PATH", basename: "paste-file-lines-down"),
+        DocItem(title: "pause", basename: "pause"),
+        DocItem(title: "pause: TIME", basename: "pause-time"),
+        DocItem(title: "press: KEY", basename: "press"),
+        DocItem(title: "press: MODIFIERS: KEY", basename: "press-mod"),
+        DocItem(title: "repeat: NUMBER: KEY", basename: "repeat"),
+        DocItem(title: "repeat: NUMBER: MODIFIERS: KEY", basename: "repeat-mod"),
+        DocItem(title: "reset-delay", basename: "reset-delay"),
+        DocItem(title: "return", basename: "return"),
+        DocItem(title: "return: NUMBER", basename: "return-num"),
+        DocItem(title: "right", basename: "right"),
+        DocItem(title: "right: NUMBER", basename: "right-num"),
+        DocItem(title: "set-delay: TIME", basename: "set-delay-time"),
+        DocItem(title: "set-delay: MIN_TIME: MAX_TIME", basename: "set-delay-min-max"),
+        DocItem(title: "space", basename: "space"),
+        DocItem(title: "space: NUMBER", basename: "space-num"),
+        DocItem(title: "start-lines", basename: "start-lines"),
+        DocItem(title: "start-lines-down", basename: "start-lines-down"),
+        DocItem(title: "stop", basename: "stop"),
+        DocItem(title: "tab", basename: "tab"),
+        DocItem(title: "tab: NUMBER", basename: "tab-num"),
+        DocItem(title: "type: TEXT", basename: "type"),
+        DocItem(title: "type-down: TEXT", basename: "type-down"),
+        DocItem(title: "type-line: TEXT", basename: "type-line"),
+        DocItem(title: "up", basename: "up"),
+        DocItem(title: "up: NUMBER", basename: "up-num"),
     ]
     
+    func getTextFromFile(basename: String) -> String {
+        do {
+            if let exampleScriptUrl = Bundle.main.url(forResource: "\(basename)", withExtension: "txt") {
+                let exampleScriptText = try String(contentsOf: exampleScriptUrl, encoding: String.Encoding.utf8)
+                return exampleScriptText
+            } else {
+                return "Could not open file"
+            }
+        } catch {
+            return "Could not open file"
+        }
+    }
+    
     var body: some View {
-        ScrollView{
-            VStack{
+        VStack {
+            ScrollView {
                 var usageStuff: AttributedString {
                     var text = AttributedString("Usage\n")
                     text.font = .title
-                    text.append(AttributedString("\n1. Create a .txt file with a script in it (see 'Examples' for ideas).\n\n"))
-                    text.append(AttributedString("2. Use the 'Choose Script' button to select your script file.\n\n"))
+                    text.append(AttributedString("\n1. Create a .txt file with instructions in it (see the 'Example'tab for ideas).\n\n"))
+                    text.append(AttributedString("2. Use the 'Choose Instructions File' button to select your script file.\n\n"))
                     text.append(AttributedString("3. Click on the app you want to output the script to in the 'Select App' section.\n\n"))
                     text.append(AttributedString("4. Click 'Run'. You may be asked to allow the app permissions in the System Preferences. This is required to let AutoTyper simulate a keyboard to do that actual typing. (Note that sometimes you have to delete the AutoTyper item, click Run, and turn it back on to reset it.)\n\n"))
                     return text
@@ -195,30 +163,166 @@ struct DocsView: View{
                     return text
                 }
                 Text(stoppingNote).frame(maxWidth: .infinity, alignment: .leading)
-                
+
                 Divider()
-                
+
                 var scriptSyntaxHeadline: AttributedString {
-                    var text = AttributedString("\nScript Commands")
+                    var text = AttributedString("\nInstructions")
                     text.font = .title
                     return text
                 }
                 Text(scriptSyntaxHeadline).frame(maxWidth: .infinity, alignment: .leading)
-                ForEach(syntaxItems) { syntaxItem in
-                    var syntaxItemHeadline: AttributedString {
-                        var text = AttributedString("\n" + syntaxItem.headline + "\n")
-                        text.font = .title3.bold()
-                        for paragraph in syntaxItem.paragraphs {
-                            text.append(AttributedString("\n" + paragraph + "\n"))
+                
+                ForEach(docItems) { item in
+                    VStack {
+                        let descContents = getTextFromFile(basename: item.basename)
+                        var itemHeadline: AttributedString {
+                            var text = AttributedString("\n" + item.title + "\n")
+                            text.font = .title2.bold()
+                            return text
                         }
-                        return text
+                        Text(itemHeadline).frame(maxWidth: .infinity, alignment: .leading)
+                        let exampleItemParagraphs = AttributedString(descContents)
+                        Text(exampleItemParagraphs).frame(maxWidth: .infinity, alignment: .leading)
                     }
-                    Text(syntaxItemHeadline).frame(maxWidth: .infinity, alignment: .leading)
                     Divider()
                 }
             }
         }.padding()
     }
+    
+    
+//    let syntaxItems: [SyntaxItem] = [
+//        SyntaxItem(headline: "debug: on", paragraphs: [
+//            "Remove all delays and pauses to fast-forward until `debug: off` or the end of the script.",
+//        ]),
+//        SyntaxItem(headline: "debug: off", paragraphs: [
+//            "Restores all pauses so script runs at specified delays and pauses.",
+//        ]),
+//        SyntaxItem(headline: "newline", paragraphs: [
+//            "This version of 'newline' doesn't have a ':' or number after it. It inserts a single newline.",
+//        ]),
+//        SyntaxItem(headline: "newline: NUMBER", paragraphs: [
+//            "Inserts the specified number of newlines. For example, this inserts 5 newlines:",
+//            "newline: 5"
+//        ]),
+//        SyntaxItem(headline: "paste-file: FILE_PATH", paragraphs: [
+//            "Copies the contents of the file at 'FILE_PATH' and pastes it in directly. For example, this pastes the contents of a 'code.txt' file on my Desktop:",
+//            "paste-file: /Users/alan/Desktop/code.txt",
+//            "An easy way to get the FILE_PATH for a file is to right click on it in the Finder then hold the 'Option' key. The 'Copy' option turns into 'Copy ... as Pathname' which gives you what you need for the FILE_PATH.",
+//        ]),
+//        SyntaxItem(headline: "pause", paragraphs: [
+//            "This is the version of 'pause' that doesn't have a ':' or number after it. It pauses the script fully.",
+//            "Press the F4 key to resume the instructions.",
+//            "This is designed to make it easier to do live recordings of scripts where you have everything set up and then use the pause/F4 process to add break points for talking.",
+//            "Depending on how you mac is set up, you'll need to hold down the 'fn' key when you press 'F4' to get it to trigger.",
+//        ]),
+//        SyntaxItem(headline: "pause: NUMBER", paragraphs: [
+//            "Pause for a specific amount of time. For example, this pauses for 1.2 seconds",
+//            "pause: 1.2",
+//            "I use this to add some padding between blocks of code that are output together which I find makes them easier to follow."
+//        ]),
+//        SyntaxItem(headline: "press: KEY", paragraphs: [
+//            "Presses a single key on the keyboard.",
+//            "This can be used for pressing keys like 'escape', or arrow keys. For example:",
+//            "press: escape\npress: down-arrow",
+//            "The full list of KEYs is listed in the 'Keys' tab."
+//        ]),
+//        SyntaxItem(headline: "press: MODIFIERS: KEY", paragraphs: [
+//            "Presses a single key on the keyboard while holding the specified MODIFIERS. For example, this will type 'Command + a' which does a select all in apps like VS Code:",
+//            "press: command: a",
+//            "Multiple MODIFIERS can be used by separating them with ':' characters. For example, this does 'Command + Shift + Left Arrow' which selects the prior word in apps like VS Code:",
+//            "press: command: shift: left-arrow",
+//            "The available MODIFIERS are:",
+//            "- command\n- control\n- option\n- shift",
+//            "The full list of KEY is listed in the 'Keys' tab."
+//        ]),
+//        SyntaxItem(headline: "repeat: NUMBER: KEY", paragraphs: [
+//            "Works the same as 'press: KEY' but repeats the press NUMBER of times. For example:",
+//            "repeat: 5: left-arrow",
+//        ]),
+//        SyntaxItem(headline: "repeat: MODIFIERS: KEY", paragraphs: [
+//            "Works the same as 'press: MODIFIERS: KEY' but repeats the press NUMBER of times. For example:",
+//            "repeat: 5: command: shift: left-arrow",
+//        ]),
+//        SyntaxItem(headline: "reset-delay", paragraphs: [
+//            "Resets the minimum and maximum times for the randomized delay between keystokes to their default values '0.01' and '0.03'",
+//        ]),
+//        SyntaxItem(headline: "set-delay: NUMBER", paragraphs: [
+//            "Set the delay between keystrokes to NUMBER. For example:",
+//            "set-delay: 0.07",
+//        ]),
+//        SyntaxItem(headline: "set-delay: MIN: MAX", paragraphs: [
+//            "Set the minimum and maximum times for the randomized delay between keystokes to the values defined in MIN and MAX. For example:",
+//            "set-delay: 0.05: 0.1",
+//        ]),
+//        SyntaxItem(headline: "stop", paragraphs: [
+//            "Stops the script.",
+//            "I use this in conjunction with 'debug: on' to fast forward to a part of a script I want to check and then halt it there so I can verify the output.",
+//        ]),
+//        SyntaxItem(headline: "type: STRING", paragraphs: [
+//            "Type the STRING of text without adding a newline or pressing the down arrow. This can be used for things like typing part of a line then doing a pause or changing the delay before finishing it.",
+//            "Note: only the characters available in the 'Typing Keys' section of 'Key Names' can be used. If you need to type something else, you'll need to use 'press: MODIFIERS: KEY' (e.g. 'press: option: 2' to type the ™ symbol)",
+//            "Note: I wrote AutoTyper for my U.S. English keyboard. I'm not opposed to making a more international version, but I don't know what that would take and don't have the resources to look into right now.",
+//        ]),
+//        SyntaxItem(headline: "type-down: STRING", paragraphs: [
+//            "Same as 'type: STRING' but presses the down arrow key after the STRING is complete.",
+//            "I generally use this instead of 'type-line: STRING' when I'm using VS Code.",
+//            "Specifically, before I start the main script I run 'newline: 50' then 'press: command: up-arrow' which adds 50 blank lines to the file then moves the cursor to the top.",
+//            "Doing that and then using 'type-down: STRING' helps prevent the VS Code scrollbar from flashing as much. I find it less distracting that way.",
+//        ]),
+//        SyntaxItem(headline: "type-line: STRING", paragraphs: [
+//            "Same as 'type: STRING' but creates a newline after the STRING is complete.",
+//        ]),
+//    ]
+    
+//    var body: some View {
+//        ScrollView{
+//            VStack{
+//                var usageStuff: AttributedString {
+//                    var text = AttributedString("Usage\n")
+//                    text.font = .title
+//                    text.append(AttributedString("\n1. Create a .txt file with instructions in it (see 'Examples' for ideas).\n\n"))
+//                    text.append(AttributedString("2. Use the 'Choose Instructions File' button to select your script file.\n\n"))
+//                    text.append(AttributedString("3. Click on the app you want to output the script to in the 'Select App' section.\n\n"))
+//                    text.append(AttributedString("4. Click 'Run'. You may be asked to allow the app permissions in the System Preferences. This is required to let AutoTyper simulate a keyboard to do that actual typing. (Note that sometimes you have to delete the AutoTyper item, click Run, and turn it back on to reset it.)\n\n"))
+//                    return text
+//                }
+//                Text(usageStuff).frame(maxWidth: .infinity, alignment: .leading)
+//                Divider()
+//                var stoppingNote:AttributedString {
+//                    var text = AttributedString("Stopping\n")
+//                    text.font = .title
+//                    text.append(AttributedString("\nYou can stop the typing at any time by changing to any app other than the one that's being typed into."))
+//                    return text
+//                }
+//                Text(stoppingNote).frame(maxWidth: .infinity, alignment: .leading)
+//                
+//                Divider()
+//                
+//                var scriptSyntaxHeadline: AttributedString {
+//                    var text = AttributedString("\nScript Commands")
+//                    text.font = .title
+//                    return text
+//                }
+//                Text(scriptSyntaxHeadline).frame(maxWidth: .infinity, alignment: .leading)
+//                ForEach(syntaxItems) { syntaxItem in
+//                    var syntaxItemHeadline: AttributedString {
+//                        var text = AttributedString("\n" + syntaxItem.headline + "\n")
+//                        text.font = .title3.bold()
+//                        for paragraph in syntaxItem.paragraphs {
+//                            text.append(AttributedString("\n" + paragraph + "\n"))
+//                        }
+//                        return text
+//                    }
+//                    Text(syntaxItemHeadline).frame(maxWidth: .infinity, alignment: .leading)
+//                    Divider()
+//                }
+//            }
+//        }.padding()
+//    }
+    
+    
 }
 
 struct KeysView: View {
@@ -230,11 +334,10 @@ struct KeysView: View {
     
     var body: some View {
         VStack{
-            
             var titleStuff: AttributedString {
-                var text = AttributedString("Key Names\n")
+                var text = AttributedString("Keys\n")
                 text.font = .title
-                text.append(AttributedString("\nThese are the KEYs you can use for 'press' and 'repeat' commands.\n\n"))
+                text.append(AttributedString("\nThese are the KEYs you can use for 'press' and 'repeat' commands.\n\nNote that only lowercase letters are availabe. They can be made uppercase by using the 'shift:' modifier"))
                 return text
             }
             Text(titleStuff).frame(maxWidth: .infinity, alignment: .leading)
@@ -248,6 +351,62 @@ struct KeysView: View {
         .padding()
     }
 }
+
+struct ExamplesView3: View {
+    
+    func getTextFromFile() -> String {
+        do {
+            if let exampleScriptUrl = Bundle.main.url(forResource: "instructions", withExtension: "txt") {
+                let exampleScriptText = try String(contentsOf: exampleScriptUrl, encoding: String.Encoding.utf8)
+                return exampleScriptText.trimmingCharacters(in: .whitespacesAndNewlines)
+            } else {
+                return "Could not open file"
+            }
+        } catch {
+            return "Could not open file"
+        }
+    }
+    
+    let playerDidFinishNotification = NotificationCenter.default.publisher(for: .AVPlayerItemDidPlayToEndTime)
+    
+    var body: some View {
+        VStack {
+            Text("This is an example set of instructions showing the basics of what AutoTyper can do.")
+                .frame(maxWidth: .infinity, alignment: .leading)
+            @State var isPlaying: Bool = false
+            // The video player or "No video" fallback
+            if let url = Bundle.main.url(forResource: "example-single-01", withExtension: "mp4") {
+                let player = AVPlayer(url: url)
+                HStack {
+                    AVPlayerControllerRepresented(player: player)
+                        .frame(height: 210)
+                        .disabled(true)
+                    Button {
+                        if isPlaying == true {
+                            player.pause()
+                        } else {
+                            player.seek(to: .zero)
+                            player.play()
+                        }
+                        isPlaying.toggle()
+                    } label: {
+                        Image(systemName: isPlaying ? "stop" : "play")
+                            .padding()
+                    }.onReceive(playerDidFinishNotification, perform: { _ in
+                        isPlaying = false
+                    })
+                }
+            } else {
+                Text("Could not load video")
+            }
+            
+            ScrollView {
+                Text(getTextFromFile()).frame(maxWidth: .infinity, alignment: .leading)
+            }
+        }.padding()
+    }
+}
+
 
 struct ExamplesView: View {
     let exampleItems: [ExampleItem] = [
@@ -409,8 +568,6 @@ struct ExamplesView: View {
     }
 }
 
-
-
 struct Examples2View: View {
     let exampleItems: [ExampleItem] = [
         
@@ -558,28 +715,33 @@ struct Examples2View: View {
 
 struct ContentView: View {
     @State var appToWriteTo: NSRunningApplication?
+    @State var captureLines = false
+    @State var captureLinesDown = false
     @State var charactersToType: [String] = []
     @State var codesToType: [UInt16] = []
-    @State var scriptLines: [Substring] = []
+    @State var debugging = false
+    @State var debugMaxHold = 0.03
+    @State var debugMinHold = 0.01
+    @State var defaultMaxDelay = 0.03
+    @State var defaultMinDelay = 0.01
+    @State var delayAfterPaste = 0.05
+    @State var errors: [String] = []
+    @State var hasPermissions = AXIsProcessTrusted()
     @State var holdCommand = false
     @State var holdControl = false
     @State var holdOption = false
     @State var holdShift = false
-    @State var defaultMinDelay = 0.01
-    @State var defaultMaxDelay = 0.03
-    @State var minDelay = 0.01
-    @State var maxDelay = 0.03
-    @State var debugMinHold = 0.01
-    @State var debugMaxHold = 0.03
-    @State var debugging = false
-    @State var hasPermissions = AXIsProcessTrusted()
-    @State var selectedAppName = "Not Selected"
-    @State var scriptUrl: Optional<URL> = Optional.none
-    @State var selectedAppPid: Optional<pid_t> = Optional.none
-    @State var statusLine = "Status: Ready"
-    @State var statusArea = ""
-    @State var errors: [String] = []
     @State var isPaused = false
+    @State var linesToPaste: [String] = []
+    @State var maxDelay = 0.03
+    @State var minDelay = 0.01
+    @State var scriptLines: [Substring] = []
+    @State var scriptUrl: Optional<URL> = Optional.none
+    @State var selectedAppName = "Not Selected"
+    @State var selectedAppPid: Optional<pid_t> = Optional.none
+    @State var statusArea = ""
+    @State var statusLine = "Status: Ready"
+    @State var statusLineForRun = ""
     
     let keyCodes: [String: (UInt16, [CGEventFlags])] = [
         // NOTE: The arrows is special, they are for
@@ -587,7 +749,12 @@ struct ContentView: View {
         // creating a bunch of pre-existing newlines
         // to prevent the scrollbar flashing when
         // the script types.
+        "up-arrow": (0x7E, []),
         "down-arrow": (0x7D, []),
+        "left-arrow": (0x7B, []),
+        "right-arrow": (0x7C, []),
+        "space": (0x31, []),
+        "tab": (0x30, []),
         // These are the regular keys
         "0": (0x1D, []),
         ")": (0x1D, [.maskShift]),
@@ -845,6 +1012,8 @@ struct ContentView: View {
     }
     
     func chooseScript() {
+        statusLine = ""
+        statusLineForRun = ""
         let picker = NSOpenPanel()
         picker.canChooseFiles = true
         picker.runModal()
@@ -891,6 +1060,26 @@ struct ContentView: View {
         typeCharacter()
     }
     
+    func doLeft(parts: [String]) {
+        if parts.count == 1 {
+            charactersToType.append("left-arrow")
+        } else {
+            // TODO: Figure out how to throw an error here if
+            // there's not a valid number
+            let charactersDown = Int32(truncating: NumberFormatter().number(from: parts[1])!)
+            for _ in (0..<charactersDown) {
+                charactersToType.append("left-arrow")
+            }
+        }
+        typeCharacter()
+    }
+    
+    // note that this handles newline and newlines. there's
+    // no difference in the behavior. It's just nicer to
+    // be able to use either for the instructions. Would
+    // be slightly better to split to 'newline' and 'newlines: NUMBER'
+    // explicilty in the code. That's what the docs (will) show
+    // even though it doesn't matter in the code
     func doNewline(parts: [String]) {
         if parts.count == 1 {
             charactersToType.append("\n")
@@ -908,6 +1097,68 @@ struct ContentView: View {
         }
     }
     
+    func doPaste(parts: [String]) {
+        if parts.count > 1 {
+            var charLoader: [String] = []
+            var partsToLoad = parts
+            partsToLoad.reverse()
+            let _ = partsToLoad.popLast()
+            partsToLoad.reverse()
+            partsToLoad.forEach { thing in
+                charLoader.append(thing)
+            }
+            let characterLine = charLoader.joined(separator: ":").trimmingCharacters(in: .whitespacesAndNewlines)
+            NSPasteboard.general.clearContents()
+            NSPasteboard.general.setString(characterLine, forType: .string)
+            let src = CGEventSource(stateID: .privateState)
+            let doKeyDown = CGEvent(keyboardEventSource: src, virtualKey: 0x09, keyDown: true)
+            let doKeyUp = CGEvent(keyboardEventSource: src, virtualKey: 0x09, keyDown: false)
+            let flagList: [CGEventFlags] = [CGEventFlags.maskCommand]
+            let flags: CGEventFlags = CGEventFlags.init(flagList)
+            doKeyDown?.flags = flags
+            doKeyUp?.flags = flags
+            doKeyDown?.postToPid(selectedAppPid!)
+            doKeyUp?.postToPid(selectedAppPid!)
+        } else {
+            addError(parts: parts, message: "Problem in doPaste")
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + delayAfterPaste) {
+            processLine()
+        }
+    }
+    
+    func doPasteDown(parts: [String]) {
+        if parts.count > 1 {
+            var charLoader: [String] = []
+            var partsToLoad = parts
+            partsToLoad.reverse()
+            let _ = partsToLoad.popLast()
+            partsToLoad.reverse()
+            partsToLoad.forEach { thing in
+                charLoader.append(thing)
+            }
+            let characterLine = charLoader.joined(separator: ":").trimmingCharacters(in: .whitespacesAndNewlines)
+            NSPasteboard.general.clearContents()
+            NSPasteboard.general.setString(characterLine, forType: .string)
+            let src = CGEventSource(stateID: .privateState)
+            let doKeyDown = CGEvent(keyboardEventSource: src, virtualKey: 0x09, keyDown: true)
+            let doKeyUp = CGEvent(keyboardEventSource: src, virtualKey: 0x09, keyDown: false)
+            let flagList: [CGEventFlags] = [CGEventFlags.maskCommand]
+            let flags: CGEventFlags = CGEventFlags.init(flagList)
+            doKeyDown?.flags = flags
+            doKeyUp?.flags = flags
+            doKeyDown?.postToPid(selectedAppPid!)
+            doKeyUp?.postToPid(selectedAppPid!)
+            DispatchQueue.main.asyncAfter(deadline: .now() + delayAfterPaste) {
+                charactersToType.append(String("down-arrow"))
+                typeCharacter()
+            }
+        } else {
+            addError(parts: parts, message: "Problem in doPasteDown")
+            processLine()
+        }
+    }
+    
     func doPasteFile(parts: [String]) {
         if parts.count == 2 {
             do {
@@ -916,25 +1167,158 @@ struct ContentView: View {
                 NSPasteboard.general.clearContents()
                 NSPasteboard.general.setString(contentToPaste, forType: .string)
                 let src = CGEventSource(stateID: .privateState)
-                let doDown = CGEvent(keyboardEventSource: src, virtualKey: 0x09, keyDown: true)
-                let doUp = CGEvent(keyboardEventSource: src, virtualKey: 0x09, keyDown: false)
+                let doKeyDown = CGEvent(keyboardEventSource: src, virtualKey: 0x09, keyDown: true)
+                let doKeyUp = CGEvent(keyboardEventSource: src, virtualKey: 0x09, keyDown: false)
                 let flagList: [CGEventFlags] = [CGEventFlags.maskCommand]
                 let flags: CGEventFlags = CGEventFlags.init(flagList)
-                doDown?.flags = flags
-                doUp?.flags = flags
-                doDown?.postToPid(selectedAppPid!)
-                doUp?.postToPid(selectedAppPid!)
+                doKeyDown?.flags = flags
+                doKeyUp?.flags = flags
+                doKeyDown?.postToPid(selectedAppPid!)
+                doKeyUp?.postToPid(selectedAppPid!)
             } catch{
                 addError(parts: parts, message: "Could not copy file")
             }
+        } else {
+            addError(parts: parts, message: "Issue in doPasteFile")
         }
-        processLine()
+        DispatchQueue.main.asyncAfter(deadline: .now() + delayAfterPaste) {
+            processLine()
+        }
+    }
+    
+    func doPasteFileLine() {
+        if linesToPaste.count > 0 {
+            var lineToPaste = linesToPaste.popLast()!
+            if linesToPaste.count != 0 {
+                lineToPaste.append("\n")
+            }
+            NSPasteboard.general.clearContents()
+            NSPasteboard.general.setString(lineToPaste, forType: .string)
+            let src = CGEventSource(stateID: .privateState)
+            let doKeyDown = CGEvent(keyboardEventSource: src, virtualKey: 0x09, keyDown: true)
+            let doKeyUp = CGEvent(keyboardEventSource: src, virtualKey: 0x09, keyDown: false)
+            let flagList: [CGEventFlags] = [CGEventFlags.maskCommand]
+            let flags: CGEventFlags = CGEventFlags.init(flagList)
+            doKeyDown?.flags = flags
+            doKeyUp?.flags = flags
+            doKeyDown?.postToPid(selectedAppPid!)
+            doKeyUp?.postToPid(selectedAppPid!)
+            DispatchQueue.main.asyncAfter(deadline: .now() + delayAfterPaste) {
+                doPasteFileLine()
+            }
+        } else {
+            DispatchQueue.main.asyncAfter(deadline: .now() + delayAfterPaste) {
+                processLine()
+            }
+        }
+    }
+    
+    func doPasteFileLineDown() {
+        if linesToPaste.count > 0 {
+            let lineToPaste = linesToPaste.popLast()!
+            NSPasteboard.general.clearContents()
+            NSPasteboard.general.setString(lineToPaste, forType: .string)
+            let src = CGEventSource(stateID: .privateState)
+            let doKeyDown = CGEvent(keyboardEventSource: src, virtualKey: 0x09, keyDown: true)
+            let doKeyUp = CGEvent(keyboardEventSource: src, virtualKey: 0x09, keyDown: false)
+            let flagList: [CGEventFlags] = [CGEventFlags.maskCommand]
+            let flags: CGEventFlags = CGEventFlags.init(flagList)
+            doKeyDown?.flags = flags
+            doKeyUp?.flags = flags
+            doKeyDown?.postToPid(selectedAppPid!)
+            doKeyUp?.postToPid(selectedAppPid!)
+            DispatchQueue.main.asyncAfter(deadline: .now() + delayAfterPaste) {
+                typeDownArrow()
+                doPasteFileLineDown()
+            }
+        } else {
+            DispatchQueue.main.asyncAfter(deadline: .now() + delayAfterPaste) {
+                processLine()
+            }
+        }
+    }
+    
+    func doPasteFileLines(parts: [String]) {
+        if parts.count == 2 {
+            do {
+                let fileUrl = URL(string: "file://" + parts[1].trimmingCharacters(in: .whitespacesAndNewlines))
+                let contentToPaste = try String(contentsOf: fileUrl!, encoding: String.Encoding.utf8)
+                linesToPaste = contentToPaste.trimmingCharacters(in: .whitespacesAndNewlines).split(separator: "\n", omittingEmptySubsequences: false).map{ String($0) }
+                linesToPaste.reverse()
+                doPasteFileLine()
+            } catch{
+                addError(parts: parts, message: "Could not copy file")
+                DispatchQueue.main.asyncAfter(deadline: .now() + delayAfterPaste) {
+                    processLine()
+                }
+            }
+        } else {
+            addError(parts: parts, message: "Problem in doPasteFile")
+            DispatchQueue.main.asyncAfter(deadline: .now() + delayAfterPaste) {
+                processLine()
+            }
+        }
+    }
+    
+    func doPasteFileLinesDown(parts: [String]) {
+        if parts.count == 2 {
+            do {
+                let fileUrl = URL(string: "file://" + parts[1].trimmingCharacters(in: .whitespacesAndNewlines))
+                let contentToPaste = try String(contentsOf: fileUrl!, encoding: String.Encoding.utf8)
+                linesToPaste = contentToPaste.split(separator: "\n", omittingEmptySubsequences: false).map{ String($0) }
+                linesToPaste.reverse()
+                doPasteFileLineDown()
+            } catch{
+                addError(parts: parts, message: "Could not copy file")
+                DispatchQueue.main.asyncAfter(deadline: .now() + delayAfterPaste) {
+                    processLine()
+                }
+            }
+        } else {
+            addError(parts: parts, message: "Problem in doPasteFile")
+            DispatchQueue.main.asyncAfter(deadline: .now() + delayAfterPaste) {
+                processLine()
+            }
+        }
+    }
+    
+    func doPasteLine(parts: [String]) {
+        if parts.count > 1 {
+            var charLoader: [String] = []
+            var partsToLoad = parts
+            partsToLoad.reverse()
+            let _ = partsToLoad.popLast()
+            partsToLoad.reverse()
+            partsToLoad.forEach { thing in
+                charLoader.append(thing)
+            }
+            let characterLine = charLoader.joined(separator: ":").trimmingCharacters(in: .whitespacesAndNewlines)
+            NSPasteboard.general.clearContents()
+            NSPasteboard.general.setString(characterLine, forType: .string)
+            let src = CGEventSource(stateID: .privateState)
+            let doKeyDown = CGEvent(keyboardEventSource: src, virtualKey: 0x09, keyDown: true)
+            let doKeyUp = CGEvent(keyboardEventSource: src, virtualKey: 0x09, keyDown: false)
+            let flagList: [CGEventFlags] = [CGEventFlags.maskCommand]
+            let flags: CGEventFlags = CGEventFlags.init(flagList)
+            doKeyDown?.flags = flags
+            doKeyUp?.flags = flags
+            doKeyDown?.postToPid(selectedAppPid!)
+            doKeyUp?.postToPid(selectedAppPid!)
+            DispatchQueue.main.asyncAfter(deadline: .now() + delayAfterPaste) {
+                charactersToType.append(String("\n"))
+                typeCharacter()
+            }
+        } else {
+            addError(parts: parts, message: "Problem in doPasteDown")
+            processLine()
+        }
     }
     
     func doPause(parts: [String]) {
         if parts.count == 1 {
             isPaused = true
-            statusLine = "Status: Paused. Press F2 to resume"
+            statusLine = "Status: Paused. Press F4 to resume"
+            statusLineForRun = "Paused. Press F4 to resume"
         } else {
             if debugging == false {
                 if parts.count == 2 {
@@ -956,6 +1340,7 @@ struct ContentView: View {
         // TODO: lowercase the incoming letters so
         // they don't fail if someone types a capital.
         // Either that, or throw an error? TBD on that.
+        // or, if they are capital, just do that? probably the best option
         if parts.count > 1 {
             let keyToGet = parts.last!.trimmingCharacters(in: .whitespacesAndNewlines)
             if keyToGet != "" {
@@ -996,6 +1381,7 @@ struct ContentView: View {
         // the number isn't a number
         if parts.count > 2 {
             let keyToGet = parts.last!.trimmingCharacters(in: .whitespacesAndNewlines)
+            // TODO: Print ERROR message if repeat is wrong and doesn't have a number that can be parsed.
             let repeatCount = Int32(truncating: NumberFormatter().number(from: parts[1].trimmingCharacters(in: .whitespacesAndNewlines))!)
             if keyToGet != "" {
                 if let pressCode = pressCodes[keyToGet] {
@@ -1039,6 +1425,20 @@ struct ContentView: View {
         processLine()
     }
     
+    func doRight(parts: [String]) {
+        if parts.count == 1 {
+            charactersToType.append("right-arrow")
+        } else {
+            // TODO: Figure out how to throw an error here if
+            // there's not a valid number
+            let charactersDown = Int32(truncating: NumberFormatter().number(from: parts[1])!)
+            for _ in (0..<charactersDown) {
+                charactersToType.append("right-arrow")
+            }
+        }
+        typeCharacter()
+    }
+    
     func doSetDelay(parts: [String]) {
         // TODO: Add error message if converstion to double fails
         if parts.count == 3 {
@@ -1053,24 +1453,42 @@ struct ContentView: View {
         processLine()
     }
     
-    func doStop() {
-        statusLine = "Process stopped in script."
-    }
-    
-    func doTypeCharacters(input: String) {
-        var charactersToLoad = input.trimmingCharacters(in: .whitespacesAndNewlines).split(separator: "")
-        charactersToLoad.reverse()
-        for x in charactersToLoad {
-            charactersToType.append(String(x))
+    func doSpace(parts: [String]) {
+        if parts.count == 1 {
+            charactersToType.append("space")
+        } else {
+            // TODO: Figure out how to throw an error here if
+            // there's not a valid number
+            let charactersDown = Int32(truncating: NumberFormatter().number(from: parts[1])!)
+            for _ in (0..<charactersDown) {
+                charactersToType.append("space")
+            }
         }
         typeCharacter()
     }
     
-    func doTypeDown(parts: [String]) {
+    func doStop() {
+        statusLine = "Status: Received 'stop' instruction. Process halted"
+        statusLineForRun = "Received 'stop' instruction. Process halted"
+    }
+    
+    func doTab(parts: [String]) {
+        if parts.count == 1 {
+            charactersToType.append("tab")
+        } else {
+            // TODO: Figure out how to throw an error here if
+            // there's not a valid number
+            let charactersDown = Int32(truncating: NumberFormatter().number(from: parts[1])!)
+            for _ in (0..<charactersDown) {
+                charactersToType.append("tab")
+            }
+        }
+        typeCharacter()
+    }
+    
+    func doTypeCharacters(parts: [String]) {
         if parts.count > 1 {
-            // TODO: Deal with `:` coming in that need to be typed
             var charLoader: [String] = []
-            print(parts)
             var partsToLoad = parts
             partsToLoad.reverse()
             let _ = partsToLoad.popLast()
@@ -1079,7 +1497,26 @@ struct ContentView: View {
                 charLoader.append(thing)
             }
             let characterLine = charLoader.joined(separator: ":").trimmingCharacters(in: .whitespacesAndNewlines)
-            print(characterLine)
+            var charactersToLoad = characterLine.split(separator: "")
+            charactersToLoad.reverse()
+            for x in charactersToLoad {
+                charactersToType.append(String(x))
+            }
+            typeCharacter()
+        }
+    }
+    
+    func doTypeDown(parts: [String]) {
+        if parts.count > 1 {
+            var charLoader: [String] = []
+            var partsToLoad = parts
+            partsToLoad.reverse()
+            let _ = partsToLoad.popLast()
+            partsToLoad.reverse()
+            partsToLoad.forEach { thing in
+                charLoader.append(thing)
+            }
+            let characterLine = charLoader.joined(separator: ":").trimmingCharacters(in: .whitespacesAndNewlines)
             var charactersToLoad = characterLine.split(separator: "")
             charactersToLoad.append("down-arrow")
             charactersToLoad.reverse()
@@ -1090,12 +1527,37 @@ struct ContentView: View {
         }
     }
     
-    func doTypeLine(input: String) {
-        var charactersToLoad = input.trimmingCharacters(in: .whitespacesAndNewlines).split(separator: "")
-        charactersToLoad.append("\n")
-        charactersToLoad.reverse()
-        for x in charactersToLoad {
-            charactersToType.append(String(x))
+    func doTypeLine(parts: [String]) {
+        if parts.count > 1 {
+            var charLoader: [String] = []
+            var partsToLoad = parts
+            partsToLoad.reverse()
+            let _ = partsToLoad.popLast()
+            partsToLoad.reverse()
+            partsToLoad.forEach { thing in
+                charLoader.append(thing)
+            }
+            let characterLine = charLoader.joined(separator: ":").trimmingCharacters(in: .whitespacesAndNewlines)
+            var charactersToLoad = characterLine.split(separator: "")
+            charactersToLoad.append("\n")
+            charactersToLoad.reverse()
+            for x in charactersToLoad {
+                charactersToType.append(String(x))
+            }
+            typeCharacter()
+        }
+    }
+    
+    func doUp(parts: [String]) {
+        if parts.count == 1 {
+            charactersToType.append("up-arrow")
+        } else {
+            // TODO: Figure out how to throw an error here if
+            // there's not a valid number
+            let charactersDown = Int32(truncating: NumberFormatter().number(from: parts[1])!)
+            for _ in (0..<charactersDown) {
+                charactersToType.append("up-arrow")
+            }
         }
         typeCharacter()
     }
@@ -1109,33 +1571,65 @@ struct ContentView: View {
     }
     
     func processLine() {
+        statusLine = "Status: Running..."
+        statusLineForRun = "Running..."
         holdCommand = false
         holdControl = false
         holdShift = false
         holdOption = false
         if focusedAppPid() != Optional(selectedAppPid!) {
-                statusLine = "Process Stopped. App was changed."
-        } else if scriptLines.count > 0 {
-            statusLine = "Status: Running..."
-            // Some of this is hacky which was to figure out
-            // how omittingEmptySubsequences was necessary
+            statusLine = "Status: Process halted becuase app lost focus"
+            statusLineForRun = "Process halted becuase app lost focus"
+        } else if captureLines == true {
             let line = scriptLines.popLast()
-//            print(line)
-//            print(line as Any)
+            if line?.trimmingCharacters(in: .whitespacesAndNewlines) == "end-lines" {
+                captureLines = false
+                linesToPaste.reverse()
+                doPasteFileLine()
+            } else {
+                if let lineToAdd = line {
+                    linesToPaste.append(String(lineToAdd))
+                }
+                processLine()
+            }
+        } else if captureLinesDown == true {
+            let line = scriptLines.popLast()
+            if line?.trimmingCharacters(in: .whitespacesAndNewlines) == "end-lines-down" {
+                captureLinesDown = false
+                linesToPaste.reverse()
+                doPasteFileLineDown()
+            } else {
+                if let lineToAdd = line {
+                    linesToPaste.append(String(lineToAdd))
+                }
+                processLine()
+            }
+        } else if scriptLines.count > 0 {
+            let line = scriptLines.popLast()
             let parts_substrings = line?.split(separator: ":", omittingEmptySubsequences: false)
-//            print(parts_substrings)
             var parts: [String] = []
             for part in parts_substrings! {
-//                print(part)
                 parts.append(String(part))
             }
             let action = parts[0].trimmingCharacters(in: .whitespacesAndNewlines)
             if action == "debug" {
                 doDebug(parts: parts)
-            } else if action == "newline" {
-                doNewline(parts: parts)
+            } else if action == "down" {
+                doDown(parts: parts)
+            } else if action == "left" {
+                doLeft(parts: parts)
+            } else if action == "paste" {
+                doPaste(parts: parts)
+            } else if action == "paste-down" {
+                doPasteDown(parts: parts)
+            } else if action == "paste-line" {
+                doPasteLine(parts: parts)
             } else if action == "paste-file" {
                 doPasteFile(parts: parts)
+            } else if action == "paste-file-lines" {
+                doPasteFileLines(parts: parts)
+            } else if action == "paste-file-lines-down" {
+                doPasteFileLinesDown(parts: parts)
             } else if action == "pause" {
                 doPause(parts: parts)
             } else if action == "press" {
@@ -1144,31 +1638,38 @@ struct ContentView: View {
                 doRepeat(parts: parts)
             } else if action == "reset-delay" {
                 doResetDelay()
+            } else if action == "return" {
+                doNewline(parts: parts)
+            } else if action == "right" {
+                doRight(parts: parts)
             } else if action == "set-delay" {
                 doSetDelay(parts: parts)
+            } else if action == "space" {
+                doSpace(parts: parts)
+            } else if action == "start-lines" {
+                captureLines = true
+                processLine()
+            } else if action == "start-lines-down" {
+                captureLinesDown = true
+                processLine()
             } else if action == "stop" {
                 doStop()
+            } else if action == "tab" {
+                doTab(parts: parts)
             } else if action == "type" {
-                // TODO: Send 'parts' so they can be
-                // combined if there's more than one
-                // separated by a `:`
-                doTypeCharacters(input: String(parts[1].trimmingCharacters(in: .whitespacesAndNewlines)))
+                doTypeCharacters(parts: parts)
             } else if action == "type-down" {
                 doTypeDown(parts: parts)
             } else if action == "type-line" {
-                // TODO: Send 'parts' so they can be
-                // combined if there's more than one
-                // separated by a `:`
-                if parts.count > 1 {
-                    doTypeLine(input: String(parts[1].trimmingCharacters(in: .whitespacesAndNewlines)))
-                } else {
-                    doTypeLine(input: "")
-                }
+                doTypeLine(parts: parts)
+            } else if action == "up" {
+                doUp(parts: parts)
             } else {
                 processLine()
             }
         } else {
             statusLine = "Status: Process complete"
+            statusLineForRun = "Process complete"
         }
     }
     
@@ -1205,14 +1706,19 @@ struct ContentView: View {
         holdOption = false
         holdShift = false
         if scriptUrl == Optional.none {
-            statusLine = "Status: Choose a script file first"
+            statusLine = "Status: Choose an Insturctions File first"
+            statusLineForRun = "Choose an Insturctions File first"
         } else if selectedAppPid == Optional.none {
             statusLine = "Status: Choose an app first"
+            statusLineForRun = "Choose an app first"
         } else if checkPermissions() == false {
             statusLine = "Status: Provide permissions then Run again"
+            statusLineForRun = "Provide permissions then Run again"
         } else {
+            statusLine = "Status: Running..."
+            statusLineForRun = "Running..."
             NSEvent.addGlobalMonitorForEvents(matching: [.keyDown]) { (event) in
-                if isPaused == true && event.keyCode == 0x78 {
+                if isPaused == true && event.keyCode == 0x76 {
                     isPaused = false
                     processLine()
                 }
@@ -1225,14 +1731,15 @@ struct ContentView: View {
                         checkApp.activate()
                     }
                 }
-                scriptLines = scriptContents.split(separator: "\n")
+                scriptLines = scriptContents.split(separator: "\n", omittingEmptySubsequences: false)
                 scriptLines.reverse()
                 // wait a second after activation before running
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                     processLine()
                 }
             } catch{
                 statusLine = "Status: ERROR: Could not open file"
+                statusLineForRun = "ERROR: Could not open file"
             }
         }
     }
@@ -1240,8 +1747,8 @@ struct ContentView: View {
     func typeCharacterInApp(theCharacter: String) {
         let parts = keyCodes[theCharacter]!
         let src = CGEventSource(stateID: .privateState)
-        let doDown = CGEvent(keyboardEventSource: src, virtualKey: parts.0, keyDown: true)
-        let doUp = CGEvent(keyboardEventSource: src, virtualKey: parts.0, keyDown: false)
+        let doKeyDown = CGEvent(keyboardEventSource: src, virtualKey: parts.0, keyDown: true)
+        let doKeyUp = CGEvent(keyboardEventSource: src, virtualKey: parts.0, keyDown: false)
         var flagList = parts.1
         if holdCommand == true {
             flagList.append(CGEventFlags.maskCommand)
@@ -1256,10 +1763,10 @@ struct ContentView: View {
             flagList.append(CGEventFlags.maskShift)
         }
         let flags: CGEventFlags = CGEventFlags.init(flagList)
-        doDown?.flags = flags
-        doUp?.flags = flags
-        doDown?.postToPid(selectedAppPid!)
-        doUp?.postToPid(selectedAppPid!)
+        doKeyDown?.flags = flags
+        doKeyUp?.flags = flags
+        doKeyDown?.postToPid(selectedAppPid!)
+        doKeyUp?.postToPid(selectedAppPid!)
         if charactersToType.count > 0 {
             typeCharacter()
         } else {
@@ -1269,8 +1776,8 @@ struct ContentView: View {
     
     func typeCodeInApp(theCode: UInt16) {
         let src = CGEventSource(stateID: .privateState)
-        let doDown = CGEvent(keyboardEventSource: src, virtualKey: theCode, keyDown: true)
-        let doUp = CGEvent(keyboardEventSource: src, virtualKey: theCode, keyDown: false)
+        let doKeyDown = CGEvent(keyboardEventSource: src, virtualKey: theCode, keyDown: true)
+        let doKeyUp = CGEvent(keyboardEventSource: src, virtualKey: theCode, keyDown: false)
         var flagList: [CGEventFlags] = []
         if holdCommand == true {
             flagList.append(CGEventFlags.maskCommand)
@@ -1285,10 +1792,10 @@ struct ContentView: View {
             flagList.append(CGEventFlags.maskShift)
         }
         let flags: CGEventFlags = CGEventFlags.init(flagList)
-        doDown?.flags = flags
-        doUp?.flags = flags
-        doDown?.postToPid(selectedAppPid!)
-        doUp?.postToPid(selectedAppPid!)
+        doKeyDown?.flags = flags
+        doKeyUp?.flags = flags
+        doKeyDown?.postToPid(selectedAppPid!)
+        doKeyUp?.postToPid(selectedAppPid!)
         if codesToType.count > 0 {
             typeCode()
         } else {
@@ -1314,6 +1821,14 @@ struct ContentView: View {
         }
     }
     
+    func typeDownArrow() {
+        let src = CGEventSource(stateID: .privateState)
+        let doKeyDown = CGEvent(keyboardEventSource: src, virtualKey: 0x7D, keyDown: true)
+        let doKeyUp = CGEvent(keyboardEventSource: src, virtualKey: 0x7D, keyDown: false)
+        doKeyDown?.postToPid(selectedAppPid!)
+        doKeyUp?.postToPid(selectedAppPid!)
+    }
+    
     func getUrlFileName() -> String {
         let urlFileName: String? = scriptUrl?.lastPathComponent
         if urlFileName == Optional.none {
@@ -1327,29 +1842,36 @@ struct ContentView: View {
         HStack{
             VStack {
                 HStack {
-                    Button("Choose Script") {
+                    Button("Choose Instructions File") {
                         chooseScript()
                     }
                     Text(getUrlFileName()).frame(maxWidth: .infinity, alignment: .leading)
-                }
+                }.padding()
                 Divider()
-                Text("Select App").frame(maxWidth: .infinity, alignment: .leading)
-                List(runningApps(), selection: $selectedAppPid) {
-                    Text($0.app.localizedName ?? "unknown name")
-                }
+                VStack {
+                    Text("Select App").frame(maxWidth: .infinity, alignment: .leading)
+                    List(runningApps(), selection: $selectedAppPid) {
+                        Text($0.app.localizedName ?? "unknown name")
+                    }
+                }.padding()
                 Divider()
-                Button("Run") {
-                    runScript()
-                }.frame(maxWidth: .infinity, alignment: .trailing)
-            }.frame(maxWidth: .infinity).padding()
+                HStack {
+                    Text(statusLineForRun)
+                    Button("Run") {
+                        runScript()
+                    }
+                }.frame(maxWidth: .infinity, alignment: .trailing).padding()
+            }.frame(maxWidth: .infinity)
             Divider()
             VStack {
                 TabView{
-                    StatusView(statusLine: statusLine, statusArea: statusArea).tabItem {Text("Status") }
+//                    StatusView(statusLine: statusLine, statusArea: statusArea).tabItem {Text("Status") }
                     DocsView().tabItem { Text("Docs") }
                     KeysView(pressCodes: pressCodes).tabItem { Text("Key Names") }
-                    ExamplesView().tabItem { Text("Examples") }
-                    Examples2View().tabItem { Text("Examples2") }
+                    ExamplesView3().tabItem { Text("Example")}
+                    
+//                    ExamplesView().tabItem { Text("Examples") }
+//                    Examples2View().tabItem { Text("Examples2") }
                 }
                 Spacer()
             }.padding()

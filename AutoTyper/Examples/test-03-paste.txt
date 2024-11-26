@@ -1,0 +1,14 @@
+paste: alfa bravo
+press: space
+paste: charlie : delta: echo: foxtrot::golf:::hotel
+newline: 2
+paste-line: this is a full line to paste
+paste-line: and here's : another: one :with colons::in:::it
+newline: 4
+repeat: 3: up-arrow
+paste-down: this is paste-down
+paste-down: and : with: some :colons in::it:::too
+newline: 4
+paste-file-lines: /Users/alan/Desktop/sample.txt
+
+

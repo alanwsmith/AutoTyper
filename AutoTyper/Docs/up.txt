@@ -1,0 +1,5 @@
+Presses the up arrow one time.
+
+### Usage ###
+
+up

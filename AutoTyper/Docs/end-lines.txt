@@ -1,0 +1,13 @@
+Ends capturing lines that will be pasted via 'command + v' one at a time followed by pressing 'return' to move to a new line. 
+
+The capture is started with 'start-lines'.
+
+### Example ###
+
+start-lines
+Lorem ipsum dolor sit amet, consectetur 
+adipiscing elit. 
+
+Curabitur dignissim pretium justo nec 
+tincidunt. 
+end-lines

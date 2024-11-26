@@ -1,0 +1,13 @@
+press: command: a
+press: delete
+pause: 0.5
+start-lines
+Hello, World
+
+this is a test to see how things go
+
+with some pasting
+and some : colons: in :different places::etc:::etc
+end-lines
+
+

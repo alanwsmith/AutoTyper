@@ -1,0 +1,5 @@
+Sets the delay between key presses to TIME which is measured in seconds. 
+
+### Example ###
+
+set-delay: 0.04

@@ -1,0 +1,15 @@
+Presses the given KEY one time. 
+
+### Examples ###
+
+press: a
+
+press: space
+
+press: right-arrow
+
+### Note ### 
+
+- Only lower case letters can be used with 'press:'. Use 'press: shift: KEY' to make them upper case. 
+
+- The list of available KEYs is provided in the Keys tab above. 

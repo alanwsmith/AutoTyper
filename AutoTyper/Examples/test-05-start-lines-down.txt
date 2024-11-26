@@ -1,0 +1,26 @@
+# Clear the file and add ten lines
+
+press: command: a
+press: delete
+newline: 9
+press: command: up-arrow
+pause: 2
+
+# Do the output without adding
+
+start-lines-down
+this is a test
+
+with some lines that eventually
+will not add lines to the 
+overall file
+
+etc...
+end-lines-down
+
+# Print the final message to make sure 
+# that everything worked
+
+repeat: 2: down-arrow
+type: Process complete
+

@@ -1,0 +1,34 @@
+#### Prep work to save an empty page for BrowserSync
+press: command: a
+press: delete
+paste: <!DOCTYPE html><html><head></head><body></body></html>
+press: command: s
+press: command: a
+press: delete
+pause
+
+#### Load the initial html
+paste-file-lines: /Users/alan/Desktop/auto-typer-example/initial-index.html
+press: command: s
+pause
+
+#### Load the initial CSS
+press: command: ~
+pause: 0.1
+paste-file-lines: /Users/alan/Desktop/auto-typer-example/initial-styles.css
+press: command: s
+pause
+
+#### Change the CSS Color To Green
+up: 2
+repeat: 3: option: right-arrow
+press: option: shift: left-arrow
+type: green
+press: command: s
+pause
+
+#### Change the CSS Color To Blue
+press: option: shift: left-arrow
+type: blue 
+press: command: s
+

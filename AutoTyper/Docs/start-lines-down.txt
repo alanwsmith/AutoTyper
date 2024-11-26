@@ -1,0 +1,13 @@
+Starts capturing lines that will be pasted via 'command + v' one at a time followed by pressing the down arrow. 
+
+The capture continues until an 'end-lines-down' instruction is found. 
+
+### Example ###
+
+start-lines-down
+Lorem ipsum dolor sit amet, consectetur 
+adipiscing elit. 
+
+Curabitur dignissim pretium justo nec 
+tincidunt. 
+end-lines-down
