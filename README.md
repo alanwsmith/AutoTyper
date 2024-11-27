@@ -39,7 +39,7 @@ Here are a few instruction examples to get you started.
         <td colspan="2"><h2>Hello, World</h2></td>
     </tr>
     <tr>
-        <td><pre><code>type: Hello, World!</code></pre></td>
+        <td valign="top"><pre><code>type: Hello, World!</code></pre></td>
         <td><img src="./DocExamples/01-hello-world.gif" /></td>
     </tr>
     <!-- Example -->
@@ -47,7 +47,7 @@ Here are a few instruction examples to get you started.
         <td colspan="2"><h2><br />Multiple Lines</h2></td>
     </tr>    
     <tr>
-        <td><pre><code>type-line: Hello, 
+        <td valign="top"><pre><code>type-line: Hello, 
 type: World!</code></pre></td>
         <td><img src="./DocExamples/02-multi-line.gif" /></td>
     </tr>
@@ -56,13 +56,13 @@ type: World!</code></pre></td>
         <td colspan="2"><h2><br />Type, Pause, Type</h2></td>
     </tr>    
     <tr>
-        <td><pre><code>type: Hello,
+        <td valign="top"><pre><code>type: Hello,
 pause
 press: space
 type: World!</code></pre></td>
         <td>
             <img src="./DocExamples/03-type-pause-type.gif" />
-            <p>Note: the `pause` waits for you to press `F4` at which point it types a space followed by `World!`.</p>
+            <p>Note: the `pause` waits for you to press <code>F4</code> at which point it types a space followed by <code>World!</code>.</p>
         </td>
     </tr>
     <!-- Example -->
@@ -70,7 +70,7 @@ type: World!</code></pre></td>
         <td colspan="2"><h2><br />Type A Block Of Text</h2></td>
     </tr>    
     <tr>
-        <td><pre><code>start-lines
+        <td valign="top"><pre><code>start-lines
 Lorem ipsum dolor 
 adipiscing elit. 
 posuere ut volutpat.
@@ -81,75 +81,65 @@ Proin id aliquet.
 end-lines</code></pre></td>
         <td>
             <img src="./DocExamples/04-start-lines.gif" />
-            <p>Outputs the block of text between `start-lines` and `end-lines`</p>
+            <p>Outputs the block of text between <code>start-lines</code> and <code>end-lines</code></p>
         </td>
     </tr>
-</table>
-
-
----
-
-### Type, Select, Overwrite In VS Code
-
-<table>
+    <!-- Example -->
     <tr>
-        <td><pre><code>type: alfa, bravo, charlie
+        <td colspan="2"><h2><br />Type, Select, Overwrite In VS Code</h2></td>
+    </tr>    
+    <tr>
+        <td valign="top"><pre><code>type: alfa, bravo, charlie
 pause: 0.8
 repeat: 2: option: left-arrow
 press: option: shift: right-arrow
 pause: 0.8
 type: DELTA</code></pre></td>
-        <td><img src="./DocExamples/05-overwrite-vs-code.gif" /></td>
+        <td>
+            <img src="./DocExamples/05-overwrite-vs-code.gif" />
+            <p>This example types: <code>alfa, bravo, charlie</code></p>
+            <p>Next, it selects <code>bravo</code> and overwrites it with <code>DELTA</code>. 
+            Pauses are added in to make it easier to see
+            what's going on. </p>
+<p>This works in apps like VS Code where <code>option + left/right-arrow</code>
+jumps words and <code>option + shift + left/right-arrow</code> selects words. </p>
+        </td>
     </tr>
-</table>
-
-This example types:
-
-`alfa, bravo, charlie`
-
-then selects `bravo` and overwrites it with `DELTA`. 
-Pauses are added in to make it easier to see
-what's going on. 
-
-This works in apps like VS Code where `option + left/right-arrow`
-jumps words and `option + shift + left/right-arrow` selects
-words. 
-
----
-
-### Type, Select, Overwrite In Neovim
-
-<table>
+    <!-- Example -->
     <tr>
-        <td><pre><code>press: escape
+        <td colspan="2"><h2><br />Type, Select, Overwrite In Neovim</h2></td>
+    </tr>    
+    <tr>
+        <td valign="top"><pre><code>press: escape
 type: i
 type: alfa, bravo, charlie
 pause: 0.8
 press: escape
 type: 3bdwi
 type: DELTA</code></pre></td>
-        <td><img src="./DocExamples/06-overwrite-neovim.gif" /></td>
-    </tr>
-</table>
-
-Presses `escape` to make sure you're not already in 
-`INSERT` mode then `i` to switch to it. Next, it
-types `alfa, bravo, charlie` then pause before
-pressing `escape` again to switch to `NORMAL` mode
+        <td>
+            <img src="./DocExamples/06-overwrite-neovim.gif" />
+            <p>Presses <code>escape</code> to make sure you're not already in 
+<code>INSERT</code> mode then <code>i</code> to switch to it.</p>
+<p>Next, it types <code>alfa, bravo, charlie</code> then pause before
+pressing <code>escape</code> again to switch to <code>NORMAL</code> mode
 and typing in the commands to back up 3 time, delete
-the word and switch back to `INSERT` mode before
-typing `DELTA`
-
----
-
-### Paste Contents Of A File
-
-<table>
+the word and switch back to <code>INSERT</code> mode before
+typing <code>DELTA</code></p>
+        </td>
+    </tr>
+    <!-- Example -->
     <tr>
-        <td><pre><code>paste-file-lines: /Users/alan/Desktop/sample.txt</code></pre></td>
-        <td><img src="./DocExamples/07-paste-file-lines.gif" /></td>
+        <td colspan="2"><h2><br />Paste Contents Of A File</h2></td>
+    </tr>    
+    <tr>
+        <td valign="top"><pre><code>paste-file-lines: /Users/alan/Desktop/sample.txt</code></pre></td>
+        <td>
+            <img src="./DocExamples/07-paste-file-lines.gif" />
+        </td>
     </tr>
 </table>
+
 
 ---
 
