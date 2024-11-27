@@ -7,9 +7,9 @@ is necessary. Instead of doing it manually,
 the app will do it for you. Faster and without 
 flubbing keys. 
 
-You can check out an intro video here:
+You can [check out an intro video here](http://www.youtube.com/watch?v=VrT6AG_jMwE):
 
-[![A screenshot of the AutoTyper Introduction Demonstration Video](http://img.youtube.com/vi/VrT6AG_jMwE/maxresdefault.jpg)](http://www.youtube.com/watch?v=VrT6AG_jMwE "AutoTyper Introduction Demonstration")
+[![A screenshot of the AutoTyper Introduction Demonstration Video](https://img.youtube.com/vi/VrT6AG_jMwE/maxresdefault.jpg)](http://www.youtube.com/watch?v=VrT6AG_jMwE "AutoTyper Introduction Demonstration")
 
 ## Installation
 
@@ -28,60 +28,19 @@ available instructions is in the Instructions sections further below).
 
 4. Click 'Run'. You may be asked to allow the app permissions in the System Preferences. This is required to let AutoTyper simulate a keyboard to do that actual typing. (Note that sometimes you have to delete the AutoTyper item, click Run, and turn it back on to reset it.)
 
-## General Notes
-
-- The basic ways to type are `type: TEXT`, `type-line: TEXT`, 
-and `type-down:TEXT`. For example:
-
-    `type: Hello, World`
-
-    `type-line: Hello, World`
-
-    `type-down: Hello, World`
-
-- The `type: TEXT` instruction doesn't add a `return/enter` after it finishes typing.
-(That it, it only types in the characters from your `TEXT`)
-
-- `type-line: TEXT` presses `return/enter` after typing your `TEXT`
-
-- `type-down: TEXT` presses the down arrow after typing your `TEXT`
-
-- The `press: KEY` instruction is used for pressing a specific `KEY`. (The 
-full list of available keys is in the Keys section further below)
-
-- The `press: MODIFIER: KEY` instruction holds the specific `MODIFIER`
-while pressing the `KEY`. For example:
-
-    `press: command: a`
-
-- Multiple `MODIFIER` keys can be held while pressing a key like:
-
-    `press: option: shift: right-arrow`
-
-- The `pause` instruction pauses typing until you press `F4` on your
-keyboard. This is the main thing I use to create breaks for 
-talking when I'm doing scree recordings. 
-
-- The `pause: TIME` instruction pauses for the specified time 
-(measured in seconds). I generally use this for little pauses 
-(e.g. `pause: 0.3`) to make it easier to track when I do thing
-like highlight and delete code.
 
 ## Examples
 
 Here are a few scripts to get you started. 
 
-### Basic Hello, World
+### Hello, World
 
-```
-type: Hello, World!
-```
-
-Outputs:
-
-```
-Hello, World!
-```
+<table>
+    <tr>
+        <td><pre><code>type: Hello, World!</code></pre></td>
+        <td><img src="./DocExamples/01-hello-world.gif" /></td>
+    </tr>
+</table>
 
 ---
 
@@ -182,6 +141,48 @@ pressing `escape` again to switch to `NORMAL` mode
 and typing in the commands to back up 3 time, delete
 the word and switch back to `INSERT` mode before
 typing `DELTA`
+
+
+
+
+## General Notes
+
+- The basic ways to type are `type: TEXT`, `type-line: TEXT`, 
+and `type-down:TEXT`. For example:
+
+    `type: Hello, World`
+
+    `type-line: Hello, World`
+
+    `type-down: Hello, World`
+
+- The `type: TEXT` instruction doesn't add a `return/enter` after it finishes typing.
+(That it, it only types in the characters from your `TEXT`)
+
+- `type-line: TEXT` presses `return/enter` after typing your `TEXT`
+
+- `type-down: TEXT` presses the down arrow after typing your `TEXT`
+
+- The `press: KEY` instruction is used for pressing a specific `KEY`. (The 
+full list of available keys is in the Keys section further below)
+
+- The `press: MODIFIER: KEY` instruction holds the specific `MODIFIER`
+while pressing the `KEY`. For example:
+
+    `press: command: a`
+
+- Multiple `MODIFIER` keys can be held while pressing a key like:
+
+    `press: option: shift: right-arrow`
+
+- The `pause` instruction pauses typing until you press `F4` on your
+keyboard. This is the main thing I use to create breaks for 
+talking when I'm doing scree recordings. 
+
+- The `pause: TIME` instruction pauses for the specified time 
+(measured in seconds). I generally use this for little pauses 
+(e.g. `pause: 0.3`) to make it easier to track when I do thing
+like highlight and delete code.
 
 
 ## Instructions
