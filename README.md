@@ -33,17 +33,14 @@ available instructions is in the Instructions sections further below).
 
 Here are a few scripts to get you started. 
 
-### Basic Hello, World
+### Hello, World
 
-```
-type: Hello, World!
-```
-
-Outputs:
-
-```
-Hello, World!
-```
+<table>
+    <tr>
+        <td><pre><code>type: Hello, World!</code></pre></td>
+        <td><img src="./DocExamples/01-hello-world.gif" /></td>
+    </tr>
+</table>
 
 ---
 
