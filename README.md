@@ -9,7 +9,7 @@ flubbing keys.
 
 You can check out an intro video here:
 
-[https://youtu.be/VrT6AG_jMwE](https://youtu.be/VrT6AG_jMwE)
+[![A screenshot of the AutoTyper Introduction Demonstration Video](http://img.youtube.com/vi/VrT6AG_jMwE/maxresdefault.jpg)](http://www.youtube.com/watch?v=VrT6AG_jMwE "AutoTyper Introduction Demonstration")
 
 ## Installation
 
