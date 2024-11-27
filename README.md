@@ -68,7 +68,6 @@ type: World!</code></pre></td>
     </tr>
 </table>
 
-
 Note: the `pause` waits for you to press `F4` at which point
 it types a space followed by `World!`.
 
@@ -147,6 +146,8 @@ and typing in the commands to back up 3 time, delete
 the word and switch back to `INSERT` mode before
 typing `DELTA`
 
+---
+
 ### Paste Contents Of A File
 
 <table>
@@ -155,6 +156,8 @@ typing `DELTA`
         <td><img src="./DocExamples/07-paste-file-lines.gif" /></td>
     </tr>
 </table>
+
+---
 
 ### Jump Between Windows
 
