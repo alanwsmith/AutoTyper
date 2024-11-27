@@ -226,32 +226,44 @@ This is the list of available instructions
 
 
 <table>
-<thead><tr><th>Instruction</th><th>Description</th></tr></thead>
-<tbody>
-<tr><td>debug: off</td><td>
-Restores all pauses so the instruction runs with their specified delays and pauses.
-<br />
+    <thead>
+        <tr>
+            <th>Instruction</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td rowspan="2">debug: on</td>
+            <td colspan="2">
+                Remove all delays and pauses to fast-forward until <code>debug: off</code> or the end of the script.
+            </td>
+        </tr>
+        <tr>
+            <td>Usage</td>
+            <td><pre><code>debug: on</code></pre></td>
+        </tr>
+        <tr>
+            <td rowspan="2">debug: off</td>
+            <td colspan="2">
+                Restores all pauses so the instruction runs with their specified delays and pauses.
+            </td>
+        </tr>
+        <tr>
+            <td>Usage</td>
+            <td><pre><code>debug: off</code></pre></td>
+        </tr>
+    </tbody>
+</table>
 
-<br />
-~ Usage ~
-<br />
-
-<br />
-debug: off
-<br />
-</td></tr>
-<tr><td>debug: on</td><td>
-Remove all delays and pauses to fast-forward until 'debug: off' or the end of the script.
-<br />
-
-<br />
-~ Usage ~
-<br />
-
-<br />
-debug: on
-<br />
-</td></tr>
+<table>
+    <thead>
+        <tr>
+            <th>Instruction</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
 <tr><td>down</td><td>
 Press the down arrow key one time. 
 <br />
