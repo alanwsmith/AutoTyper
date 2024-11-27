@@ -34,6 +34,7 @@ available instructions is in the Instructions sections further below).
 Here are a few instruction examples to get you started. 
 
 <table>
+    <!-- Example -->
     <tr>
         <td colspan="2"><h2>Hello, World</h2></td>
     </tr>
@@ -41,6 +42,7 @@ Here are a few instruction examples to get you started.
         <td><pre><code>type: Hello, World!</code></pre></td>
         <td><img src="./DocExamples/01-hello-world.gif" /></td>
     </tr>
+    <!-- Example -->
     <tr>
         <td colspan="2"><h2><br />Multiple Lines</h2></td>
     </tr>    
@@ -49,33 +51,24 @@ Here are a few instruction examples to get you started.
 type: World!</code></pre></td>
         <td><img src="./DocExamples/02-multi-line.gif" /></td>
     </tr>
-</table>
-
-
-
-
----
-
-### Type, Pause, Type
-
-<table>
+    <!-- Example -->
+    <tr>
+        <td colspan="2"><h2><br />Type, Pause, Type</h2></td>
+    </tr>    
     <tr>
         <td><pre><code>type: Hello,
 pause
 press: space
 type: World!</code></pre></td>
-        <td><img src="./DocExamples/03-type-pause-type.gif" /></td>
+        <td>
+            <img src="./DocExamples/03-type-pause-type.gif" />
+            <p>Note: the `pause` waits for you to press `F4` at which point it types a space followed by `World!`.</p>
+        </td>
     </tr>
-</table>
-
-Note: the `pause` waits for you to press `F4` at which point
-it types a space followed by `World!`.
-
----
-
-### Type A Block Of Text
-
-<table>
+    <!-- Example -->
+    <tr>
+        <td colspan="2"><h2><br />Type A Block Of Text</h2></td>
+    </tr>    
     <tr>
         <td><pre><code>start-lines
 Lorem ipsum dolor 
@@ -86,12 +79,13 @@ Suspendisse euismod
 id malesuada. 
 Proin id aliquet.
 end-lines</code></pre></td>
-        <td><img src="./DocExamples/04-start-lines.gif" /></td>
+        <td>
+            <img src="./DocExamples/04-start-lines.gif" />
+            <p>Outputs the block of text between `start-lines` and `end-lines`</p>
+        </td>
     </tr>
 </table>
 
-Outputs the block of text between `start-lines`
-and `end-lines`
 
 ---
 
