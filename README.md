@@ -233,45 +233,68 @@ This is the list of available instructions
         </tr>
     </thead>
     <tbody>
+        <!-- ITEM -->
         <tr>
             <td rowspan="2" valign="top">debug: on</td>
             <td colspan="2" valign="top">
-                Remove all delays and pauses to fast-forward until <code>debug: off</code> or the end of the script.
+<p>Remove all delays and pauses to fast-forward until <code>debug: off</code> or the end of the script.</p>
             </td>
         </tr>
         <tr>
             <td valign="top">Usage</td>
             <td valign="top"><pre><code>debug: on</code></pre></td>
         </tr>
+        <!-- ITEM -->
         <tr>
             <td rowspan="2" valign="top">debug: off</td>
             <td colspan="2" valign="top">
-                Restores all pauses so the instruction runs with their specified delays and pauses.
+<p>Restores all pauses so the instruction runs with their specified delays and pauses.</p>
             </td>
         </tr>
         <tr>
             <td valign="top">Usage</td>
             <td valign="top"><pre><code>debug: off</code></pre></td>
         </tr>
+        <!-- ITEM -->
         <tr>
             <td rowspan="2" valign="top">down</td>
             <td colspan="2" valign="top">
-                Press the down arrow key one time. 
+<p>Press the down arrow key one time.</p>
             </td>
         </tr>
         <tr>
             <td valign="top">Usage</td>
             <td valign="top"><pre><code>down</code></pre></td>
         </tr>
+        <!-- ITEM -->
         <tr>
             <td rowspan="2" valign="top">down: NUMBER</td>
             <td colspan="2" valign="top">
-                Presses the down arrow key the specified NUMBER of times.
+<p>Presses the down arrow key the specified NUMBER of times.</p>
             </td>
         </tr>
         <tr>
             <td valign="top">Usage</td>
             <td valign="top"><pre><code>down: 3</code></pre></td>
+        </tr>
+        <!-- ITEM -->
+        <tr>
+            <td rowspan="2" valign="top">end-lines</td>
+            <td colspan="2" valign="top">
+<p>Ends capturing lines that will be pasted via 'command + v' one at a time followed by pressing 'return' to move to a new line.</p>
+<p>The capture is started with 'start-lines'.</p>
+            </td>
+        </tr>
+        <tr>
+            <td valign="top">Example</td>
+            <td valign="top"><pre><code>start-lines
+Lorem ipsum dolor sit amet, consectetur 
+adipiscing elit. 
+<br />
+<br />
+Curabitur dignissim pretium justo nec 
+tincidunt. 
+end-lines</code></pre></td>
         </tr>
     </tbody>
 </table>
@@ -285,34 +308,6 @@ This is the list of available instructions
     </thead>
     <tbody>
 
-<tr><td>end-lines</td><td>
-Ends capturing lines that will be pasted via 'command + v' one at a time followed by pressing 'return' to move to a new line. 
-<br />
-
-<br />
-The capture is started with 'start-lines'.
-<br />
-
-<br />
-~ Example ~
-<br />
-
-<br />
-start-lines
-<br />
-Lorem ipsum dolor sit amet, consectetur 
-<br />
-adipiscing elit. 
-<br />
-
-<br />
-Curabitur dignissim pretium justo nec 
-<br />
-tincidunt. 
-<br />
-end-lines
-<br />
-</td></tr>
 <tr><td>end-lines-down</td><td>
 Ends capturing lines that will be pasted via 'command + v' one at a time followed by pressing the down arrow. 
 <br />
