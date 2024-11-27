@@ -13,7 +13,7 @@ You can [check out an intro video here](http://www.youtube.com/watch?v=VrT6AG_jM
 
 ## Installation
 
-- Download the AutoTyper.zip file. Unzip it
+- Download the AutoTyper-v#.#.#.zip file. Unzip it
 and copy the AutoTyper.app file to your
 Applications folder. 
 
@@ -46,35 +46,31 @@ Here are a few scripts to get you started.
 
 ### Multiple Lines
 
-```
-type-line: Hello, 
-type: World!
-```
-
-Outputs:
-
-```
-Hello, 
-World!
-```
+<table>
+    <tr>
+        <td><pre><code>type-line: Hello, 
+type: World!</code></pre></td>
+        <td><img src="./DocExamples/02-multi-line.gif" /></td>
+    </tr>
+</table>
 
 ---
 
 ### Type, Pause, Type
 
-```
-type: Hello,
+<table>
+    <tr>
+        <td><pre><code>type: Hello,
 pause
 press: space
-type: World!
-```
+type: World!</code></pre></td>
+        <td><img src="./DocExamples/03-type-pause-type.gif" /></td>
+    </tr>
+</table>
 
-Outputs:
 
-`Hello`
-
-Then, waits for you to press `F4` at which point
-it types a space followed by `World!`
+Note: the `pause` waits for you to press `F4` at which point
+it types a space followed by `World!`.
 
 ---
 
