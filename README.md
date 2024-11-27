@@ -83,6 +83,7 @@ Outputs:
 Hello, World!
 ```
 
+---
 
 ### Multiple Lines
 
@@ -97,6 +98,8 @@ Outputs:
 Hello, 
 World!
 ```
+
+---
 
 ### Type, Pause, Type
 
@@ -114,6 +117,8 @@ Outputs:
 Then, waits for you to press `F4` at which point
 it types a space followed by `World!`
 
+---
+
 ### Type A Block Of Text
 
 ```
@@ -129,6 +134,8 @@ end-lines
 
 Outputs the block of text between `start-lines`
 and `end-lines`
+
+---
 
 
 ### Type, Select, Overwrite In VS Code
@@ -154,6 +161,8 @@ This works in apps like VS Code where `option + left/right-arrow`
 jumps words and `option + shift + left/right-arrow` selects
 words. 
 
+---
+
 ### Type, Select, Overwrite In Neovim
 
 ```
@@ -173,8 +182,6 @@ pressing `escape` again to switch to `NORMAL` mode
 and typing in the commands to back up 3 time, delete
 the word and switch back to `INSERT` mode before
 typing `DELTA`
-
-
 
 
 ## Instructions
