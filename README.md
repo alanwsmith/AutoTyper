@@ -133,34 +133,32 @@ typing <code>DELTA</code></p>
         <td colspan="2"><h2><br />Paste Contents Of A File</h2></td>
     </tr>    
     <tr>
-        <td valign="top"><pre><code>paste-file-lines: /Users/alan/Desktop/sample.txt</code></pre></td>
+        <td valign="top"><code>paste-file-lines: /path/to/sample.txt</code></td>
         <td>
             <img src="./DocExamples/07-paste-file-lines.gif" />
+        </td>
+    </tr>
+    <!-- Example -->
+    <tr>
+        <td colspan="2"><h2><br />Jump Between Windows</h2></td>
+    </tr>    
+    <tr>
+        <td valign="top"><pre><code>type: Window 1
+press: command: ~
+pause: 0.4
+type: Window 2</code></pre></td>
+        <td>
+            <img src="./DocExamples/08-jump-windows.gif" />
+            <p>AutoTyper only types into one app at a time, but you can
+jump between windows in apps like VS Code by using
+<code>press: command: ~</code></p>
+<p>Note that adding a <code>pause: 0.1</code> or more is recommended to make sure
+the app has enough time to switch the window before typing continues. </p>
         </td>
     </tr>
 </table>
 
 
----
-
-### Jump Between Windows
-
-AutoTyper only types into one app at a time, but you can
-jump between windows in apps like VS Code by using
-`press: command: ~`
-
-<table>
-    <tr>
-        <td><pre><code>type: Window 1
-press: command: ~
-pause: 0.4
-type: Window 2</code></pre></td>
-        <td><img src="./DocExamples/08-jump-windows.gif" /></td>
-    </tr>
-</table>
-
-Note that adding a `pause: 0.1` or more is recommended to make sure
-the app has enough time to switch the window before typing continues. 
 
 
 
