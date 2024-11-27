@@ -188,556 +188,736 @@ typing `DELTA`
 
 This is the list of available instructions
 
-#### debug: off
 
+<table>
+<thead><tr><th>Instruction</th><th>Description</th></tr></thead>
+<tbody>
+<tr><td>debug: off</td><td>
 Restores all pauses so the instruction runs with their specified delays and pauses.
+<br />
 
+<br />
 ~ Usage ~
+<br />
 
+<br />
 debug: off
-
-
----
-
-#### debug: on
-
+<br />
+</td></tr>
+<tr><td>debug: on</td><td>
 Remove all delays and pauses to fast-forward until 'debug: off' or the end of the script.
+<br />
 
+<br />
 ~ Usage ~
+<br />
 
+<br />
 debug: on
-
-
----
-
-#### down
-
+<br />
+</td></tr>
+<tr><td>down</td><td>
 Press the down arrow key one time. 
+<br />
 
+<br />
 ~ Usage ~
+<br />
 
+<br />
 down
-
-
----
-
-#### down: NUMBER
-
+<br />
+</td></tr>
+<tr><td>down: NUMBER</td><td>
 Presses the down arrow key the specified NUMBER of times.
+<br />
 
+<br />
 ~ Usage ~
+<br />
 
+<br />
 down: 3
-
-
----
-
-#### end-lines
-
+<br />
+</td></tr>
+<tr><td>end-lines</td><td>
 Ends capturing lines that will be pasted via 'command + v' one at a time followed by pressing 'return' to move to a new line. 
+<br />
 
+<br />
 The capture is started with 'start-lines'.
+<br />
 
+<br />
 ~ Example ~
+<br />
 
+<br />
 start-lines
+<br />
 Lorem ipsum dolor sit amet, consectetur 
+<br />
 adipiscing elit. 
+<br />
 
+<br />
 Curabitur dignissim pretium justo nec 
+<br />
 tincidunt. 
+<br />
 end-lines
-
-
----
-
-#### end-lines-down
-
+<br />
+</td></tr>
+<tr><td>end-lines-down</td><td>
 Ends capturing lines that will be pasted via 'command + v' one at a time followed by pressing the down arrow. 
+<br />
 
+<br />
 The capture is started with 'start-lines-down'.
+<br />
 
+<br />
 ~ Example ~
+<br />
 
+<br />
 start-lines-down
+<br />
 Lorem ipsum dolor sit amet, consectetur 
+<br />
 adipiscing elit. 
+<br />
 
+<br />
 Curabitur dignissim pretium justo nec 
+<br />
 tincidunt. 
+<br />
 end-lines-down
-
-
----
-
-#### left
-
+<br />
+</td></tr>
+<tr><td>left</td><td>
 Presses the left arrow key one time.
+<br />
 
+<br />
 ~ Usage ~
+<br />
 
+<br />
 left
-
-
----
-
-#### left: Number
-
+<br />
+</td></tr>
+<tr><td>left: Number</td><td>
 Presses the left arrow key the specified NUMBER of times. 
+<br />
 
+<br />
 ~ Usage ~
+<br />
 
+<br />
 left: 3
-
-
----
-
-#### paste: TEXT
-
+<br />
+</td></tr>
+<tr><td>paste: TEXT</td><td>
 Pastes the TEXT by pressing 'command + v'. 
+<br />
 
+<br />
 ~ Usage ~
+<br />
 
+<br />
 paste: The quick brown fox
-
-
----
-
-#### paste-down: TEXT
-
+<br />
+</td></tr>
+<tr><td>paste-down: TEXT</td><td>
 Pastes the TEXT by pressing 'command + v' then presses the down arrow.
+<br />
 
+<br />
 ~ Usage ~
+<br />
 
+<br />
 paste-down: The quick brown fox
-
-
----
-
-#### paste-line: TEXT
-
+<br />
+</td></tr>
+<tr><td>paste-line: TEXT</td><td>
 Pastes the TEXT by pressing 'command + v' then presses the return key to move to the next line. 
+<br />
 
+<br />
 ~ Usage ~
+<br />
 
+<br />
 paste-line: The quick brown fox
-
-
----
-
-#### paste-file: PATH
-
+<br />
+</td></tr>
+<tr><td>paste-file: PATH</td><td>
 Pastes the contents of the file at the given PATH by pressing 'command + v'.
+<br />
 
+<br />
 ~ Usage ~
+<br />
 
+<br />
 paste-file: /Users/alan/Desktop/example.txt
+<br />
 
+<br />
 ~ Note ~
+<br />
 
+<br />
 You can get the PATH for a file by right clicking on it in the Finder then holding the 'option' key. When you do, the 'Copy' menu item will turn into 'Copy ... as Pathname' which is what PATH uses. 
-
-
----
-
-#### paste-file-lines: PATH
-
+<br />
+</td></tr>
+<tr><td>paste-file-lines: PATH</td><td>
 Pastes the contents of the file at the given PATH. Each line in the file is pasted individually via 'command + v'. The 'return' key is pressed after each line is pasted to move to the next line. 
+<br />
 
+<br />
 ~ Usage ~
+<br />
 
+<br />
 paste-file-lines: /Users/alan/Desktop/example.txt
+<br />
 
+<br />
 ~ Note ~
+<br />
 
+<br />
 You can get the PATH for a file by right clicking on it in the Finder then holding the 'option' key. When you do, the 'Copy' menu item will turn into 'Copy ... as Pathname' which is what PATH uses. 
-
-
----
-
-#### paste-file-lines-down: PATH
-
+<br />
+</td></tr>
+<tr><td>paste-file-lines-down: PATH</td><td>
 Pastes the contents of the file at the given PATH. Each line in the file is pasted individually via 'command + v'. The down arrow is pressed after each line is pasted to move to the next line. 
+<br />
 
+<br />
 ~ Usage ~
+<br />
 
+<br />
 paste-file-lines-down: /Users/alan/Desktop/example.txt
+<br />
 
+<br />
 ~ Note ~
+<br />
 
+<br />
 You can get the PATH for a file by right clicking on it in the Finder then holding the 'option' key. When you do, the 'Copy' menu item will turn into 'Copy ... as Pathname' which is what PATH uses. 
-
-
----
-
-#### pause
-
+<br />
+</td></tr>
+<tr><td>pause</td><td>
 Pauses typing until F4 is pressed on the keyboard. 
+<br />
 
+<br />
 ~ Usage ~
+<br />
 
+<br />
 pause
-
-
----
-
-#### pause: TIME
-
+<br />
+</td></tr>
+<tr><td>pause: TIME</td><td>
 Pauses typing for the given amount of TIME which is measured in seconds. 
+<br />
 
+<br />
 ~ Examples ~
+<br />
 
+<br />
 pause: 1 
+<br />
 
+<br />
 pause: 1.2
+<br />
 
+<br />
 pause: 0.3
+<br />
 
-
-
----
-
-#### press: KEY
-
+<br />
+</td></tr>
+<tr><td>press: KEY</td><td>
 Presses the given KEY one time. 
+<br />
 
+<br />
 ~ Examples ~
+<br />
 
+<br />
 press: a
+<br />
 
+<br />
 press: space
+<br />
 
+<br />
 press: right-arrow
+<br />
 
+<br />
 ~ Note ~ 
+<br />
 
+<br />
 - Only lower case letters can be used with 'press:'. Use 'press: shift: KEY' to make them upper case. 
+<br />
 
-
----
-
-#### press: MODIFIERS: KEY
-
+<br />
+- The list of available KEYs is provided in the Keys tab above. 
+<br />
+</td></tr>
+<tr><td>press: MODIFIERS: KEY</td><td>
 Press the given KEY one time while holding down the MODIFIERS. 
+<br />
 
+<br />
 The MODIFIERS are:
+<br />
 
+<br />
 - command
+<br />
 - control
+<br />
 - option
+<br />
 - shift
+<br />
 
+<br />
 One or more MODIFIERS can be used at a time.
+<br />
 
+<br />
 ~ Examples ~
+<br />
 
+<br />
 press: command: a
+<br />
 
+<br />
 press: option: right-arrow
+<br />
 
+<br />
 press: option: shift: right-arrow
+<br />
 
+<br />
 ~ Note ~
+<br />
 
+<br />
 - Only lower case letters can be used with 'press:'. Use 'press: shift: KEY' to make them upper case. 
+<br />
 
+<br />
+- The list of available KEYs is provided in the Keys tab above. 
+<br />
 
-
----
-
-#### repeat: KEY
-
+<br />
+</td></tr>
+<tr><td>repeat: KEY</td><td>
 Presses the KEY the specified NUMBER of times.
+<br />
 
+<br />
 ~ Examples ~
+<br />
 
+<br />
 repeat: 3: space
+<br />
 
+<br />
 repeat: 3: up-arrow
+<br />
 
+<br />
 ~ Notes ~ 
+<br />
 
+<br />
 - Only lower case letters can be used with 'repeat:'. Use 'repeat: NUMBER: shift: KEY' to make them upper case. 
+<br />
 
-
----
-
-#### repeat: MODIFIERS: KEY
-
+<br />
+- The list of available KEYs is provided in the Keys tab above. 
+<br />
+</td></tr>
+<tr><td>repeat: MODIFIERS: KEY</td><td>
 Press the given KEY the specified NUMBER of times while holding down the MODIFIERS. 
+<br />
 
+<br />
 The MODIFIERS are:
+<br />
 
+<br />
 - command
+<br />
 - control
+<br />
 - option
+<br />
 - shift
+<br />
 
+<br />
 One or more MODIFIERS can be used at a time.
+<br />
 
+<br />
 ~ Examples ~
+<br />
 
+<br />
 repeat: 3: shift: a
+<br />
 
+<br />
 repeat: 5: option: right-arrow
+<br />
 
+<br />
 repeat: 2: option: shift: right-arrow
+<br />
 
+<br />
 ~ Notes ~
+<br />
 
+<br />
 - Only lower case letters can be used with 'repeat:'. Use 'repeat: NUMBER: shift: KEY' to make them upper case. 
+<br />
 
-
----
-
-#### reset-delay
-
+<br />
+- The list of available KEYs is provided in the Keys tab above. 
+<br />
+</td></tr>
+<tr><td>reset-delay</td><td>
 Resets the minimum and maximum times that the random delay between key presses uses to their default values. 
+<br />
 
+<br />
 ~ Usage ~
+<br />
 
+<br />
 reset-delay
-
-
----
-
-#### return
-
+<br />
+</td></tr>
+<tr><td>return</td><td>
 Presses the 'return' key one time.
+<br />
 
+<br />
 ~ Usage ~
+<br />
 
+<br />
 return
-
-
----
-
-#### return: NUMBER
-
+<br />
+</td></tr>
+<tr><td>return: NUMBER</td><td>
 Presses the 'return' key the specified NUMBER of times. 
+<br />
 
+<br />
 ~ Example ~
+<br />
 
+<br />
 return: 3
-
-
----
-
-#### right
-
+<br />
+</td></tr>
+<tr><td>right</td><td>
 Presses the right arrow key one time.
+<br />
 
+<br />
 ~ Usage ~
+<br />
 
+<br />
 right
-
-
----
-
-#### right: NUMBER
-
+<br />
+</td></tr>
+<tr><td>right: NUMBER</td><td>
 Presses the right arrow key the specified NUMBER of times.
+<br />
 
+<br />
 ~ Example ~
+<br />
 
+<br />
 right: 3
-
-
----
-
-#### set-delay: TIME
-
+<br />
+</td></tr>
+<tr><td>set-delay: TIME</td><td>
 Sets the delay between key presses to TIME which is measured in seconds. 
+<br />
 
+<br />
 ~ Example ~
+<br />
 
+<br />
 set-delay: 0.04
-
-
----
-
-#### set-delay: MIN: MAX
-
+<br />
+</td></tr>
+<tr><td>set-delay: MIN: MAX</td><td>
 Resets the minimum and maximum times that the random delay between key presses uses to MIN_TIME and MAX_TIME, respectively.
+<br />
 
+<br />
 ~ Example ~
+<br />
 
+<br />
 set-delay: 0.05: 0.1
-
-
----
-
-#### space
-
+<br />
+</td></tr>
+<tr><td>space</td><td>
 Presses the 'space' key one time.
+<br />
 
+<br />
 ~ Usage ~
+<br />
 
+<br />
 space
-
-
----
-
-#### space: NUMBER
-
+<br />
+</td></tr>
+<tr><td>space: NUMBER</td><td>
 Presses the 'space' key the specified NUMBER of times. 
+<br />
 
+<br />
 ~ Example ~
+<br />
 
+<br />
 space: 3
-
-
----
-
-#### start-lines
-
+<br />
+</td></tr>
+<tr><td>start-lines</td><td>
 Starts capturing lines that will be pasted via 'command + v' one at a time followed by pressing 'return' to move to a new line. 
+<br />
 
+<br />
 The capture continues until an 'end-lines' instruction is found. 
+<br />
 
+<br />
 ~ Example ~
+<br />
 
+<br />
 start-lines
+<br />
 Lorem ipsum dolor sit amet, consectetur 
+<br />
 adipiscing elit. 
+<br />
 
+<br />
 Curabitur dignissim pretium justo nec 
+<br />
 tincidunt. 
+<br />
 end-lines
-
-
----
-
-#### start-lines-down
-
+<br />
+</td></tr>
+<tr><td>start-lines-down</td><td>
 Starts capturing lines that will be pasted via 'command + v' one at a time followed by pressing the down arrow. 
+<br />
 
+<br />
 The capture continues until an 'end-lines-down' instruction is found. 
+<br />
 
+<br />
 ~ Example ~
+<br />
 
+<br />
 start-lines-down
+<br />
 Lorem ipsum dolor sit amet, consectetur 
+<br />
 adipiscing elit. 
+<br />
 
+<br />
 Curabitur dignissim pretium justo nec 
+<br />
 tincidunt. 
+<br />
 end-lines-down
-
-
----
-
-#### stop
-
+<br />
+</td></tr>
+<tr><td>stop</td><td>
 Stops the script from running.
-
-
----
-
-#### tab
-
+<br />
+</td></tr>
+<tr><td>tab</td><td>
 Presses the 'tab' key one time.
+<br />
 
+<br />
 ~ Usage ~
+<br />
 
+<br />
 tab
-
-
----
-
-#### tab: NUMBER
-
+<br />
+</td></tr>
+<tr><td>tab: NUMBER</td><td>
 Presses the 'tab' key the specified NUMBER of times. 
+<br />
 
+<br />
 ~ Example ~
+<br />
 
+<br />
 tab: 3
-
-
----
-
-#### type: TEXT
-
+<br />
+</td></tr>
+<tr><td>type: TEXT</td><td>
 Types the given TEXT
+<br />
 
+<br />
 ~ Example ~
+<br />
 
+<br />
 type: The quick brown fox
+<br />
 
+<br />
 ~ Notes ~
+<br />
 
+<br />
 - Neither the 'return' key or down-arrow is presses after the TEXT is types. This provides as way to edit text in the middle of a line without making or moving to a new line. 
+<br />
 
+<br />
 - Any spaces at the start of the TEXT are removed.
+<br />
 
+<br />
 - Any spaces at the end of the TEXT are removed.
+<br />
 
+<br />
 - Use a 'press: space' instruction to add spaces at either the start or the end of a piece of text if necessary. 
-
-
----
-
-#### type-down: TEXT
-
+<br />
+</td></tr>
+<tr><td>type-down: TEXT</td><td>
 Types the given TEXT followed by pressing the down arrow key. 
+<br />
 
+<br />
 ~ Example ~
+<br />
 
+<br />
 type-down: The quick brown fox
+<br />
 
+<br />
 ~ Notes ~
+<br />
 
+<br />
 - Any spaces at the start of the TEXT are removed.
+<br />
 
+<br />
 - Any spaces at the end of the TEXT are removed.
+<br />
 
+<br />
 - Use a 'press: space' instruction to add spaces at either the start or the end of a piece of text if necessary. 
-
-
----
-
-#### type-line: TEXT
-
+<br />
+</td></tr>
+<tr><td>type-line: TEXT</td><td>
 Types the given TEXT followed by pressing the 'return' key. 
+<br />
 
+<br />
 ~ Example ~
+<br />
 
+<br />
 type-line: The quick brown fox
+<br />
 
+<br />
 ~ Notes ~
+<br />
 
+<br />
 - Any spaces at the start of the TEXT are removed.
+<br />
 
+<br />
 - Any spaces at the end of the TEXT are removed.
+<br />
 
+<br />
 - Use a 'press: space' instruction to add spaces at either the start or the end of a piece of text if necessary. 
-
-
----
-
-#### up
-
+<br />
+</td></tr>
+<tr><td>up</td><td>
 Presses the up arrow one time.
+<br />
 
+<br />
 ~ Usage ~
+<br />
 
+<br />
 up
-
-
----
-
-#### up: NUMBER
-
+<br />
+</td></tr>
+<tr><td>up: NUMBER</td><td>
 Presses the up arrow the specified NUMBER of times
+<br />
 
+<br />
 ~ Example ~
+<br />
 
+<br />
 up: 3
-
-
----
-
-
+<br />
+</td></tr>
+</tbody>
+</table>
 
 ## Keys
 
