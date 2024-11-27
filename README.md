@@ -134,43 +134,56 @@ type: 3bdwi
 type: DELTA
 ```
 
-Presses `escape` to make sure you're not already in `INSERT` mode then `i` to switch to it. Next, it types
-`alfa, bravo, charlie` then pause before pressing `escape` again to switch to `NORMAL` mode and typing in the commands
-to back up 3 time, delete the word and switch back to `INSERT` mode before typing `DELTA`
+Presses `escape` to make sure you're not already in 
+`INSERT` mode then `i` to switch to it. Next, it
+types `alfa, bravo, charlie` then pause before
+pressing `escape` again to switch to `NORMAL` mode
+and typing in the commands to back up 3 time, delete
+the word and switch back to `INSERT` mode before
+typing `DELTA`
+
+
+
 
 ## General Notes
 
-- The basic ways to type are `type: TEXT`, `type-line: TEXT`, and `type-down:TEXT`. For example:
+- The basic ways to type are `type: TEXT`, `type-line: TEXT`, 
+and `type-down:TEXT`. For example:
 
-      `type: Hello, World`
+    `type: Hello, World`
 
-      `type-line: Hello, World`
+    `type-line: Hello, World`
 
-      `type-down: Hello, World`
+    `type-down: Hello, World`
 
-- The `type: TEXT` instruction doesn't add a `return/enter` after it finishes typing. (That it, it only types in the
-  characters from your `TEXT`)
+- The `type: TEXT` instruction doesn't add a `return/enter` after it finishes typing.
+(That it, it only types in the characters from your `TEXT`)
 
 - `type-line: TEXT` presses `return/enter` after typing your `TEXT`
 
 - `type-down: TEXT` presses the down arrow after typing your `TEXT`
 
-- The `press: KEY` instruction is used for pressing a specific `KEY`. (The full list of available keys is in the Keys
-  section further below)
+- The `press: KEY` instruction is used for pressing a specific `KEY`. (The 
+full list of available keys is in the Keys section further below)
 
-- The `press: MODIFIER: KEY` instruction holds the specific `MODIFIER` while pressing the `KEY`. For example:
+- The `press: MODIFIER: KEY` instruction holds the specific `MODIFIER`
+while pressing the `KEY`. For example:
 
-      `press: command: a`
+    `press: command: a`
 
 - Multiple `MODIFIER` keys can be held while pressing a key like:
 
-  `press: option: shift: right-arrow`
+    `press: option: shift: right-arrow`
 
-- The `pause` instruction pauses typing until you press `F4` on your keyboard. This is the main thing I use to create
-  breaks for talking when I'm doing scree recordings.
+- The `pause` instruction pauses typing until you press `F4` on your
+keyboard. This is the main thing I use to create breaks for 
+talking when I'm doing scree recordings. 
 
-- The `pause: TIME` instruction pauses for the specified time (measured in seconds). I generally use this for little
-  pauses (e.g. `pause: 0.3`) to make it easier to track when I do thing like highlight and delete code.
+- The `pause: TIME` instruction pauses for the specified time 
+(measured in seconds). I generally use this for little pauses 
+(e.g. `pause: 0.3`) to make it easier to track when I do thing
+like highlight and delete code.
+
 
 ## Instructions
 
@@ -219,7 +232,8 @@ This is the list of available instructions
 
 ## Keys
 
-This is the list of keys available for use in `press:` and `repeat:` instructions.
+This is the list of keys available for use in 
+`press:` and `repeat:` instructions. 
 
 - =
 
@@ -504,7 +518,4 @@ currently set up to test other keyboards. I
 think there will be some work to do to get 
 other character sets to work. I don't know
 enough about that yet to know what to expect
-or what would need to be done. 
-
-
-
+or what would need to be done.
