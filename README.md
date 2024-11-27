@@ -235,7 +235,7 @@ This is the list of available instructions
     <tbody>
         <!-- ITEM -->
         <tr>
-            <td rowspan="2" valign="top">debug: on</td>
+            <td rowspan="2" valign="top" width="180">debug: on</td>
             <td colspan="2" valign="top">
 <p>Remove all delays and pauses to fast-forward until <code>debug: off</code> or the end of the script.</p>
             </td>
@@ -296,8 +296,51 @@ Curabitur dignissim pretium justo nec
 tincidunt. 
 end-lines</code></pre></td>
         </tr>
+        <!-- ITEM -->
+        <tr>
+            <td rowspan="2" valign="top">end-lines-down</td>
+            <td colspan="2" valign="top">
+<p>Ends capturing lines that will be pasted via 'command + v' one at a time followed by pressing the down arrow.</p>
+<p>The capture is started with 'start-lines-down'.</p>
+            </td>
+        </tr>
+        <tr>
+            <td valign="top">Example</td>
+            <td valign="top"><pre><code>start-lines-down
+Lorem ipsum dolor sit amet, consectetur 
+adipiscing elit. 
+<br />
+<br />
+Curabitur dignissim pretium justo nec 
+tincidunt. 
+end-lines-down</code></pre></td>
+        </tr>
+        <!-- ITEM -->
+        <tr>
+            <td rowspan="2" valign="top">left</td>
+            <td colspan="2" valign="top">
+<p>Presses the left arrow key one time.</p>
+            </td>
+        </tr>
+        <tr>
+            <td valign="top">Usage</td>
+            <td valign="top"><pre><code>left</code></pre></td>
+        </tr>
+        <!-- ITEM -->
+        <tr>
+            <td rowspan="2" valign="top">left: Number</td>
+            <td colspan="2" valign="top">
+<p>Presses the left arrow key the specified NUMBER of times. </p>
+            </td>
+        </tr>
+        <tr>
+            <td valign="top">Usage</td>
+            <td valign="top"><pre><code>left: 3</code></pre></td>
+        </tr>
     </tbody>
 </table>
+
+
 
 <table>
     <thead>
@@ -308,58 +351,6 @@ end-lines</code></pre></td>
     </thead>
     <tbody>
 
-<tr><td>end-lines-down</td><td>
-Ends capturing lines that will be pasted via 'command + v' one at a time followed by pressing the down arrow. 
-<br />
-
-<br />
-The capture is started with 'start-lines-down'.
-<br />
-
-<br />
-~ Example ~
-<br />
-
-<br />
-start-lines-down
-<br />
-Lorem ipsum dolor sit amet, consectetur 
-<br />
-adipiscing elit. 
-<br />
-
-<br />
-Curabitur dignissim pretium justo nec 
-<br />
-tincidunt. 
-<br />
-end-lines-down
-<br />
-</td></tr>
-<tr><td>left</td><td>
-Presses the left arrow key one time.
-<br />
-
-<br />
-~ Usage ~
-<br />
-
-<br />
-left
-<br />
-</td></tr>
-<tr><td>left: Number</td><td>
-Presses the left arrow key the specified NUMBER of times. 
-<br />
-
-<br />
-~ Usage ~
-<br />
-
-<br />
-left: 3
-<br />
-</td></tr>
 <tr><td>paste: TEXT</td><td>
 Pastes the TEXT by pressing 'command + v'. 
 <br />
