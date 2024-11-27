@@ -1,0 +1,4 @@
+type: Hello,
+pause
+press: space
+type: World!
