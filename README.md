@@ -81,8 +81,8 @@ it types a space followed by `World!`.
         <td><pre><code>start-lines
 Lorem ipsum dolor 
 adipiscing elit. 
-posuere ut volutpat. 
-
+posuere ut volutpat.
+<br /><br />
 Suspendisse euismod 
 id malesuada. 
 Proin id aliquet.
