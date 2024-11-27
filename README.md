@@ -581,240 +581,172 @@ repeat: 2: option: shift: right-arrow</code></pre></td>
             <td valign="top">Example</td>
             <td valign="top"><pre><code>set-delay: 0.05: 0.1</code></pre></td>
         </tr>
-    </tbody>
-</table>
-
-
-<table>
-    <thead>
+        <!-- ITEM -->
         <tr>
-            <th>Instruction</th>
-            <th>Description</th>
+            <td rowspan="2" valign="top">space</td>
+            <td colspan="2" valign="top">
+<p>Presses the 'space' key one time.<br /><br /></p>
+            </td>
         </tr>
-    </thead>
-    <tbody>
-
-<tr><td>space</td><td>
-Presses the 'space' key one time.
-<br />
-
-<br />
-~ Usage ~
-<br />
-
-<br />
-space
-<br />
-</td></tr>
-<tr><td>space: NUMBER</td><td>
-Presses the 'space' key the specified NUMBER of times. 
-<br />
-
-<br />
-~ Example ~
-<br />
-
-<br />
-space: 3
-<br />
-</td></tr>
-<tr><td>start-lines</td><td>
-Starts capturing lines that will be pasted via 'command + v' one at a time followed by pressing 'return' to move to a new line. 
-<br />
-
-<br />
-The capture continues until an 'end-lines' instruction is found. 
-<br />
-
-<br />
-~ Example ~
-<br />
-
-<br />
-start-lines
-<br />
+        <tr>
+            <td valign="top">Usage</td>
+            <td valign="top"><pre><code>space</code></pre></td>
+        </tr>
+        <!-- ITEM -->
+        <tr>
+            <td rowspan="2" valign="top">space: NUMBER</td>
+            <td colspan="2" valign="top">
+<p>Presses the 'space' key the specified NUMBER of times. <br /><br /></p>
+            </td>
+        </tr>
+        <tr>
+            <td valign="top">Example</td>
+            <td valign="top"><pre><code>space: 3</code></pre></td>
+        </tr>
+        <!-- ITEM -->
+        <tr>
+            <td rowspan="2" valign="top">start-lines</td>
+            <td colspan="2" valign="top">
+<p>Starts capturing lines that will be pasted via 'command + v' one at a time followed by pressing 'return' to move to a new line. </p>
+<p>The capture continues until an 'end-lines' instruction is found. <br /><br /></p>
+            </td>
+        </tr>
+        <tr>
+            <td valign="top">Usage</td>
+            <td valign="top"><pre><code>start-lines
 Lorem ipsum dolor sit amet, consectetur 
-<br />
-adipiscing elit. 
-<br />
-
+adipiscing elit.<br />
 <br />
 Curabitur dignissim pretium justo nec 
-<br />
 tincidunt. 
-<br />
-end-lines
-<br />
-</td></tr>
-<tr><td>start-lines-down</td><td>
-Starts capturing lines that will be pasted via 'command + v' one at a time followed by pressing the down arrow. 
-<br />
-
-<br />
-The capture continues until an 'end-lines-down' instruction is found. 
-<br />
-
-<br />
-~ Example ~
-<br />
-
-<br />
-start-lines-down
-<br />
+end-lines</code></pre></td>
+        </tr>
+        <!-- ITEM -->
+        <tr>
+            <td rowspan="2" valign="top">start-lines-down</td>
+            <td colspan="2" valign="top">
+<p>Starts capturing lines that will be pasted via 'command + v' one at a time followed by pressing the down arrow. </p>
+<p>The capture continues until an 'end-lines-down' instruction is found. <br /><br /></p>
+            </td>
+        </tr>
+        <tr>
+            <td valign="top">Example</td>
+            <td valign="top"><pre><code>start-lines-down
 Lorem ipsum dolor sit amet, consectetur 
-<br />
-adipiscing elit. 
-<br />
-
+adipiscing elit. <br />
 <br />
 Curabitur dignissim pretium justo nec 
-<br />
 tincidunt. 
-<br />
-end-lines-down
-<br />
-</td></tr>
-<tr><td>stop</td><td>
-Stops the script from running.
-<br />
-</td></tr>
-<tr><td>tab</td><td>
-Presses the 'tab' key one time.
-<br />
-
-<br />
-~ Usage ~
-<br />
-
-<br />
-tab
-<br />
-</td></tr>
-<tr><td>tab: NUMBER</td><td>
-Presses the 'tab' key the specified NUMBER of times. 
-<br />
-
-<br />
-~ Example ~
-<br />
-
-<br />
-tab: 3
-<br />
-</td></tr>
-<tr><td>type: TEXT</td><td>
-Types the given TEXT
-<br />
-
-<br />
-~ Example ~
-<br />
-
-<br />
-type: The quick brown fox
-<br />
-
-<br />
-~ Notes ~
-<br />
-
-<br />
-- Neither the 'return' key or down-arrow is presses after the TEXT is types. This provides as way to edit text in the middle of a line without making or moving to a new line. 
-<br />
-
-<br />
-- Any spaces at the start of the TEXT are removed.
-<br />
-
-<br />
-- Any spaces at the end of the TEXT are removed.
-<br />
-
-<br />
-- Use a 'press: space' instruction to add spaces at either the start or the end of a piece of text if necessary. 
-<br />
-</td></tr>
-<tr><td>type-down: TEXT</td><td>
-Types the given TEXT followed by pressing the down arrow key. 
-<br />
-
-<br />
-~ Example ~
-<br />
-
-<br />
-type-down: The quick brown fox
-<br />
-
-<br />
-~ Notes ~
-<br />
-
-<br />
-- Any spaces at the start of the TEXT are removed.
-<br />
-
-<br />
-- Any spaces at the end of the TEXT are removed.
-<br />
-
-<br />
-- Use a 'press: space' instruction to add spaces at either the start or the end of a piece of text if necessary. 
-<br />
-</td></tr>
-<tr><td>type-line: TEXT</td><td>
-Types the given TEXT followed by pressing the 'return' key. 
-<br />
-
-<br />
-~ Example ~
-<br />
-
-<br />
-type-line: The quick brown fox
-<br />
-
-<br />
-~ Notes ~
-<br />
-
-<br />
-- Any spaces at the start of the TEXT are removed.
-<br />
-
-<br />
-- Any spaces at the end of the TEXT are removed.
-<br />
-
-<br />
-- Use a 'press: space' instruction to add spaces at either the start or the end of a piece of text if necessary. 
-<br />
-</td></tr>
-<tr><td>up</td><td>
-Presses the up arrow one time.
-<br />
-
-<br />
-~ Usage ~
-<br />
-
-<br />
-up
-<br />
-</td></tr>
-<tr><td>up: NUMBER</td><td>
-Presses the up arrow the specified NUMBER of times
-<br />
-
-<br />
-~ Example ~
-<br />
-
-<br />
-up: 3
-<br />
-</td></tr>
-</tbody>
+end-lines-down</code></pre></td>
+        </tr>
+        <!-- ITEM -->
+        <tr>
+            <td rowspan="2" valign="top">stop</td>
+            <td colspan="2" valign="top">
+<p>Stops the script from running.<br /><br /></p>
+            </td>
+        </tr>
+        <tr>
+            <td valign="top">Usage</td>
+            <td valign="top"><pre><code>stop</code></pre></td>
+        </tr>
+        <!-- ITEM -->
+        <tr>
+            <td rowspan="2" valign="top">tab</td>
+            <td colspan="2" valign="top">
+<p>Presses the 'tab' key one time.<br /><br /></p>
+            </td>
+        </tr>
+        <tr>
+            <td valign="top">Usage</td>
+            <td valign="top"><pre><code>tab</code></pre></td>
+        </tr>
+        <!-- ITEM -->
+        <tr>
+            <td rowspan="2" valign="top">tab: NUMBER</td>
+            <td colspan="2" valign="top">
+<p>Presses the 'tab' key the specified NUMBER of times. <br /><br /></p>
+            </td>
+        </tr>
+        <tr>
+            <td valign="top">Example</td>
+            <td valign="top"><pre><code>tab: 3</code></pre></td>
+        </tr>
+        <!-- ITEM -->
+        <tr>
+            <td rowspan="2" valign="top">type: TEXT</td>
+            <td colspan="2" valign="top">
+<p>Types the given TEXT<br /><br /></p>
+<p>Notes:</p>
+<ul>
+<li>Neither the 'return' key or down-arrow is presses after the TEXT is types. This provides as way to edit text in the middle of a line without making or moving to a new line.</li>
+<li>Any spaces at the start of the TEXT are removed.</li>
+<li>Any spaces at the end of the TEXT are removed.</li>
+<li>Use a 'press: space' instruction to add spaces at either the start or the end of a piece of text if necessary.</li>
+</ul><br /></br />
+            </td>
+        </tr>
+        <tr>
+            <td valign="top">Example</td>
+            <td valign="top"><pre><code>type: The quick brown fox</code></pre></td>
+        </tr>
+        <!-- ITEM -->
+        <tr>
+            <td rowspan="2" valign="top">type-down: TEXT</td>
+            <td colspan="2" valign="top">
+<p>Types the given TEXT followed by pressing the down arrow key.</p>
+<p>Notes:</p>
+<ul>
+<li>Any spaces at the start of the TEXT are removed.</li>
+<li>Any spaces at the end of the TEXT are removed.</li>
+<li>Use a 'press: space' instruction to add spaces at either the start or the end of a piece of text if necessary.</li>
+</ul><br /></br />
+            </td>
+        </tr>
+        <tr>
+            <td valign="top">Example</td>
+            <td valign="top"><pre><code>type-down: The quick brown fox</code></pre></td>
+        </tr>
+        <!-- ITEM -->
+        <tr>
+            <td rowspan="2" valign="top">type-line: TEXT</td>
+            <td colspan="2" valign="top">
+<p>Types the given TEXT followed by pressing the 'return' key.</p>
+<p>Notes:</p>
+<ul>
+<li>Any spaces at the start of the TEXT are removed.</li>
+<li>Any spaces at the end of the TEXT are removed.</li>
+<li>Use a 'press: space' instruction to add spaces at either the start or the end of a piece of text if necessary.</li>
+</ul><br /></br />
+</td>
+        </tr>
+        <tr>
+            <td valign="top">Example</td>
+            <td valign="top"><pre><code>type-line: The quick brown fox</code></pre></td>
+        </tr>
+        <!-- ITEM -->
+        <tr>
+            <td rowspan="2" valign="top">up</td>
+            <td colspan="2" valign="top">
+<p>Presses the up arrow one time.<br /><br /></p>
+            </td>
+        </tr>
+        <tr>
+            <td valign="top">Usage</td>
+            <td valign="top"><pre><code>up</code></pre></td>
+        </tr>
+        <!-- ITEM -->
+        <tr>
+            <td rowspan="2" valign="top">up: NUMBER</td>
+            <td colspan="2" valign="top">
+<p>Presses the up arrow the specified NUMBER of times<br /><br /></p>
+            </td>
+        </tr>
+        <tr>
+            <td valign="top">Usage</td>
+            <td valign="top"><pre><code>up: 3</code></pre></td>
+        </tr>
+    </tbody>
 </table>
 
 ## Keys
