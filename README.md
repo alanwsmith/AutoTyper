@@ -31,28 +31,28 @@ available instructions is in the Instructions sections further below).
 
 ## Examples
 
-Here are a few scripts to get you started. 
-
-### Hello, World
+Here are a few instruction examples to get you started. 
 
 <table>
+    <tr>
+        <td colspan="2"><h2>Hello, World</h2></td>
+    </tr>
     <tr>
         <td><pre><code>type: Hello, World!</code></pre></td>
         <td><img src="./DocExamples/01-hello-world.gif" /></td>
     </tr>
-</table>
-
----
-
-### Multiple Lines
-
-<table>
+    <tr>
+        <td colspan="2"><h2><br />Multiple Lines</h2></td>
+    </tr>    
     <tr>
         <td><pre><code>type-line: Hello, 
 type: World!</code></pre></td>
         <td><img src="./DocExamples/02-multi-line.gif" /></td>
     </tr>
 </table>
+
+
+
 
 ---
 
@@ -683,7 +683,7 @@ end-lines-down</code></pre></td>
 <li>Any spaces at the start of the TEXT are removed.</li>
 <li>Any spaces at the end of the TEXT are removed.</li>
 <li>Use a 'press: space' instruction to add spaces at either the start or the end of a piece of text if necessary.</li>
-</ul><br /></br />
+</ul>
             </td>
         </tr>
         <tr>
@@ -700,7 +700,7 @@ end-lines-down</code></pre></td>
 <li>Any spaces at the start of the TEXT are removed.</li>
 <li>Any spaces at the end of the TEXT are removed.</li>
 <li>Use a 'press: space' instruction to add spaces at either the start or the end of a piece of text if necessary.</li>
-</ul><br /></br />
+</ul>
             </td>
         </tr>
         <tr>
@@ -717,7 +717,7 @@ end-lines-down</code></pre></td>
 <li>Any spaces at the start of the TEXT are removed.</li>
 <li>Any spaces at the end of the TEXT are removed.</li>
 <li>Use a 'press: space' instruction to add spaces at either the start or the end of a piece of text if necessary.</li>
-</ul><br /></br />
+</ul>
 </td>
         </tr>
         <tr>
