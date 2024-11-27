@@ -7,9 +7,9 @@ is necessary. Instead of doing it manually,
 the app will do it for you. Faster and without 
 flubbing keys. 
 
-You can check out an intro video here:
+You can [check out an intro video here](http://www.youtube.com/watch?v=VrT6AG_jMwE):
 
-[![A screenshot of the AutoTyper Introduction Demonstration Video](http://img.youtube.com/vi/VrT6AG_jMwE/maxresdefault.jpg)](http://www.youtube.com/watch?v=VrT6AG_jMwE "AutoTyper Introduction Demonstration")
+[![A screenshot of the AutoTyper Introduction Demonstration Video](https://img.youtube.com/vi/VrT6AG_jMwE/maxresdefault.jpg)](http://www.youtube.com/watch?v=VrT6AG_jMwE "AutoTyper Introduction Demonstration")
 
 ## Installation
 
