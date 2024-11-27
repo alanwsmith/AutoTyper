@@ -370,6 +370,66 @@ end-lines-down</code></pre></td>
             <td valign="top">Usage</td>
             <td valign="top"><pre><code>paste-line: The quick brown fox</code></pre></td>
         </tr>
+        <!-- ITEM -->
+        <tr>
+            <td rowspan="2" valign="top">paste-file: PATH</td>
+            <td colspan="2" valign="top">
+<p>Pastes the contents of the file at the given PATH by pressing 'command + v'.</p>
+<p>Note: You can get the PATH for a file by right clicking on it in the Finder then holding the 'option' key. When you do, the 'Copy' menu item will turn into 'Copy ... as Pathname' which is what PATH uses. <br /><br /></p>
+            </td>
+        </tr>
+        <tr>
+            <td valign="top">Example</td>
+            <td valign="top"><pre><code>paste-file: /Users/alan/Desktop/example.txt</code></pre></td>
+        </tr>
+        <!-- ITEM -->
+        <tr>
+            <td rowspan="2" valign="top">paste-file-lines: PATH</td>
+            <td colspan="2" valign="top">
+<p>Pastes the contents of the file at the given PATH. Each line in the file is pasted individually via 'command + v'. The 'return' key is pressed after each line is pasted to move to the next line. </p>
+<p>Note: You can get the PATH for a file by right clicking on it in the Finder then holding the 'option' key. When you do, the 'Copy' menu item will turn into 'Copy ... as Pathname' which is what PATH uses.<br /><br /></p>
+            </td>
+        </tr>
+        <tr>
+            <td valign="top">Example</td>
+            <td valign="top"><pre><code>paste-file-lines: /Users/alan/Desktop/example.txt</code></pre></td>
+        </tr>
+        <!-- ITEM -->
+        <tr>
+            <td rowspan="2" valign="top">paste-file-lines-down: PATH</td>
+            <td colspan="2" valign="top">
+<p>Pastes the contents of the file at the given PATH. Each line in the file is pasted individually via 'command + v'. The down arrow is pressed after each line is pasted to move to the next line. </p>
+<p>Note: You can get the PATH for a file by right clicking on it in the Finder then holding the 'option' key. When you do, the 'Copy' menu item will turn into 'Copy ... as Pathname' which is what PATH uses. <br /><br /></p>
+            </td>
+        </tr>
+        <tr>
+            <td valign="top">Example</td>
+            <td valign="top"><pre><code>paste-file-lines-down: /Users/alan/Desktop/example.txt</code></pre></td>
+        </tr>
+        <!-- ITEM -->
+        <tr>
+            <td rowspan="2" valign="top">pause</td>
+            <td colspan="2" valign="top">
+<p>Pauses typing until F4 is pressed on the keyboard. <br /><br /></p>
+            </td>
+        </tr>
+        <tr>
+            <td valign="top">Usage</td>
+            <td valign="top"><pre><code>pause</code></pre></td>
+        </tr>
+        <!-- ITEM -->
+        <tr>
+            <td rowspan="2" valign="top">pause: TIME</td>
+            <td colspan="2" valign="top">
+<p>Pauses typing for the given amount of TIME which is measured in seconds. <br /><br /></p>
+            </td>
+        </tr>
+        <tr>
+            <td valign="top">Examples</td>
+            <td valign="top"><pre><code>pause: 1
+pause: 1.2
+pause: 0.3</code></pre></td>
+        </tr>
     </tbody>
 </table>
 
@@ -384,100 +444,6 @@ end-lines-down</code></pre></td>
     </thead>
     <tbody>
 
-<tr><td>paste-file: PATH</td><td>
-Pastes the contents of the file at the given PATH by pressing 'command + v'.
-<br />
-
-<br />
-~ Usage ~
-<br />
-
-<br />
-paste-file: /Users/alan/Desktop/example.txt
-<br />
-
-<br />
-~ Note ~
-<br />
-
-<br />
-You can get the PATH for a file by right clicking on it in the Finder then holding the 'option' key. When you do, the 'Copy' menu item will turn into 'Copy ... as Pathname' which is what PATH uses. 
-<br />
-</td></tr>
-<tr><td>paste-file-lines: PATH</td><td>
-Pastes the contents of the file at the given PATH. Each line in the file is pasted individually via 'command + v'. The 'return' key is pressed after each line is pasted to move to the next line. 
-<br />
-
-<br />
-~ Usage ~
-<br />
-
-<br />
-paste-file-lines: /Users/alan/Desktop/example.txt
-<br />
-
-<br />
-~ Note ~
-<br />
-
-<br />
-You can get the PATH for a file by right clicking on it in the Finder then holding the 'option' key. When you do, the 'Copy' menu item will turn into 'Copy ... as Pathname' which is what PATH uses. 
-<br />
-</td></tr>
-<tr><td>paste-file-lines-down: PATH</td><td>
-Pastes the contents of the file at the given PATH. Each line in the file is pasted individually via 'command + v'. The down arrow is pressed after each line is pasted to move to the next line. 
-<br />
-
-<br />
-~ Usage ~
-<br />
-
-<br />
-paste-file-lines-down: /Users/alan/Desktop/example.txt
-<br />
-
-<br />
-~ Note ~
-<br />
-
-<br />
-You can get the PATH for a file by right clicking on it in the Finder then holding the 'option' key. When you do, the 'Copy' menu item will turn into 'Copy ... as Pathname' which is what PATH uses. 
-<br />
-</td></tr>
-<tr><td>pause</td><td>
-Pauses typing until F4 is pressed on the keyboard. 
-<br />
-
-<br />
-~ Usage ~
-<br />
-
-<br />
-pause
-<br />
-</td></tr>
-<tr><td>pause: TIME</td><td>
-Pauses typing for the given amount of TIME which is measured in seconds. 
-<br />
-
-<br />
-~ Examples ~
-<br />
-
-<br />
-pause: 1 
-<br />
-
-<br />
-pause: 1.2
-<br />
-
-<br />
-pause: 0.3
-<br />
-
-<br />
-</td></tr>
 <tr><td>press: KEY</td><td>
 Presses the given KEY one time. 
 <br />
