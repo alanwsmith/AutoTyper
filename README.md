@@ -468,9 +468,121 @@ press: right-arrow</code></pre></td>
 press: option: right-arrow
 press: option: shift: right-arrow</code></pre></td>
         </tr>
+        <!-- ITEM -->
+        <tr>
+            <td rowspan="2" valign="top">repeat: KEY</td>
+            <td colspan="2" valign="top">
+<p>Presses the KEY the specified NUMBER of times.</p>
+<p>Note: Only lower case letters can be used with 'repeat:'. Use 'repeat: shift: KEY' to make them upper case.</p>
+<p>Note: The list of available keys is listed in the Keys section below.<br /><br /></p>
+            </td>
+        </tr>
+        <tr>
+            <td valign="top">Examples</td>
+            <td valign="top"><pre><code>repeat: 3: space
+repeat: 3: up-arrow</code></pre></td>
+        </tr>
+        <!-- ITEM -->
+        <tr>
+            <td rowspan="2" valign="top">repeat: MODIFIERS: KEY</td>
+            <td colspan="2" valign="top">
+<p>Press the given KEY the specified NUMBER of times while holding down the MODIFIERS.</p><p>The MODIFIERS are:</p>
+<ul>
+    <li>command</li>
+    <li>control</li>
+    <li>option</li>
+    <li>shift</li>
+</ul>
+<p>One or more MODIFIERS can be used at a time.</p>
+<p>Note: Only lower case letters can be used with 'repeat:'. Use 'repeat: shift: KEY' to make them upper case.</p>
+<p>Note: The list of available keys is listed in the Keys section below.<br /><br /></p>
+            </td>
+        </tr>
+        <tr>
+            <td valign="top">Usage</td>
+            <td valign="top"><pre><code>repeat: 3: shift: a
+repeat: 5: option: right-arrow
+repeat: 2: option: shift: right-arrow</code></pre></td>
+        </tr>
+        <!-- ITEM -->
+        <tr>
+            <td rowspan="2" valign="top">reset-delay</td>
+            <td colspan="2" valign="top">
+<p>Resets the minimum and maximum times that the random delay between key presses uses to their default values. <br /><br /></p>
+            </td>
+        </tr>
+        <tr>
+            <td valign="top">Usage</td>
+            <td valign="top"><pre><code>reset-delay</code></pre></td>
+        </tr>
+        <!-- ITEM -->
+        <tr>
+            <td rowspan="2" valign="top">return</td>
+            <td colspan="2" valign="top">
+<p>Presses the 'return' key one time.<br /><br /></p>
+            </td>
+        </tr>
+        <tr>
+            <td valign="top">Usage</td>
+            <td valign="top"><pre><code>return</code></pre></td>
+        </tr>
+        <!-- ITEM -->
+        <tr>
+            <td rowspan="2" valign="top">return: NUMBER</td>
+            <td colspan="2" valign="top">
+<p>Presses the 'return' key the specified NUMBER of times. <br /><br /></p>
+            </td>
+        </tr>
+        <tr>
+            <td valign="top">Example</td>
+            <td valign="top"><pre><code>return: 3</code></pre></td>
+        </tr>
+        <!-- ITEM -->
+        <tr>
+            <td rowspan="2" valign="top">right</td>
+            <td colspan="2" valign="top">
+<p>Presses the right arrow key one time.<br /><br /></p>
+            </td>
+        </tr>
+        <tr>
+            <td valign="top">Usage</td>
+            <td valign="top"><pre><code>right</code></pre></td>
+        </tr>
+        <!-- ITEM -->
+        <tr>
+            <td rowspan="2" valign="top">right: NUMBER</td>
+            <td colspan="2" valign="top">
+<p>Presses the right arrow key the specified NUMBER of times.<br /><br /></p>
+            </td>
+        </tr>
+        <tr>
+            <td valign="top">Example</td>
+            <td valign="top"><pre><code>right: 3</code></pre></td>
+        </tr>
+        <!-- ITEM -->
+        <tr>
+            <td rowspan="2" valign="top">set-delay: TIME</td>
+            <td colspan="2" valign="top">
+<p>Sets the delay between key presses to TIME which is measured in seconds. <br /><br /></p>
+            </td>
+        </tr>
+        <tr>
+            <td valign="top">Example</td>
+            <td valign="top"><pre><code>set-delay: 0.04</code></pre></td>
+        </tr>
+        <!-- ITEM -->
+        <tr>
+            <td rowspan="2" valign="top">set-delay: MIN: MAX</td>
+            <td colspan="2" valign="top">
+<p>Resets the minimum and maximum times that the random delay between key presses uses to MIN_TIME and MAX_TIME, respectively.<br /><br /></p>
+            </td>
+        </tr>
+        <tr>
+            <td valign="top">Example</td>
+            <td valign="top"><pre><code>set-delay: 0.05: 0.1</code></pre></td>
+        </tr>
     </tbody>
 </table>
-
 
 
 <table>
@@ -482,168 +594,6 @@ press: option: shift: right-arrow</code></pre></td>
     </thead>
     <tbody>
 
-<tr><td>repeat: KEY</td><td>
-Presses the KEY the specified NUMBER of times.
-<br />
-
-<br />
-~ Examples ~
-<br />
-
-<br />
-repeat: 3: space
-<br />
-
-<br />
-repeat: 3: up-arrow
-<br />
-
-<br />
-~ Notes ~ 
-<br />
-
-<br />
-- Only lower case letters can be used with 'repeat:'. Use 'repeat: NUMBER: shift: KEY' to make them upper case. 
-<br />
-
-<br />
-- The list of available KEYs is provided in the Keys tab above. 
-<br />
-</td></tr>
-<tr><td>repeat: MODIFIERS: KEY</td><td>
-Press the given KEY the specified NUMBER of times while holding down the MODIFIERS. 
-<br />
-
-<br />
-The MODIFIERS are:
-<br />
-
-<br />
-- command
-<br />
-- control
-<br />
-- option
-<br />
-- shift
-<br />
-
-<br />
-One or more MODIFIERS can be used at a time.
-<br />
-
-<br />
-~ Examples ~
-<br />
-
-<br />
-repeat: 3: shift: a
-<br />
-
-<br />
-repeat: 5: option: right-arrow
-<br />
-
-<br />
-repeat: 2: option: shift: right-arrow
-<br />
-
-<br />
-~ Notes ~
-<br />
-
-<br />
-- Only lower case letters can be used with 'repeat:'. Use 'repeat: NUMBER: shift: KEY' to make them upper case. 
-<br />
-
-<br />
-- The list of available KEYs is provided in the Keys tab above. 
-<br />
-</td></tr>
-<tr><td>reset-delay</td><td>
-Resets the minimum and maximum times that the random delay between key presses uses to their default values. 
-<br />
-
-<br />
-~ Usage ~
-<br />
-
-<br />
-reset-delay
-<br />
-</td></tr>
-<tr><td>return</td><td>
-Presses the 'return' key one time.
-<br />
-
-<br />
-~ Usage ~
-<br />
-
-<br />
-return
-<br />
-</td></tr>
-<tr><td>return: NUMBER</td><td>
-Presses the 'return' key the specified NUMBER of times. 
-<br />
-
-<br />
-~ Example ~
-<br />
-
-<br />
-return: 3
-<br />
-</td></tr>
-<tr><td>right</td><td>
-Presses the right arrow key one time.
-<br />
-
-<br />
-~ Usage ~
-<br />
-
-<br />
-right
-<br />
-</td></tr>
-<tr><td>right: NUMBER</td><td>
-Presses the right arrow key the specified NUMBER of times.
-<br />
-
-<br />
-~ Example ~
-<br />
-
-<br />
-right: 3
-<br />
-</td></tr>
-<tr><td>set-delay: TIME</td><td>
-Sets the delay between key presses to TIME which is measured in seconds. 
-<br />
-
-<br />
-~ Example ~
-<br />
-
-<br />
-set-delay: 0.04
-<br />
-</td></tr>
-<tr><td>set-delay: MIN: MAX</td><td>
-Resets the minimum and maximum times that the random delay between key presses uses to MIN_TIME and MAX_TIME, respectively.
-<br />
-
-<br />
-~ Example ~
-<br />
-
-<br />
-set-delay: 0.05: 0.1
-<br />
-</td></tr>
 <tr><td>space</td><td>
 Presses the 'space' key one time.
 <br />
