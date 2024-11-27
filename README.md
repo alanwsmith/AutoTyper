@@ -708,7 +708,280 @@ Presses the up arrow the specified NUMBER of times
 up: 3
 
 
+## Keys
 
+This is the list of keys available for use in 
+`press:` and `repeat:` instructions. 
+
+- =
+
+- '
+
+- ,
+
+- -
+
+- .
+
+- /
+
+- 0
+
+- 1
+
+- 2
+
+- 3
+
+- 4
+
+- 5
+
+- 6
+
+- 7
+
+- 8
+
+- 9
+
+- ;
+
+- [
+
+- \
+
+- ]
+
+- a
+
+- b
+
+- c
+
+- caps-lock
+
+- command
+
+- control
+
+- d
+
+- delete
+
+- down-arrow
+
+- e
+
+- end
+
+- enter
+
+- escape
+
+- f
+
+- f1
+
+- f10
+
+- f11
+
+- f12
+
+- f13
+
+- f14
+
+- f15
+
+- f16
+
+- f17
+
+- f18
+
+- f19
+
+- f2
+
+- f20
+
+- f3
+
+- f4
+
+- f5
+
+- f6
+
+- f7
+
+- f8
+
+- f9
+
+- F1
+
+- F2
+
+- F3
+
+- F4
+
+- F5
+
+- F6
+
+- F7
+
+- F8
+
+- F9
+
+- F10
+
+- F11
+
+- F12
+
+- F13
+
+- F14
+
+- F15
+
+- F16
+
+- F17
+
+- F18
+
+- F19
+
+- forward-delete
+
+- function
+
+- g
+
+- h
+
+- help
+
+- home
+
+- i
+
+- iso-section
+
+- j
+
+- jis-eisu
+
+- jis-underscore
+
+- jis-yen
+
+- jis_kana
+
+- k
+
+- keypad-0
+
+- keypad-1
+
+- keypad-2
+
+- keypad-3
+
+- keypad-4
+
+- keypad-5
+
+- keypad-6
+
+- keypad-7
+
+- keypad-8
+
+- keypad-9
+
+- keypad-clear
+
+- keypad-decimal
+
+- keypad-divide
+
+- keypad-enter
+
+- keypad-equals
+
+- keypad-jis-comma
+
+- keypad-minus
+
+- keypad-multiply
+
+- keypad-plus
+
+- l
+
+- left-arrow
+
+- m
+
+- mute
+
+- n
+
+- o
+
+- option
+
+- p
+
+- page-down
+
+- page-up
+
+- q
+
+- r
+
+- return
+
+- right-arrow
+
+- s
+
+- shift
+
+- space
+
+- t
+
+- tab
+
+- u
+
+- up-arrow
+
+- v
+
+- volume-down
+
+- volume-up
+
+- w
+
+- x
+
+- y
+
+- z
+
+- ~
 
 
 
