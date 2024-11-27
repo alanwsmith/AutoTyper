@@ -235,7 +235,7 @@ This is the list of available instructions
     <tbody>
         <!-- ITEM -->
         <tr>
-            <td rowspan="2" valign="top" width="180">debug: on</td>
+            <td rowspan="2" valign="top" width="240">debug: on</td>
             <td colspan="2" valign="top">
 <p>Remove all delays and pauses to fast-forward until <code>debug: off</code> or the end of the script.<br /><br /></p>
             </td>
@@ -380,7 +380,7 @@ end-lines-down</code></pre></td>
         </tr>
         <tr>
             <td valign="top">Example</td>
-            <td valign="top"><pre><code>paste-file: /Users/alan/Desktop/example.txt</code></pre></td>
+            <td valign="top"><pre><code>paste-file: /Users/alan/example.txt</code></pre></td>
         </tr>
         <!-- ITEM -->
         <tr>
@@ -392,7 +392,7 @@ end-lines-down</code></pre></td>
         </tr>
         <tr>
             <td valign="top">Example</td>
-            <td valign="top"><pre><code>paste-file-lines: /Users/alan/Desktop/example.txt</code></pre></td>
+            <td valign="top"><pre><code>paste-file-lines: /Users/alan/example.txt</code></pre></td>
         </tr>
         <!-- ITEM -->
         <tr>
@@ -404,7 +404,7 @@ end-lines-down</code></pre></td>
         </tr>
         <tr>
             <td valign="top">Example</td>
-            <td valign="top"><pre><code>paste-file-lines-down: /Users/alan/Desktop/example.txt</code></pre></td>
+            <td valign="top"><pre><code>paste-file-lines-down: /Users/alan/example.txt</code></pre></td>
         </tr>
         <!-- ITEM -->
         <tr>
@@ -430,6 +430,44 @@ end-lines-down</code></pre></td>
 pause: 1.2
 pause: 0.3</code></pre></td>
         </tr>
+        <!-- ITEM -->
+        <tr>
+            <td rowspan="2" valign="top">press: KEY</td>
+            <td colspan="2" valign="top">
+<p>Presses the given KEY one time.</p>
+<p>Note: Only lower case letters can be used with 'press:'. Use 'press: shift: KEY' to make them upper case.</p>
+<p>Note: The list of available keys is listed in the Keys section below.<br /><br /></p>
+            </td>
+        </tr>
+        <tr>
+            <td valign="top">Examples</td>
+            <td valign="top"><pre><code>press: a
+press: space
+press: right-arrow</code></pre></td>
+        </tr>
+        <!-- ITEM -->
+        <tr>
+            <td rowspan="2" valign="top">press: MODIFIERS: KEY</td>
+            <td colspan="2" valign="top">
+<p>Press the given KEY one time while holding down the MODIFIERS.</p>
+<p>The MODIFIERS are:</p>
+<ul>
+    <li>command</li>
+    <li>control</li>
+    <li>option</li>
+    <li>shift</li>
+</ul>
+<p>One or more MODIFIERS can be used at a time.</p>
+<p>Note: Only lower case letters can be used with 'press:'. Use 'press: shift: KEY' to make them upper case.</p>
+<p>Note: The list of available keys is listed in the Keys section below.<br /><br /></p>
+            </td>
+        </tr>
+        <tr>
+            <td valign="top">Examples</td>
+            <td valign="top"><pre><code>press: command: a
+press: option: right-arrow
+press: option: shift: right-arrow</code></pre></td>
+        </tr>
     </tbody>
 </table>
 
@@ -444,90 +482,6 @@ pause: 0.3</code></pre></td>
     </thead>
     <tbody>
 
-<tr><td>press: KEY</td><td>
-Presses the given KEY one time. 
-<br />
-
-<br />
-~ Examples ~
-<br />
-
-<br />
-press: a
-<br />
-
-<br />
-press: space
-<br />
-
-<br />
-press: right-arrow
-<br />
-
-<br />
-~ Note ~ 
-<br />
-
-<br />
-- Only lower case letters can be used with 'press:'. Use 'press: shift: KEY' to make them upper case. 
-<br />
-
-<br />
-- The list of available KEYs is provided in the Keys tab above. 
-<br />
-</td></tr>
-<tr><td>press: MODIFIERS: KEY</td><td>
-Press the given KEY one time while holding down the MODIFIERS. 
-<br />
-
-<br />
-The MODIFIERS are:
-<br />
-
-<br />
-- command
-<br />
-- control
-<br />
-- option
-<br />
-- shift
-<br />
-
-<br />
-One or more MODIFIERS can be used at a time.
-<br />
-
-<br />
-~ Examples ~
-<br />
-
-<br />
-press: command: a
-<br />
-
-<br />
-press: option: right-arrow
-<br />
-
-<br />
-press: option: shift: right-arrow
-<br />
-
-<br />
-~ Note ~
-<br />
-
-<br />
-- Only lower case letters can be used with 'press:'. Use 'press: shift: KEY' to make them upper case. 
-<br />
-
-<br />
-- The list of available KEYs is provided in the Keys tab above. 
-<br />
-
-<br />
-</td></tr>
 <tr><td>repeat: KEY</td><td>
 Presses the KEY the specified NUMBER of times.
 <br />
