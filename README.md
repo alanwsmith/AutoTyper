@@ -930,7 +930,7 @@ This is the list of keys available for use in
 
 - ,
 
-- -
+- \-
 
 - .
 
