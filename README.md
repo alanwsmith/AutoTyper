@@ -229,29 +229,49 @@ This is the list of available instructions
     <thead>
         <tr>
             <th>Instruction</th>
-            <th>Description</th>
+            <th colspan="2">Description</th>
         </tr>
     </thead>
     <tbody>
         <tr>
-            <th rowspan="2">debug: on</th>
-            <td colspan="2">
+            <td rowspan="2" valign="top">debug: on</td>
+            <td colspan="2" valign="top">
                 Remove all delays and pauses to fast-forward until <code>debug: off</code> or the end of the script.
             </td>
         </tr>
         <tr>
-            <th>Usage</th>
-            <td><pre><code>debug: on</code></pre></td>
+            <td valign="top">Usage</td>
+            <td valign="top"><pre><code>debug: on</code></pre></td>
         </tr>
         <tr>
-            <th rowspan="2">debug: off</th>
-            <td colspan="2">
+            <td rowspan="2" valign="top">debug: off</td>
+            <td colspan="2" valign="top">
                 Restores all pauses so the instruction runs with their specified delays and pauses.
             </td>
         </tr>
         <tr>
-            <th>Usage</th>
-            <td><pre><code>debug: off</code></pre></td>
+            <td valign="top">Usage</td>
+            <td valign="top"><pre><code>debug: off</code></pre></td>
+        </tr>
+        <tr>
+            <td rowspan="2" valign="top">down</td>
+            <td colspan="2" valign="top">
+                Press the down arrow key one time. 
+            </td>
+        </tr>
+        <tr>
+            <td valign="top">Usage</td>
+            <td valign="top"><pre><code>down</code></pre></td>
+        </tr>
+        <tr>
+            <td rowspan="2" valign="top">down: NUMBER</td>
+            <td colspan="2" valign="top">
+                Presses the down arrow key the specified NUMBER of times.
+            </td>
+        </tr>
+        <tr>
+            <td valign="top">Usage</td>
+            <td valign="top"><pre><code>down: 3</code></pre></td>
         </tr>
     </tbody>
 </table>
@@ -264,30 +284,7 @@ This is the list of available instructions
         </tr>
     </thead>
     <tbody>
-<tr><td>down</td><td>
-Press the down arrow key one time. 
-<br />
 
-<br />
-~ Usage ~
-<br />
-
-<br />
-down
-<br />
-</td></tr>
-<tr><td>down: NUMBER</td><td>
-Presses the down arrow key the specified NUMBER of times.
-<br />
-
-<br />
-~ Usage ~
-<br />
-
-<br />
-down: 3
-<br />
-</td></tr>
 <tr><td>end-lines</td><td>
 Ends capturing lines that will be pasted via 'command + v' one at a time followed by pressing 'return' to move to a new line. 
 <br />
