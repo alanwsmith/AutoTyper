@@ -1022,4 +1022,5 @@ enough about that yet to know what to expect
 or what would need to be done. 
 
 
+From [alan w smith](https://www.alanwsmith.com/)
 
