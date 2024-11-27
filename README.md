@@ -237,7 +237,7 @@ This is the list of available instructions
         <tr>
             <td rowspan="2" valign="top" width="180">debug: on</td>
             <td colspan="2" valign="top">
-<p>Remove all delays and pauses to fast-forward until <code>debug: off</code> or the end of the script.</p>
+<p>Remove all delays and pauses to fast-forward until <code>debug: off</code> or the end of the script.<br /><br /></p>
             </td>
         </tr>
         <tr>
@@ -248,7 +248,7 @@ This is the list of available instructions
         <tr>
             <td rowspan="2" valign="top">debug: off</td>
             <td colspan="2" valign="top">
-<p>Restores all pauses so the instruction runs with their specified delays and pauses.</p>
+<p>Restores all pauses so the instruction runs with their specified delays and pauses.<br /><br /></p>
             </td>
         </tr>
         <tr>
@@ -259,7 +259,7 @@ This is the list of available instructions
         <tr>
             <td rowspan="2" valign="top">down</td>
             <td colspan="2" valign="top">
-<p>Press the down arrow key one time.</p>
+<p>Press the down arrow key one time.<br /><br /></p>
             </td>
         </tr>
         <tr>
@@ -270,7 +270,7 @@ This is the list of available instructions
         <tr>
             <td rowspan="2" valign="top">down: NUMBER</td>
             <td colspan="2" valign="top">
-<p>Presses the down arrow key the specified NUMBER of times.</p>
+<p>Presses the down arrow key the specified NUMBER of times.<br /><br /></p>
             </td>
         </tr>
         <tr>
@@ -282,7 +282,7 @@ This is the list of available instructions
             <td rowspan="2" valign="top">end-lines</td>
             <td colspan="2" valign="top">
 <p>Ends capturing lines that will be pasted via 'command + v' one at a time followed by pressing 'return' to move to a new line.</p>
-<p>The capture is started with 'start-lines'.</p>
+<p>The capture is started with 'start-lines'.<br /><br /></p>
             </td>
         </tr>
         <tr>
@@ -301,7 +301,7 @@ end-lines</code></pre></td>
             <td rowspan="2" valign="top">end-lines-down</td>
             <td colspan="2" valign="top">
 <p>Ends capturing lines that will be pasted via 'command + v' one at a time followed by pressing the down arrow.</p>
-<p>The capture is started with 'start-lines-down'.</p>
+<p>The capture is started with 'start-lines-down'.<br /><br /></p>
             </td>
         </tr>
         <tr>
@@ -319,7 +319,7 @@ end-lines-down</code></pre></td>
         <tr>
             <td rowspan="2" valign="top">left</td>
             <td colspan="2" valign="top">
-<p>Presses the left arrow key one time.</p>
+<p>Presses the left arrow key one time.<br /><br /></p>
             </td>
         </tr>
         <tr>
@@ -330,12 +330,45 @@ end-lines-down</code></pre></td>
         <tr>
             <td rowspan="2" valign="top">left: Number</td>
             <td colspan="2" valign="top">
-<p>Presses the left arrow key the specified NUMBER of times. </p>
+<p>Presses the left arrow key the specified NUMBER of times.<br /><br /></p>
             </td>
         </tr>
         <tr>
             <td valign="top">Usage</td>
             <td valign="top"><pre><code>left: 3</code></pre></td>
+        </tr>
+        <!-- ITEM -->
+        <tr>
+            <td rowspan="2" valign="top">paste: TEXT</td>
+            <td colspan="2" valign="top">
+<p>Pastes the TEXT by pressing 'command + v'. <br /><br /></p>
+            </td>
+        </tr>
+        <tr>
+            <td valign="top">Usage</td>
+            <td valign="top"><pre><code>paste: The quick brown fox</code></pre></td>
+        </tr>
+        <!-- ITEM -->
+        <tr>
+            <td rowspan="2" valign="top">paste-down: TEXT</td>
+            <td colspan="2" valign="top">
+<p>Pastes the TEXT by pressing 'command + v' then presses the down arrow.<br /><br /></p>
+            </td>
+        </tr>
+        <tr>
+            <td valign="top">Usage</td>
+            <td valign="top"><pre><code>paste-down: The quick brown fox</code></pre></td>
+        </tr>
+        <!-- ITEM -->
+        <tr>
+            <td rowspan="2" valign="top">paste-line: TEXT</td>
+            <td colspan="2" valign="top">
+<p>Pastes the TEXT by pressing 'command + v' then presses the return key to move to the next line. <br /><br /></p>
+            </td>
+        </tr>
+        <tr>
+            <td valign="top">Usage</td>
+            <td valign="top"><pre><code>paste-line: The quick brown fox</code></pre></td>
         </tr>
     </tbody>
 </table>
@@ -351,42 +384,6 @@ end-lines-down</code></pre></td>
     </thead>
     <tbody>
 
-<tr><td>paste: TEXT</td><td>
-Pastes the TEXT by pressing 'command + v'. 
-<br />
-
-<br />
-~ Usage ~
-<br />
-
-<br />
-paste: The quick brown fox
-<br />
-</td></tr>
-<tr><td>paste-down: TEXT</td><td>
-Pastes the TEXT by pressing 'command + v' then presses the down arrow.
-<br />
-
-<br />
-~ Usage ~
-<br />
-
-<br />
-paste-down: The quick brown fox
-<br />
-</td></tr>
-<tr><td>paste-line: TEXT</td><td>
-Pastes the TEXT by pressing 'command + v' then presses the return key to move to the next line. 
-<br />
-
-<br />
-~ Usage ~
-<br />
-
-<br />
-paste-line: The quick brown fox
-<br />
-</td></tr>
 <tr><td>paste-file: PATH</td><td>
 Pastes the contents of the file at the given PATH by pressing 'command + v'.
 <br />
