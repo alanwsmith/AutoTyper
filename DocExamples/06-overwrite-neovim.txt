@@ -1,0 +1,7 @@
+press: escape
+type: i
+type: alfa, bravo, charlie
+pause: 0.8
+press: escape
+type: 3bdwi
+type: DELTA

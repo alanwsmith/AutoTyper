@@ -1,0 +1,6 @@
+type: alfa, bravo, charlie
+pause: 0.8
+repeat: 2: option: left-arrow
+press: option: shift: right-arrow
+pause: 0.8
+type: DELTA

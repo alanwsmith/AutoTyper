@@ -76,16 +76,20 @@ it types a space followed by `World!`.
 
 ### Type A Block Of Text
 
-```
-start-lines
-Lorem ipsum dolor sit amet, consectetur 
-adipiscing elit. Donec velit ex, tincidunt 
-vel posuere ut volutpat. 
+<table>
+    <tr>
+        <td><pre><code>start-lines
+Lorem ipsum dolor 
+adipiscing elit. 
+posuere ut volutpat. 
 
-In velit. Suspendisse euismod sed nisi 
-id malesuada. Proin id lacus aliquet.
-end-lines
-```
+Suspendisse euismod 
+id malesuada. 
+Proin id aliquet.
+end-lines</code></pre></td>
+        <td><img src="./DocExamples/04-start-lines.gif" /></td>
+    </tr>
+</table>
 
 Outputs the block of text between `start-lines`
 and `end-lines`
@@ -95,14 +99,17 @@ and `end-lines`
 
 ### Type, Select, Overwrite In VS Code
 
-```
-type: alfa, bravo, charlie
+<table>
+    <tr>
+        <td><pre><code>type: alfa, bravo, charlie
 pause: 0.8
 repeat: 2: option: left-arrow
 press: option: shift: right-arrow
 pause: 0.8
-type: DELTA
-```
+type: DELTA</code></pre></td>
+        <td><img src="./DocExamples/05-overwrite-vs-code.gif" /></td>
+    </tr>
+</table>
 
 This example types:
 
@@ -120,15 +127,19 @@ words.
 
 ### Type, Select, Overwrite In Neovim
 
-```
-press: escape
+
+<table>
+    <tr>
+        <td><pre><code>press: escape
 type: i
 type: alfa, bravo, charlie
 pause: 0.8
 press: escape
 type: 3bdwi
-type: DELTA
-```
+type: DELTA</code></pre></td>
+        <td><img src="./DocExamples/06-overwrite-neovim.gif" /></td>
+    </tr>
+</table>
 
 Presses `escape` to make sure you're not already in 
 `INSERT` mode then `i` to switch to it. Next, it
@@ -137,8 +148,6 @@ pressing `escape` again to switch to `NORMAL` mode
 and typing in the commands to back up 3 time, delete
 the word and switch back to `INSERT` mode before
 typing `DELTA`
-
-
 
 
 ## General Notes
