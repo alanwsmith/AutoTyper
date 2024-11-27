@@ -44,13 +44,21 @@ instructions = [
 
 docs_path = "/Users/alan/Xcode-Projects/AutoTyper/AutoTyper/Docs"
 
+print("<table>")
+print("<thead><tr><th>Instruction</th><th>Description</th></tr></thead>")
+print("<tbody>")
+
 for inst in instructions:
-	print(f"#### {inst[0]}")
-	print("")
+	print(f"<tr><td>{inst[0]}</td><td>")
 	with open(f"{docs_path}/{inst[1]}.txt") as _in:
 		lines = _in.read().splitlines()
 		for line in lines:
 			new_line = line.replace("###", "~")
 			print(new_line)
-		print("\n")
-	print("---\n")
+			print("<br />")
+	
+	print(f"</td></tr>")
+
+print("</tbody>")
+print("</table>")
+
