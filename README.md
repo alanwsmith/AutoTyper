@@ -183,23 +183,25 @@ This is the list of available instructions
 
 #### debug: off
 
-Restores all pauses so the instruction runs with 
-their specified delays and pauses.
+Restores all pauses so the instruction runs with their specified delays and pauses.
 
 ~ Usage ~
 
 debug: off
 
 
+---
+
 #### debug: on
 
-Remove all delays and pauses to fast-forward until 
-'debug: off' or the end of the script.
+Remove all delays and pauses to fast-forward until 'debug: off' or the end of the script.
 
 ~ Usage ~
 
 debug: on
 
+
+---
 
 #### down
 
@@ -210,21 +212,22 @@ Press the down arrow key one time.
 down
 
 
+---
+
 #### down: NUMBER
 
-Presses the down arrow key the specified 
-NUMBER of times.
+Presses the down arrow key the specified NUMBER of times.
 
 ~ Usage ~
 
 down: 3
 
 
+---
+
 #### end-lines
 
-Ends capturing lines that will be pasted via 
-'command + v' one at a time followed by pressing 
-'return' to move to a new line. 
+Ends capturing lines that will be pasted via 'command + v' one at a time followed by pressing 'return' to move to a new line. 
 
 The capture is started with 'start-lines'.
 
@@ -239,11 +242,11 @@ tincidunt.
 end-lines
 
 
+---
+
 #### end-lines-down
 
-Ends capturing lines that will be pasted via 
-'command + v' one at a time followed by pressing 
-the down arrow. 
+Ends capturing lines that will be pasted via 'command + v' one at a time followed by pressing the down arrow. 
 
 The capture is started with 'start-lines-down'.
 
@@ -258,6 +261,8 @@ tincidunt.
 end-lines-down
 
 
+---
+
 #### left
 
 Presses the left arrow key one time.
@@ -266,6 +271,8 @@ Presses the left arrow key one time.
 
 left
 
+
+---
 
 #### left: Number
 
@@ -276,6 +283,8 @@ Presses the left arrow key the specified NUMBER of times.
 left: 3
 
 
+---
+
 #### paste: TEXT
 
 Pastes the TEXT by pressing 'command + v'. 
@@ -285,30 +294,33 @@ Pastes the TEXT by pressing 'command + v'.
 paste: The quick brown fox
 
 
+---
+
 #### paste-down: TEXT
 
-Pastes the TEXT by pressing 'command + v' then 
-presses the down arrow.
+Pastes the TEXT by pressing 'command + v' then presses the down arrow.
 
 ~ Usage ~
 
 paste-down: The quick brown fox
 
 
+---
+
 #### paste-line: TEXT
 
-Pastes the TEXT by pressing 'command + v' then 
-presses the return key to move to the next line. 
+Pastes the TEXT by pressing 'command + v' then presses the return key to move to the next line. 
 
 ~ Usage ~
 
 paste-line: The quick brown fox
 
 
+---
+
 #### paste-file: PATH
 
-Pastes the contents of the file at the given 
-PATH by pressing 'command + v'.
+Pastes the contents of the file at the given PATH by pressing 'command + v'.
 
 ~ Usage ~
 
@@ -316,18 +328,14 @@ paste-file: /Users/alan/Desktop/example.txt
 
 ~ Note ~
 
-You can get the PATH for a file by right clicking 
-on it in the Finder then holding the 'option' key. 
-When you do, the 'Copy' menu item will turn 
-into 'Copy ... as Pathname' which is what PATH uses. 
+You can get the PATH for a file by right clicking on it in the Finder then holding the 'option' key. When you do, the 'Copy' menu item will turn into 'Copy ... as Pathname' which is what PATH uses. 
 
+
+---
 
 #### paste-file-lines: PATH
 
-Pastes the contents of the file at the given PATH. 
-Each line in the file is pasted individually via 
-'command + v'. The 'return' key is pressed after 
-each line is pasted to move to the next line. 
+Pastes the contents of the file at the given PATH. Each line in the file is pasted individually via 'command + v'. The 'return' key is pressed after each line is pasted to move to the next line. 
 
 ~ Usage ~
 
@@ -335,18 +343,14 @@ paste-file-lines: /Users/alan/Desktop/example.txt
 
 ~ Note ~
 
-You can get the PATH for a file by right clicking 
-on it in the Finder then holding the 'option' key. 
-When you do, the 'Copy' menu item will turn into 
-'Copy ... as Pathname' which is what PATH uses. 
+You can get the PATH for a file by right clicking on it in the Finder then holding the 'option' key. When you do, the 'Copy' menu item will turn into 'Copy ... as Pathname' which is what PATH uses. 
 
+
+---
 
 #### paste-file-lines-down: PATH
 
-Pastes the contents of the file at the given PATH. 
-Each line in the file is pasted individually via 
-'command + v'. The down arrow is pressed after 
-each line is pasted to move to the next line. 
+Pastes the contents of the file at the given PATH. Each line in the file is pasted individually via 'command + v'. The down arrow is pressed after each line is pasted to move to the next line. 
 
 ~ Usage ~
 
@@ -354,11 +358,10 @@ paste-file-lines-down: /Users/alan/Desktop/example.txt
 
 ~ Note ~
 
-You can get the PATH for a file by right clicking 
-on it in the Finder then holding the 'option' key. 
-When you do, the 'Copy' menu item will turn into 
-'Copy ... as Pathname' which is what PATH uses. 
+You can get the PATH for a file by right clicking on it in the Finder then holding the 'option' key. When you do, the 'Copy' menu item will turn into 'Copy ... as Pathname' which is what PATH uses. 
 
+
+---
 
 #### pause
 
@@ -369,10 +372,11 @@ Pauses typing until F4 is pressed on the keyboard.
 pause
 
 
+---
+
 #### pause: TIME
 
-Pauses typing for the given amount of TIME which 
-is measured in seconds. 
+Pauses typing for the given amount of TIME which is measured in seconds. 
 
 ~ Examples ~
 
@@ -383,6 +387,8 @@ pause: 1.2
 pause: 0.3
 
 
+
+---
 
 #### press: KEY
 
@@ -398,14 +404,14 @@ press: right-arrow
 
 ~ Note ~ 
 
-- Only lower case letters can be used with 'press:'. 
-Use 'press: shift: KEY' to make them upper case. 
+- Only lower case letters can be used with 'press:'. Use 'press: shift: KEY' to make them upper case. 
 
+
+---
 
 #### press: MODIFIERS: KEY
 
-Press the given KEY one time while holding down 
-the MODIFIERS. 
+Press the given KEY one time while holding down the MODIFIERS. 
 
 The MODIFIERS are:
 
@@ -426,9 +432,11 @@ press: option: shift: right-arrow
 
 ~ Note ~
 
-- Only lower case letters can be used with 'press:'. Use 
-'press: shift: KEY' to make them upper case. 
+- Only lower case letters can be used with 'press:'. Use 'press: shift: KEY' to make them upper case. 
 
+
+
+---
 
 #### repeat: KEY
 
@@ -442,14 +450,14 @@ repeat: 3: up-arrow
 
 ~ Notes ~ 
 
-- Only lower case letters can be used with 'repeat:'. 
-Use 'repeat: NUMBER: shift: KEY' to make them upper case. 
+- Only lower case letters can be used with 'repeat:'. Use 'repeat: NUMBER: shift: KEY' to make them upper case. 
 
+
+---
 
 #### repeat: MODIFIERS: KEY
 
-Press the given KEY the specified NUMBER of times 
-while holding down the MODIFIERS. 
+Press the given KEY the specified NUMBER of times while holding down the MODIFIERS. 
 
 The MODIFIERS are:
 
@@ -470,20 +478,21 @@ repeat: 2: option: shift: right-arrow
 
 ~ Notes ~
 
-- Only lower case letters can be used with 'repeat:'. 
-Use 'repeat: NUMBER: shift: KEY' to make them upper case. 
+- Only lower case letters can be used with 'repeat:'. Use 'repeat: NUMBER: shift: KEY' to make them upper case. 
 
+
+---
 
 #### reset-delay
 
-Resets the minimum and maximum times that the 
-random delay between key presses uses to their 
-default values. 
+Resets the minimum and maximum times that the random delay between key presses uses to their default values. 
 
 ~ Usage ~
 
 reset-delay
 
+
+---
 
 #### return
 
@@ -494,15 +503,18 @@ Presses the 'return' key one time.
 return
 
 
+---
+
 #### return: NUMBER
 
-Presses the 'return' key the specified NUMBER 
-of times. 
+Presses the 'return' key the specified NUMBER of times. 
 
 ~ Example ~
 
 return: 3
 
+
+---
 
 #### right
 
@@ -513,36 +525,40 @@ Presses the right arrow key one time.
 right
 
 
+---
+
 #### right: NUMBER
 
-Presses the right arrow key the specified NUMBER 
-of times.
+Presses the right arrow key the specified NUMBER of times.
 
 ~ Example ~
 
 right: 3
 
 
+---
+
 #### set-delay: TIME
 
-Sets the delay between key presses to TIME which 
-is measured in seconds. 
+Sets the delay between key presses to TIME which is measured in seconds. 
 
 ~ Example ~
 
 set-delay: 0.04
 
 
+---
+
 #### set-delay: MIN: MAX
 
-Resets the minimum and maximum times that the 
-random delay between key presses uses to MIN_TIME 
-and MAX_TIME, respectively.
+Resets the minimum and maximum times that the random delay between key presses uses to MIN_TIME and MAX_TIME, respectively.
 
 ~ Example ~
 
 set-delay: 0.05: 0.1
 
+
+---
 
 #### space
 
@@ -553,24 +569,24 @@ Presses the 'space' key one time.
 space
 
 
+---
+
 #### space: NUMBER
 
-Presses the 'space' key the specified NUMBER 
-of times. 
+Presses the 'space' key the specified NUMBER of times. 
 
 ~ Example ~
 
 space: 3
 
 
+---
+
 #### start-lines
 
-Starts capturing lines that will be pasted via 
-'command + v' one at a time followed by pressing 
-'return' to move to a new line. 
+Starts capturing lines that will be pasted via 'command + v' one at a time followed by pressing 'return' to move to a new line. 
 
-The capture continues until an 'end-lines' 
-instruction is found. 
+The capture continues until an 'end-lines' instruction is found. 
 
 ~ Example ~
 
@@ -583,14 +599,13 @@ tincidunt.
 end-lines
 
 
+---
+
 #### start-lines-down
 
-Starts capturing lines that will be pasted via 
-'command + v' one at a time followed by 
-pressing the down arrow. 
+Starts capturing lines that will be pasted via 'command + v' one at a time followed by pressing the down arrow. 
 
-The capture continues until an 'end-lines-down' 
-instruction is found. 
+The capture continues until an 'end-lines-down' instruction is found. 
 
 ~ Example ~
 
@@ -603,10 +618,14 @@ tincidunt.
 end-lines-down
 
 
+---
+
 #### stop
 
 Stops the script from running.
 
+
+---
 
 #### tab
 
@@ -617,15 +636,18 @@ Presses the 'tab' key one time.
 tab
 
 
+---
+
 #### tab: NUMBER
 
-Presses the 'tab' key the specified NUMBER 
-of times. 
+Presses the 'tab' key the specified NUMBER of times. 
 
 ~ Example ~
 
 tab: 3
 
+
+---
 
 #### type: TEXT
 
@@ -637,23 +659,20 @@ type: The quick brown fox
 
 ~ Notes ~
 
-- Neither the 'return' key or down-arrow is pressed
-after the TEXT is types. This provides as way to edit 
-text in the middle of a line without making or moving 
-to a new line. 
+- Neither the 'return' key or down-arrow is presses after the TEXT is types. This provides as way to edit text in the middle of a line without making or moving to a new line. 
 
 - Any spaces at the start of the TEXT are removed.
 
 - Any spaces at the end of the TEXT are removed.
 
-- Use a 'press: space' instruction to add spaces at 
-either the start or the end of a piece of text if necessary. 
+- Use a 'press: space' instruction to add spaces at either the start or the end of a piece of text if necessary. 
 
+
+---
 
 #### type-down: TEXT
 
-Types the given TEXT followed by pressing the down 
-arrow key. 
+Types the given TEXT followed by pressing the down arrow key. 
 
 ~ Example ~
 
@@ -665,15 +684,14 @@ type-down: The quick brown fox
 
 - Any spaces at the end of the TEXT are removed.
 
-- Use a 'press: space' instruction to add spaces at 
-either the start or the end of a piece of text 
-if necessary. 
+- Use a 'press: space' instruction to add spaces at either the start or the end of a piece of text if necessary. 
 
+
+---
 
 #### type-line: TEXT
 
-Types the given TEXT followed by pressing the 
-'return' key. 
+Types the given TEXT followed by pressing the 'return' key. 
 
 ~ Example ~
 
@@ -685,10 +703,10 @@ type-line: The quick brown fox
 
 - Any spaces at the end of the TEXT are removed.
 
-- Use a 'press: space' instruction to add spaces at 
-either the start or the end of a piece of text 
-if necessary. 
+- Use a 'press: space' instruction to add spaces at either the start or the end of a piece of text if necessary. 
 
+
+---
 
 #### up
 
@@ -699,6 +717,8 @@ Presses the up arrow one time.
 up
 
 
+---
+
 #### up: NUMBER
 
 Presses the up arrow the specified NUMBER of times
@@ -706,6 +726,10 @@ Presses the up arrow the specified NUMBER of times
 ~ Example ~
 
 up: 3
+
+
+---
+
 
 
 ## Keys

@@ -52,5 +52,5 @@ for inst in instructions:
 		for line in lines:
 			new_line = line.replace("###", "~")
 			print(new_line)
-	
 		print("\n")
+	print("---\n")
