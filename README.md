@@ -40,7 +40,7 @@ Here are a few instruction examples to get you started.
     </tr>
     <tr>
         <td valign="top"><pre><code>type: Hello, World!</code></pre></td>
-        <td><img src="./DocExamples/01-hello-world.gif" /></td>
+        <td width="420"><img src="./DocExamples/01-hello-world.gif" /></td>
     </tr>
     <!-- Example -->
     <tr>
