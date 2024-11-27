@@ -1,0 +1,4 @@
+type: Window 1
+press: command: ~
+pause: 0.5
+type: Window 2
