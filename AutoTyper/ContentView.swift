@@ -127,6 +127,7 @@ struct DocsView: View{
         DocItem(title: "type-line: TEXT", basename: "type-line"),
         DocItem(title: "up", basename: "up"),
         DocItem(title: "up: NUMBER", basename: "up-num"),
+        // TODO: Add start-comment and end-comment
     ]
     
     func getTextFromFile(basename: String) -> String {
@@ -142,16 +143,18 @@ struct DocsView: View{
         }
     }
     
+    
     var body: some View {
         VStack {
             ScrollView {
                 var usageStuff: AttributedString {
                     var text = AttributedString("Usage\n")
                     text.font = .title
+                    text.append(AttributedString("\nNOTE: There are start-comment and end-comment commands that are not yet documented below.\n\n"))
                     text.append(AttributedString("\n1. Create a .txt file with instructions in it (see the 'Example'tab for ideas).\n\n"))
                     text.append(AttributedString("2. Use the 'Choose Instructions File' button to select your script file.\n\n"))
                     text.append(AttributedString("3. Click on the app you want to output the script to in the 'Select App' section.\n\n"))
-                    text.append(AttributedString("4. Click 'Run'. You may be asked to allow the app permissions in the System Preferences. This is required to let AutoTyper simulate a keyboard to do that actual typing. (Note that sometimes you have to delete the AutoTyper item, click Run, and turn it back on to reset it.)\n\n"))
+                    text.append(AttributedString("4. Click 'Run'. You may be asked to allow the app permissions in the System Preferences - Privacy and Securty - Accessability (on 15.x it might move in other versions). This is required to let AutoTyper simulate a keyboard to do that actual typing. (Note that sometimes you have to delete the AutoTyper item, click Run, and turn it back on to reset it.)\n\n"))
                     return text
                 }
                 Text(usageStuff).frame(maxWidth: .infinity, alignment: .leading)
@@ -731,6 +734,7 @@ struct ContentView: View {
     @State var holdControl = false
     @State var holdOption = false
     @State var holdShift = false
+    @State var isComment = false
     @State var isPaused = false
     @State var linesToPaste: [String] = []
     @State var maxDelay = 0.03
@@ -1580,6 +1584,12 @@ struct ContentView: View {
         if focusedAppPid() != Optional(selectedAppPid!) {
             statusLine = "Status: Process halted becuase app lost focus"
             statusLineForRun = "Process halted becuase app lost focus"
+        } else if isComment == true {
+            let line = scriptLines.popLast()
+            if line?.trimmingCharacters(in: .whitespacesAndNewlines) == "end-comment" {
+                isComment = false
+            }
+            processLine()
         } else if captureLines == true {
             let line = scriptLines.popLast()
             if line?.trimmingCharacters(in: .whitespacesAndNewlines) == "end-lines" {
@@ -1646,6 +1656,9 @@ struct ContentView: View {
                 doSetDelay(parts: parts)
             } else if action == "space" {
                 doSpace(parts: parts)
+            } else if action == "start-comment" {
+                isComment = true
+                processLine()
             } else if action == "start-lines" {
                 captureLines = true
                 processLine()

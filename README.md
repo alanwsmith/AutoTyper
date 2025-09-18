@@ -11,6 +11,11 @@ You can [check out an intro video here](http://www.youtube.com/watch?v=VrT6AG_jM
 
 [![A screenshot of the AutoTyper Introduction Demonstration Video](https://img.youtube.com/vi/VrT6AG_jMwE/maxresdefault.jpg)](http://www.youtube.com/watch?v=VrT6AG_jMwE "AutoTyper Introduction Demonstration")
 
+## TODO: 
+
+- Add document for `start-comment` and `end-comment`
+
+
 ## Installation
 
 - Download the AutoTyper-v#.#.#.zip file. Unzip it
@@ -1011,7 +1016,7 @@ This is the list of keys available for use in
 
 ## Notes
 
-- The app works on macOS 14.x. I'm not currently 
+- The app works on macOS 15.x. I'm not currently 
 set up to test other versions. 
 
 - The app was built on a U.S. keyboard. I'm not
@@ -1021,6 +1026,25 @@ other character sets to work. I don't know
 enough about that yet to know what to expect
 or what would need to be done. 
 
+## Adding Features
 
-From [alan w smith](https://www.alanwsmith.com/)
+- Open the project in XCode. 
+
+- Edit the ContentView.swift file to add 
+the functionality. 
+
+- You can click the preview button to see
+the basic app. It's slow though. 
+
+- You can click Product -> Run in the menu
+to build and run the project to 
+see how it's working.
+
+
+
+
+
+
+
+made by [alan w smith](https://www.alanwsmith.com/)
 
