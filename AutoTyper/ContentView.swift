@@ -1319,24 +1319,20 @@ struct ContentView: View {
     }
     
     func doPause(parts: [String]) {
-        if parts.count == 1 {
+        if debugging == true {
+            processLine()
+        }
+        else if parts.count == 1 {
             isPaused = true
             statusLine = "Status: Paused. Press F4 to resume"
             statusLineForRun = "Paused. Press F4 to resume"
-        } else {
-            if debugging == false {
-                if parts.count == 2 {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + (Double(parts[1].trimmingCharacters(in: .whitespacesAndNewlines)) ?? 0.0)) {
-                        processLine()
-                    }
-                }
-                else {
-                    // TODO: Error about not having pause value
-                    processLine()
-                }
-            } else {
+        } else if parts.count > 2 {
+            DispatchQueue.main.asyncAfter(deadline: .now() + (Double(parts[1].trimmingCharacters(in: .whitespacesAndNewlines)) ?? 0.0)) {
                 processLine()
             }
+        } else {
+            // TODO: Log an error since you shouldn't get here
+            processLine()
         }
     }
     
@@ -1573,6 +1569,7 @@ struct ContentView: View {
             return Optional.none
         }
     }
+    
     
     func processLine() {
         statusLine = "Status: Running..."

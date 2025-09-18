@@ -15,6 +15,10 @@ You can [check out an intro video here](http://www.youtube.com/watch?v=VrT6AG_jM
 
 - Add document for `start-comment` and `end-comment`
 
+- Set up so `stop` works when debugging is on
+
+
+
 
 ## Installation
 
@@ -1040,6 +1044,26 @@ the basic app. It's slow though.
 to build and run the project to 
 see how it's working.
 
+
+## Release Notes
+
+### Version 1.0.3
+
+- Fixed bug with debug not skipping past
+pauses like it's supposed to.
+
+### Vesrion 1.0.2
+
+- Added `start-comment` and `end-comment`
+so text for voice over lines can be
+inserted easily
+
+    NOTE: Internal exmples haven't been updated
+to include the comment directives yet.
+
+### Version 1.0.0 and 1.0.1 
+
+- Basic funcitonality in place
 
 
 
